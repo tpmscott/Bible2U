@@ -1,0 +1,335 @@
+function readchapter_R(bnum, cnum ,snum) { // for display what verse was recored
+
+
+  docObj.open();
+  docObj2.open();
+  docObj_h.open();
+
+  docObj.writeln('bnum = ' + bnum + '\n'); // for debug
+  docObj.writeln('cnum = ' + cnum + '\n'); // for debug
+  docObj.writeln('snum = ' + snum + '\n'); // for debug
+
+  if(sec_size<20){
+     docObj.writeln('<HTML>\n<HEAD>\n' +
+     '<style type="text/css">\n' + 'body{font-family:標楷體}\n' +
+     '.1{ font-size:8pt }\n' + '.2{ font-size:10pt }\n' + '.3{ font-size:12pt }\n' +
+     '.4{ font-size:14pt }\n' + '.5{ font-size:16pt }\n' + '.6{ font-size:18pt }\n' +
+     '</style>\n' +
+     '<meta http-equiv="Content-Type" content="text/html; charset=big5">\n</HEAD>' +
+     '<BODY BGCOLOR=WHITE TEXT=BLACK background="back5.jpg">');
+     docObj2.writeln('<HTML>\n<HEAD>\n' +
+     '<style type="text/css">\n' + 'body{font-family:標楷體}\n' +
+     '.1{ font-size:8pt }\n' + '.2{ font-size:10pt }\n' + '.3{ font-size:12pt }\n' +
+     '.4{ font-size:14pt }\n' + '.5{ font-size:16pt }\n' + '.6{ font-size:18pt }\n' +
+     '</style>\n' +
+     '<meta http-equiv="Content-Type" content="text/html; charset=big5">\n</HEAD>' +
+     '<BODY BGCOLOR=WHITE TEXT=BLACK background="back5.jpg">');
+  }
+  else if(sec_size<32){
+     docObj.writeln('<HTML>\n<HEAD>\n' +
+     '<style type="text/css">\n' + 'body{font-family:標楷體}\n' +
+     '.1{ font-size:20pt }\n' + '.2{ font-size:22pt }\n' + '.3{ font-size:24pt }\n' +
+     '.4{ font-size:26pt }\n' + '.5{ font-size:28pt }\n' + '.6{ font-size:30pt }\n' +
+     '</style>\n' +
+     '<meta http-equiv="Content-Type" content="text/html; charset=big5">\n</HEAD>' +
+     '<BODY BGCOLOR=WHITE TEXT=BLACK background="back5.jpg">');
+     docObj2.writeln('<HTML>\n<HEAD>\n' +
+     '<style type="text/css">\n' + 'body{font-family:標楷體}\n' +
+     '.1{ font-size:20pt }\n' + '.2{ font-size:22pt }\n' + '.3{ font-size:24pt }\n' +
+     '.4{ font-size:26pt }\n' + '.5{ font-size:28pt }\n' + '.6{ font-size:30pt }\n' +
+     '</style>\n' +
+     '<meta http-equiv="Content-Type" content="text/html; charset=big5">\n</HEAD>' +
+     '<BODY BGCOLOR=WHITE TEXT=BLACK background="back5.jpg">');
+  }
+  else if(sec_size<44){
+     docObj.writeln('<HTML>\n<HEAD>\n' +
+     '<style type="text/css">\n' + 'body{font-family:標楷體}\n' +
+     '.1{ font-size:32pt }\n' + '.2{ font-size:34pt }\n' + '.3{ font-size:36pt }\n' +
+     '.4{ font-size:38pt }\n' + '.5{ font-size:40pt }\n' + '.6{ font-size:42pt }\n' +
+     '</style>\n' +
+     '<meta http-equiv="Content-Type" content="text/html; charset=big5">\n</HEAD>' +
+     '<BODY BGCOLOR=WHITE TEXT=BLACK background="back5.jpg">');
+     docObj2.writeln('<HTML>\n<HEAD>\n' +
+     '<style type="text/css">\n' + 'body{font-family:標楷體}\n' +
+     '.1{ font-size:32pt }\n' + '.2{ font-size:34pt }\n' + '.3{ font-size:36pt }\n' +
+     '.4{ font-size:38pt }\n' + '.5{ font-size:40pt }\n' + '.6{ font-size:42pt }\n' +
+     '</style>\n' +
+     '<meta http-equiv="Content-Type" content="text/html; charset=big5">\n</HEAD>' +
+     '<BODY BGCOLOR=WHITE TEXT=BLACK background="back5.jpg">');
+  }
+  else{
+     docObj.writeln('<HTML>\n<HEAD>\n' +
+     '<style type="text/css">\n' + 'body{font-family:標楷體}\n' +
+     '.1{ font-size:44pt }\n' + '.2{ font-size:46pt }\n' + '.3{ font-size:48pt }\n' +
+     '.4{ font-size:50pt }\n' + '.5{ font-size:52pt }\n' + '.6{ font-size:54pt }\n' +
+     '</style>\n' +
+     '<meta http-equiv="Content-Type" content="text/html; charset=big5">\n</HEAD>' +
+     '<BODY BGCOLOR=WHITE TEXT=BLACK background="back5.jpg">');
+     docObj2.writeln('<HTML>\n<HEAD>\n' +
+     '<style type="text/css">\n' + 'body{font-family:標楷體}\n' +
+     '.1{ font-size:44pt }\n' + '.2{ font-size:46pt }\n' + '.3{ font-size:48pt }\n' +
+     '.4{ font-size:50pt }\n' + '.5{ font-size:52pt }\n' + '.6{ font-size:54pt }\n' +
+     '</style>\n' +
+     '<meta http-equiv="Content-Type" content="text/html; charset=big5">\n</HEAD>' +
+     '<BODY BGCOLOR=WHITE TEXT=BLACK background="back5.jpg">');
+  }
+
+  if(sec_size<20)
+     docObj_h.writeln('<HTML>\n<HEAD>\n' +
+     '<style type="text/css">\n' + 'body{font-family:標楷體}\n' +
+     '.1{ font-size:8pt }\n' + '.2{ font-size:10pt }\n' + '.3{ font-size:12pt }\n' +
+     '.4{ font-size:14pt }\n' + '.5{ font-size:16pt }\n' + '.6{ font-size:18pt }\n' +
+     '</style>\n' +
+     '<meta http-equiv="Content-Type" content="text/html; charset=big5">\n</HEAD>' +
+     '<BODY BGCOLOR=WHITE TEXT=BLACK background="back5.jpg">');
+  else if(sec_size<32)
+     docObj_h.writeln('<HTML>\n<HEAD>\n' +
+     '<style type="text/css">\n' + 'body{font-family:標楷體}\n' +
+     '.1{ font-size:20pt }\n' + '.2{ font-size:22pt }\n' + '.3{ font-size:24pt }\n' +
+     '.4{ font-size:26pt }\n' + '.5{ font-size:28pt }\n' + '.6{ font-size:30pt }\n' +
+     '</style>\n' +
+     '<meta http-equiv="Content-Type" content="text/html; charset=big5">\n</HEAD>' +
+     '<BODY BGCOLOR=WHITE TEXT=BLACK background="back5.jpg">');
+  else if(sec_size<44)
+     docObj_h.writeln('<HTML>\n<HEAD>\n' +
+     '<style type="text/css">\n' + 'body{font-family:標楷體}\n' +
+     '.1{ font-size:32pt }\n' + '.2{ font-size:34pt }\n' + '.3{ font-size:36pt }\n' +
+     '.4{ font-size:38pt }\n' + '.5{ font-size:40pt }\n' + '.6{ font-size:42pt }\n' +
+     '</style>\n' +
+     '<meta http-equiv="Content-Type" content="text/html; charset=big5">\n</HEAD>' +
+     '<BODY BGCOLOR=WHITE TEXT=BLACK background="back5.jpg">');
+  else
+     docObj_h.writeln('<HTML>\n<HEAD>\n' +
+     '<style type="text/css">\n' + 'body{font-family:標楷體}\n' +
+     '.1{ font-size:44pt }\n' + '.2{ font-size:46pt }\n' + '.3{ font-size:48pt }\n' +
+     '.4{ font-size:50pt }\n' + '.5{ font-size:52pt }\n' + '.6{ font-size:54pt }\n' +
+     '</style>\n' +
+     '<meta http-equiv="Content-Type" content="text/html; charset=big5">\n</HEAD>' +
+     '<BODY BGCOLOR=WHITE TEXT=BLACK background="back5.jpg">');
+
+//  bnum : 經卷
+//  cnum : 章
+//  snum : 節
+ 
+  if(snum < 1)
+    snum = 1;
+  if((bnum - 0 < 0) || (bnum - 0 >= 66))
+    bnum = 0;
+  if((bnum - 0 <= 0) && (cnum - 0 < 0))
+    cnum = 0;
+  if((bnum - 0 >= 65) && (cnum - 0 >=22))
+    cnum = 21;
+  if(cnum - 0 < 0) {
+      bnum--;
+      cnum = book_chapters[bnum+1] - book_chapters[bnum]-1;
+  }
+  if(cnum - 0 >= book_chapters[bnum+1] - book_chapters[bnum]) {
+      bnum++;
+      cnum = 0;
+  }
+
+  var disp_secs = eval(disp_secs_a);
+  var line1 = chapter_lines[book_chapters[bnum]+cnum];  
+  var line2 = chapter_lines[book_chapters[bnum]+cnum+1];
+  var line3 = line1+snum-1;
+  var line4 = eval(line3 + disp_secs); // +1 表一次顯示1節，+2 表一次顯示2節  
+
+      if(disp_secs==0){
+        line3 = line1;
+        line4 = line2;}
+   
+      if(line3>=31101){
+        line3=31101;
+        line4=31102;
+        snum=21;
+      }
+      if((line3==31090)&&(disp_secs>11)){   
+        line4=31102;
+      }
+      if((line3==31091)&&(disp_secs>10)){   
+        line4=31102;
+      }
+      if((line3==31092)&&(disp_secs>9)){   
+        line4=31102;
+      }
+      if((line3==31093)&&(disp_secs>8)){   
+        line4=31102;
+      }
+      if((line3==31094)&&(disp_secs>7)){   
+        line4=31102;
+      }
+      if((line3==31095)&&(disp_secs>6)){   
+        line4=31102;
+      }
+      if((line3==31096)&&(disp_secs>5)){
+        line4=31102;
+      }
+      if((line3==31097)&&(disp_secs>4)){
+        line4=31102;
+      }
+      if((line3==31098)&&(disp_secs>3)){
+        line4=31102;
+      }
+      if((line3==31099)&&(disp_secs>2)){
+        line4=31102;
+      }
+      if((line3==31100)&&(disp_secs>1)){
+        line4=31102;
+      }
+
+
+//    var bname = profiles[line3].substring(0, profiles[line3].indexOf("^"));
+
+      // 和合本
+      var bname = profiles[line3].substring(profiles[line3].indexOf("%")+1, profiles[line3].indexOf("^"));
+      var cname = profiles[line3].substring(profiles[line3].indexOf("^")+1, profiles[line3].indexOf(":"));
+      var sname = profiles[line3].substring(profiles[line3].indexOf(":")+1, profiles[line3].indexOf(" "));
+
+      // NKJV
+//      var bname = profiles2[line3].substring(profiles2[line3].indexOf("%")+1, profiles2[line3].indexOf("^"));
+//      var cname = profiles2[line3].substring(profiles2[line3].indexOf("^")+1, profiles2[line3].indexOf(":"));
+//      var sname = profiles2[line3].substring(profiles2[line3].indexOf(":")+1, profiles2[line3].indexOf(" "));
+
+      // NIV
+//      var bname = profiles3[line3].substring(profiles3[line3].indexOf("%")+1, profiles3[line3].indexOf("^"));
+//      var cname = profiles3[line3].substring(profiles3[line3].indexOf("^")+1, profiles3[line3].indexOf(":"));
+//      var sname = profiles3[line3].substring(profiles3[line3].indexOf(":")+1, profiles3[line3].indexOf(" "));
+
+//      var bcsname1 = bname + ' 第' + cname + '章' + ' 第' + sname + '節' + '</ol>';
+//      var bcsname2 = bname + ' 第' + cname + '篇' + ' 第' + sname + '節' + '</ol>';
+
+      var bcsname1 = bname + ' 第' + cname + '章' + ' 第' + sname + '節' + ' 已被儲存進讀經進度</ol>';
+      var bcsname2 = bname + ' 第' + cname + '篇' + ' 第' + sname + '節' + ' 已被儲存進讀經進度</ol>';
+
+      if(bcs_size==8||bcs_size==20||bcs_size==32||bcs_size==44){
+         var bcsname1_1 = '<span class="1">' + bcsname1 + '</span>';
+         var bcsname2_1 = '<span class="1">' + bcsname2 + '</span>'; }
+
+      if(bcs_size==10||bcs_size==22||bcs_size==34||bcs_size==46){
+         var bcsname1_1 = '<span class="2">' + bcsname1 + '</span>';
+         var bcsname2_1 = '<span class="2">' + bcsname2 + '</span>'; }
+
+      if(bcs_size==12||bcs_size==24||bcs_size==36||bcs_size==48){
+         var bcsname1_1 = '<span class="3">' + bcsname1 + '</span>';
+         var bcsname2_1 = '<span class="3">' + bcsname2 + '</span>'; }
+
+      if(bcs_size==14||bcs_size==26||bcs_size==38||bcs_size==50){
+         var bcsname1_1 = '<span class="4">' + bcsname1 + '</span>';
+         var bcsname2_1 = '<span class="4">' + bcsname2 + '</span>'; }
+
+      if(bcs_size==16||bcs_size==28||bcs_size==40||bcs_size==52){
+         var bcsname1_1 = '<span class="5">' + bcsname1 + '</span>';
+         var bcsname2_1 = '<span class="5">' + bcsname2 + '</span>'; }
+
+      if(bcs_size==18||bcs_size==30||bcs_size==42||bcs_size==54){
+         var bcsname1_1 = '<span class="6">' + bcsname1 + '</span>';
+         var bcsname2_1 = '<span class="6">' + bcsname2 + '</span>'; }
+
+
+      if(bname!="詩篇") {
+         docObj_h.writeln(bcsname1_1.fontcolor(bcs_color));
+      }
+      else {
+         docObj_h.writeln(bcsname2_1.fontcolor(bcs_color));
+      }
+
+      var j=sname-1;
+
+//      docObj.writeln('line1 = '+line1);
+//      docObj.writeln('line2 = '+line2);
+//      docObj.writeln('line3 = '+line3);
+//      docObj.writeln('line4 = '+line4);
+//      docObj.writeln('disp_secs = '+disp_secs);
+//      docObj.writeln('disp_secs_a = '+disp_secs_a);
+
+      for (var i = line3; i < line4 ; i++) { 
+      var oneline = profiles[i].substring(profiles[i].indexOf(" "), profiles[i].length);       // 和合本
+      var oneline2 = profiles2[i].substring(profiles2[i].indexOf(" "), profiles2[i].length);   // NKJV
+      var oneline3 = profiles3[i].substring(profiles3[i].indexOf(" "), profiles3[i].length);   // NIV
+      var oneline4 = profiles4[i].substring(profiles4[i].indexOf(" "), profiles4[i].length);   // 呂振中
+      var cname_1 = profiles[i].substring(profiles[i].indexOf("^")+1, profiles[i].indexOf(":"));
+
+      j++;
+
+      if(sec_size==8||sec_size==20||sec_size==32||sec_size==44){
+         var oneline_1 = '<span class="1">' + oneline + '\n' + '</span>';
+         var oneline_2 = '<span class="1">' + oneline2 + '\n' + '</span>';
+         var oneline_3 = '<span class="1">' + oneline3 + '\n' + '</span>';
+         var oneline_4 = '<span class="1">' + oneline4 + '\n' + '</span>';
+         var sj = '<span class="1">' + j + '</span>';}
+
+      if(sec_size==10||sec_size==22||sec_size==34||sec_size==46){
+         var oneline_1 = '<span class="2">' + oneline + '\n' + '</span>';
+         var oneline_2 = '<span class="1">' + oneline2 + '\n' + '</span>';
+         var oneline_3 = '<span class="1">' + oneline3 + '\n' + '</span>';
+         var oneline_4 = '<span class="1">' + oneline4 + '\n' + '</span>';
+         var sj = '<span class="2">' + j + '</span>';}
+
+      if(sec_size==12||sec_size==24||sec_size==36||sec_size==48){
+         var oneline_1 = '<span class="3">' + oneline + '\n' + '</span>';
+         var oneline_2 = '<span class="1">' + oneline2 + '\n' + '</span>';
+         var oneline_3 = '<span class="1">' + oneline3 + '\n' + '</span>';
+         var oneline_4 = '<span class="1">' + oneline4 + '\n' + '</span>';
+         var sj = '<span class="3">' + j + '</span>';}
+
+      if(sec_size==14||sec_size==26||sec_size==38||sec_size==50){
+         var oneline_1 = '<span class="4">' + oneline + '\n' + '</span>';
+         var oneline_2 = '<span class="1">' + oneline2 + '\n' + '</span>';
+         var oneline_3 = '<span class="1">' + oneline3 + '\n' + '</span>';
+         var oneline_4 = '<span class="1">' + oneline4 + '\n' + '</span>';
+         var sj = '<span class="4">' + j + '</span>';}
+
+      if(sec_size==16||sec_size==28||sec_size==40||sec_size==52){
+         var oneline_1 = '<span class="5">' + oneline + '\n' + '</span>';
+         var oneline_2 = '<span class="1">' + oneline2 + '\n' + '</span>';
+         var oneline_3 = '<span class="1">' + oneline3 + '\n' + '</span>';
+         var oneline_4 = '<span class="1">' + oneline4 + '\n' + '</span>';
+         var sj = '<span class="5">' + j + '</span>';}
+
+      if(sec_size==18||sec_size==30||sec_size==42||sec_size==54){
+         var oneline_1 = '<span class="6">' + oneline + '\n' + '</span>';
+         var oneline_2 = '<span class="1">' + oneline2 + '\n' + '</span>';
+         var oneline_3 = '<span class="1">' + oneline3 + '\n' + '</span>';
+         var oneline_4 = '<span class="1">' + oneline4 + '\n' + '</span>';
+         var sj = '<span class="6">' + j + '</span>';}
+
+      //var oneline_1_1 = '<table><tr><td valign="top">'+'和合本'+'&nbsp'+sj+'</td><td>'+oneline_1+'</td></tr></table>';
+      //var oneline_1_2 = '<table><tr><td valign="top">'+'NKJV'+'&nbsp&nbsp&nbsp'+sj+'</td><td>'+oneline_2+'</td></tr></table>';
+      //var oneline_1_3 = '<table><tr><td valign="top">'+'NIV'+'&nbsp&nbsp&nbsp&nbsp'+sj+'</td><td>'+oneline_3+'</td></tr></table>';
+
+//      var oneline_1_1 = '<table><tr><td valign="top">'+'和合本'+'&nbsp'+'</td><td valign="top">'+sj+'</td><td>'+oneline_1+'</td></tr></table>';
+//      var oneline_1_2 = '<table><tr><td valign="top">'+'NKJV'+'&nbsp&nbsp&nbsp'+'</td><td valign="top">'+sj+'</td><td>'+oneline_2+'</td></tr></table>';
+//      var oneline_1_3 = '<table><tr><td valign="top">'+'NIV'+'&nbsp&nbsp&nbsp&nbsp'+'</td><td valign="top">'+sj+'</td><td>'+oneline_3+'</td></tr></table>';
+
+      var oneline_1_1 = '<table><tr><td valign="top">'+sj+'</td><td>'+oneline_1+'</td></tr></table>';
+      var oneline_1_2 = '<table><tr><td valign="top">'+sj+'</td><td>'+oneline_2+'</td></tr></table>';
+      var oneline_1_3 = '<table><tr><td valign="top">'+sj+'</td><td>'+oneline_3+'</td></tr></table>';
+      var oneline_1_4 = '<table><tr><td valign="top">'+sj+'</td><td>'+oneline_4+'</td></tr></table>';
+
+
+//      if(cname==cname_1){
+//         docObj.writeln(oneline_1_1);
+//
+//         if(parent.command.document.BV.BibleVersion[0].checked)
+//            docObj2.writeln(oneline_1_2);
+//         if(parent.command.document.BV.BibleVersion[1].checked)
+//            docObj2.writeln(oneline_1_3);
+//         if(parent.command.document.BV.BibleVersion[2].checked)
+//            docObj2.writeln(oneline_1_4);
+//      }
+
+//   //   docObj.writeln(oneline_1);
+//      }
+
+  docObj.writeln('\n</BODY>\n</HTML>');
+  docObj2.writeln('\n</BODY>\n</HTML>');
+  docObj.close();
+  docObj2.close();
+  docObj_h.writeln('\n</BODY>\n</HTML>');
+  docObj_h.close();
+  nowbook = bnum;
+  nowchapter = cnum;
+  nowsection = snum;
+
+
+}

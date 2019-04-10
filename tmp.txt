@@ -1,0 +1,15 @@
+file://127.0.0.1/c$/OfflineBibleÅª¸gª©-3.8ª©/index.html
+
+bible4.js for §f®¶¤¤ ª©
+
+
+--------------------------------------------------------
+
+
+
+
+function Input_Chap_Mode()
+
+<div id="Chap_Verse_Disp"> </div>
+
+function Show_Chap_Vers() {
