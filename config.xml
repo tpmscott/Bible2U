@@ -4,5 +4,12 @@
     <description>
         The is an app for people to read bible on smart phone. 
     </description>
+    <access origin="*"></access>
+    <allow-navigation href="https://biblehub.com/*" /> 
+    <allow-navigation href="https://www.blueletterbible.org/*" /> 
+    <allow-navigation href="http://bible.fhl.net/new/parsing.php*" /> 
+    <allow-navigation href="http://bible.fhl.net/new/fhlwhparsing.php*" /> 
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
     <icon src="res/icon.png" />
 </widget>
