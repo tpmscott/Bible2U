@@ -653,10 +653,20 @@ function Hide_a7(){
 <td></td><td></td><td></td><td></td><td></td>
 
 
+<td>
+<a id="a63" href="javascript:;" onclick="Chinese_Mode2();">中</a>
+</td>
 
 <td>
-<a id="a6" href="javascript:;" onclick="change6()">中/英</a>
+<a id="a61" href="javascript:;" onclick="ChineseEng_Mode();">中/英</a>
 </td>
+
+<td>
+<a id="a62" href="javascript:;" onclick="Eng_Mode();">Eng</a>
+</td>
+
+
+
 
 <td>
 <a id="a7" href="javascript:;" onclick="change7()">中/英</a>
@@ -751,6 +761,20 @@ function Eng_Mode(){
    document.getElementById("container2").style.width = "100%";
 
 }
+
+function Chinese_Mode2(){
+
+   document.getElementById("container4").style.height = "0%";
+   document.getElementById("container3").style.height = "0%";
+   document.getElementById("container1").style.height = "92%";
+   document.getElementById("container2").style.height = "92%";
+
+   document.getElementById("container1").style.width = "100%";
+   document.getElementById("container2").style.width = "0%";
+
+}
+
+
 
 var Mode_Chinese=0;
 var Mode2_ChineseEng=1;
@@ -2226,9 +2250,7 @@ function Set_NKJV() {
 <a id="a3" href="javascript:;" onclick="change3()">查經模式</a>
 </td>
 
-<td>
-<a id="a5" href="javascript:;" onclick="change5()">原文-2</a>
-</td>
+
 
 </tr>
 </table>
@@ -2618,7 +2640,6 @@ function Qmaxverse(index,index2) {   // find out maximum verse of chapter of boo
 </div>
 
 
-
 <div id="tool_area_4" style="height:0px;visibility:hidden">
 
 <td>
@@ -2631,9 +2652,6 @@ function Qmaxverse(index,index2) {   // find out maximum verse of chapter of boo
 </td>
 
 </div>
-
-
-
 
 
 <table><tr>
@@ -2926,7 +2944,7 @@ function change2() {
                 show_tool_area();
 		document.getElementById('a2').innerText = "藏工具";
 
-                document.getElementById("BV").style.visibility='visible'; // hide
+                //document.getElementById("BV").style.visibility='visible'; // hide
                 //document.getElementById("原文-1").style.visibility='visible'; // hide
                 //document.getElementById("原文-2").style.visibility='visible'; // hide
          
@@ -2946,7 +2964,7 @@ function change2() {
                 hide_tool_area();
 		document.getElementById('a2').innerText = "顯工具";
 
-                document.getElementById("BV").style.visibility='hidden'; // hide
+                //document.getElementById("BV").style.visibility='hidden'; // hide
                 //document.getElementById("原文-1").style.visibility='hidden'; // hide
                 //document.getElementById("原文-2").style.visibility='hidden'; // hide
 
