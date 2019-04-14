@@ -2984,25 +2984,34 @@ function change2() {
 
 var isShow_Mode = false;
 function change3() {
-	if(!isShow_Mode) {  // 琩竒家Α
+	if(!isShow_Mode) {  // 揭家Α
 
 		isShow_Mode = true;
                 //show_tool_area();
 		document.getElementById('a3').innerText = "揭家Α";
 
                 Class_Mode();
-                document.getElementById("a6").style.display="none"; // hide id="a6"
+                //document.getElementById("a6").style.display="none"; // hide id="a6"
+
+                document.getElementById("a61").style.display="none"; // hide id="a6"
+                document.getElementById("a62").style.display="none"; // hide id="a6"
+                document.getElementById("a63").style.display="none"; // hide id="a6"
                 document.getElementById("a7").style.display="inline"; // display id="a7"
 
 	}
-	else {        // 揭家Α
+	else {        // 琩竒家Α
 
 		isShow_Mode = false;
                 //hide_tool_area();
 		document.getElementById('a3').innerText = "琩竒家Α";
 
                 Study_Mode();
-                document.getElementById("a6").style.display="inline"; // display id="a6"
+                //document.getElementById("a6").style.display="inline"; // display id="a6
+
+
+                document.getElementById("a61").style.display="inline"; // display id="a6"
+                document.getElementById("a62").style.display="inline"; // display id="a6"
+                document.getElementById("a63").style.display="inline"; // display id="a6"
                 document.getElementById("a7").style.display="none"; // hide id="a7"
 
 	}			
