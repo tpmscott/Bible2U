@@ -4,7 +4,7 @@
 <style type="text/css"> 
 
   div{
-    font-size:22pt;
+    font-size:26pt;
     font-family:標楷體;
   }
   .smallfont { 
@@ -100,7 +100,34 @@
 
 </style> 
 
+<style>
+.button1 {
+  background-color: white;
+  border: 1px solid #008CBA;
+  color: blue;
+  text-align: center;
+  width: 78px;
+}
+.button2 {
+  background-color: white;
+  border: 1px solid #008CBA;
+  color: black;
 
+  text-align: center;
+  text-decoration: none;
+
+  margin: 4px 2px;
+  width: 50px;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+.button3 {
+  background-color: white;
+  border: 2px solid #f44336;
+  color: black;
+  text-align: center;
+  width: 78px;
+}
+</style>
 
 <SCRIPT Language="JavaScript" SRC="bible.js"></SCRIPT>
 <SCRIPT Language="JavaScript" SRC="bible2.js"></SCRIPT>
@@ -111,9 +138,10 @@
 <SCRIPT LANGUAGE="JavaScript" SRC="b4.js"></SCRIPT>
 <SCRIPT LANGUAGE="JavaScript" SRC="b5.js"></SCRIPT>
 <SCRIPT LANGUAGE="JavaScript" SRC="b6.js"></SCRIPT>
-<SCRIPT LANGUAGE="JavaScript" SRC="codes.js"></SCRIPT>
+<SCRIPT LANGUAGE="JavaScript" SRC="codes4.js"></SCRIPT>
 <SCRIPT LANGUAGE="JavaScript" SRC="KeyFunction.js"></SCRIPT>
-<SCRIPT LANGUAGE="JavaScript" SRC="KeyFunction2.js"></SCRIPT>
+<SCRIPT LANGUAGE="JavaScript" SRC="BookMarks2.js"></SCRIPT>
+<SCRIPT LANGUAGE="JavaScript" SRC="BookMarks1.js"></SCRIPT>
 
 <script src="mousetrap.min.js"></script>
 <script src="mousetrap-pause.min.js"></script>
@@ -140,6 +168,18 @@ word6="";
 word7="";
 word8="";
 word44a="";
+
+// Add on 2019.03.11
+
+var Mode_Show_His_BM = 0; // 1 means press Verse History or Verse Bookmarks
+var Mode_Input_Book = 0; // 1 means press "Book" button
+var Mode_Input_Chap = 0; // 1 means press "Chap" button
+var Mode_Input_Vers = 0; // 1 means press "Verse" button
+var Mode_Input_ToVers = 0; // 1 means press "ToVerse" button
+
+// End of Add on 2019.03.11
+
+
 
 // For Keyboard Test
    var B_book_int = 0;
@@ -253,9 +293,130 @@ word44a="";
    var ANNO_S4="";
 
 
+function V_or_H_Mode(){
+
+   if(screen.width<screen.height){  // 直式
+
+      //decrease_fontsize();
+      V_Mode();
+
+      if(Mode_Class==1){  // Class Mode
+
+         if(Show_History_F==1 || Show_Bookmark_F==1 || Show_Bookmark2_F==1 || Show_Bookmark1_F==1){
+
+            document.getElementById("His_Container").style.width = "20%";
+            document.getElementById("Bible_Container").style.width = "80%";
+
+            document.getElementById("Vers_bookmark2").style.fontSize = "140%";
+            document.getElementById("Vers_bookmark1").style.fontSize = "140%";
+            document.getElementById("Vers_history").style.fontSize = "140%";
+
+         }else {
+
+            document.getElementById("His_Container").style.width = "0%";
+            document.getElementById("Bible_Container").style.width = "100%";
+
+         }
+
+         //document.getElementById("Vers_bookmark2").style.fontSize = "140%";
+         //document.getElementById("Vers_history").style.fontSize = "140%";
+
+      }else {     // Study Mode
+
+         if(Show_History_F==1 || Show_Bookmark_F==1 || Show_Bookmark2_F==1 || Show_Bookmark1_F==1){
+
+            document.getElementById("His_Container").style.width = "16%";
+            document.getElementById("Bible_Container").style.width = "84%";
+
+            document.getElementById("Vers_bookmark2").style.fontSize = "100%";
+            document.getElementById("Vers_bookmark1").style.fontSize = "100%";
+            document.getElementById("Vers_history").style.fontSize = "100%";
+
+         }else {
+
+            document.getElementById("His_Container").style.width = "0%";
+            document.getElementById("Bible_Container").style.width = "100%";
+
+         }
+
+      }
+
+   }
+   else if(screen.width>screen.height){  // 橫式
+
+      //increase_fontsize();
+      H_Mode();
+
+      if(Mode_Class==1){  // Class Mode
+
+         if(Show_History_F==1 || Show_Bookmark_F==1 || Show_Bookmark2_F==1 || Show_Bookmark1_F==1){
+
+            document.getElementById("His_Container").style.width = "16%";
+            document.getElementById("Bible_Container").style.width = "84%";
+
+            document.getElementById("Vers_bookmark2").style.fontSize = "100%";
+            document.getElementById("Vers_bookmark1").style.fontSize = "100%";
+            document.getElementById("Vers_history").style.fontSize = "100%";
+
+         }else {
+
+            document.getElementById("His_Container").style.width = "0%";
+            document.getElementById("Bible_Container").style.width = "100%";
+
+         }
+
+         //document.getElementById("Vers_bookmark2").style.fontSize = "140%";
+         //document.getElementById("Vers_history").style.fontSize = "140%";
+
+      }else {     // Study Mode
+
+         if(Show_History_F==1 || Show_Bookmark_F==1 || Show_Bookmark2_F==1 || Show_Bookmark1_F==1){
+
+            document.getElementById("His_Container").style.width = "16%";
+            document.getElementById("Bible_Container").style.width = "84%";
+
+            document.getElementById("Vers_bookmark2").style.fontSize = "100%";
+            document.getElementById("Vers_bookmark1").style.fontSize = "100%";
+            document.getElementById("Vers_history").style.fontSize = "100%";
+
+         }else {
+
+            document.getElementById("His_Container").style.width = "0%";
+            document.getElementById("Bible_Container").style.width = "100%";
+
+         }
+
+      }
+
+   }
+
+}  // End of function V_or_H_Mode()
 
 
 
+// Listen for orientation changes
+window.addEventListener("orientationchange", function() {
+
+   // Announce the new orientation number
+   // alert(screen.orientation);
+
+   //if(screen.width<screen.height){  // 直式
+
+   //   //decrease_fontsize();
+   //   V_Mode();
+
+   //}
+   //else if(screen.width>screen.height){  // 橫式
+
+   //   //increase_fontsize();
+   //   H_Mode();
+
+   //}
+
+   V_or_H_Mode();
+
+
+}, false);
 
 
 
@@ -601,38 +762,38 @@ function Hide_a7(){
 </script>
 
 
-<title>Offline-Bible-R57i</title>
+<title>Offline-Bible-R57si</title>
 
 <meta http-equiv="Content-Type" name="viewport;apple-mobile-web-app-capable;" content="text/html; charset=big5">
 
 
 
 </head>
-<body onload="Hide_a7();setachap();Read_Bookmark(); return false;" text="#000000" link="#0000ff" alink="#ffffff" vlink="#0000ff" background="back5.jpg">
+<body onload="Hide_a7();Read_Bookmark2();Read_Bookmark1();V_or_H_Mode();setachap();; return false;" text="#000000" link="#0000ff" alink="#ffffff" vlink="#0000ff" background="back5.jpg">
 
 
 <table><tr><td>
 
 
-<td><p id="顯示"></p></td>
+<td><p id="顯示">顯示</p></td>
 
 <td>
 <form name="DVN" id="DVN">
-<input type="radio" name="DVNumber" id="1Ver" value="1" onclick="Set_AllV();keyFunction2('enter');;"> 比
-<input type="radio" name="DVNumber" id="7Ver" value="7" onclick="Set_NKJV();keyFunction2('enter');;" checked> 節
-<input type="radio" name="DVNumber" id="1Chap" value="0" onclick="Set_NKJV();keyFunction2('enter');;"> 章
+<input type="radio" name="DVNumber" id="1Ver" value="1" onclick="Set_AllV();keyFunction2('enter');efocus();"> 1節
+<input type="radio" name="DVNumber" id="7Ver" value="7" onclick="Set_NKJV();keyFunction2('enter');efocus();" checked> 15節
+<input type="radio" name="DVNumber" id="1Chap" value="0" onclick="Set_NKJV();keyFunction2('enter');efocus();"> 全章
 </form>
 </td>
 
-<td></td><td></td>
+<td></td><td></td><td></td><td></td>
 
 
 
 <td>
-<a id="a2" href="javascript:;" onclick="change2()">顯工具</a>
+<a id="a2" href="javascript:;" onclick="change2()">顯示工具區</a>
 </td>
 
-<td></td><td></td><td></td>
+<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
 
 <td>
 <input style="font-size:14pt" type="button" name="M222" value="Book" ontouchstart="Input_Book_Mode();efocus(); return false;">
@@ -650,24 +811,35 @@ function Hide_a7(){
 <input style="font-size:14pt" type="button" name="M222" value="Verse" ontouchstart="keyFunction2('v');Input_Vers_Mode();; return false;">
 </td>
 
-<td></td><td></td><td></td>
+<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
 
 
 
 <td>
-<a id="a62" href="javascript:;" onclick="Eng_Mode();">Eng</a>
+<input style="font-size:14pt" type="button" name="M222" value="Enter" ontouchstart="Pre_Set_Mode();Set_Enter();keyFunction2('enter');efocus(); return false;">
 </td>
+
+
+
+<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+
+
 
 <td>
 <a id="a61" href="javascript:;" onclick="ChineseEng_Mode();">中/英</a>
 </td>
 
+<td></td><td></td><td></td>
+
+<td>
+<a id="a62" href="javascript:;" onclick="Eng_Mode();">Eng</a>
+</td>
+
+<td></td><td></td><td></td>
+
 <td>
 <a id="a63" href="javascript:;" onclick="Chinese_Mode2();">中</a>
 </td>
-
-
-
 
 <td>
 <a id="a7" href="javascript:;" onclick="change7()">中/英</a>
@@ -737,41 +909,259 @@ function Search_Mode(){
 
 }
 
+function Chinese_Book_Name(){
+
+   document.getElementById("Gen").value = "創";
+   document.getElementById("Exo").value = "出";
+   document.getElementById("Lev").value = "利";
+   document.getElementById("Num").value = "民";
+   document.getElementById("Deu").value = "申";
+
+   document.getElementById("Mt").value = "太";
+   document.getElementById("Mk").value = "可";
+   document.getElementById("Lk").value = "路";
+   document.getElementById("Jn").value = "約";
+
+   document.getElementById("Jos").value = "書";
+   document.getElementById("Jug").value = "士";
+   document.getElementById("Ru").value = "得";
+   document.getElementById("1Sa").value = "撒上";
+   document.getElementById("2Sa").value = "撒下";
+
+   document.getElementById("Act").value = "使";
+   document.getElementById("Rom").value = "羅";
+   document.getElementById("1Co").value = "林前";
+   document.getElementById("2Co").value = "林後";
+
+   document.getElementById("1Ki").value = "王上";
+   document.getElementById("2Ki").value = "王下";
+   document.getElementById("1Ch").value = "代上";
+   document.getElementById("2Ch").value = "代下";
+   document.getElementById("Ezr").value = "拉";
+
+   document.getElementById("Gal").value = "加";
+   document.getElementById("Eph").value = "弗";
+   document.getElementById("Phi").value = "腓";
+   document.getElementById("Col").value = "西";
+
+   document.getElementById("Neh").value = "尼";
+   document.getElementById("Est").value = "斯";
+   document.getElementById("Job").value = "伯";
+   document.getElementById("Ps").value = "詩";
+   document.getElementById("Prv").value = "箴";
+
+   document.getElementById("1Th").value = "帖前";
+   document.getElementById("2Th").value = "帖後";
+   document.getElementById("1Ti").value = "提前";
+   document.getElementById("2Ti").value = "提後";
+
+   document.getElementById("Ecc").value = "傳";
+   document.getElementById("Sos").value = "歌";
+   document.getElementById("Isa").value = "賽";
+   document.getElementById("Jer").value = "耶";
+   document.getElementById("Lam").value = "哀";
+
+   document.getElementById("Tit").value = "多";
+   document.getElementById("Phm").value = "門";
+   document.getElementById("Heb").value = "來";
+   document.getElementById("Jam").value = "雅";
+
+   document.getElementById("Ezk").value = "結";
+   document.getElementById("Dan").value = "但";
+   document.getElementById("Hos").value = "何";
+   document.getElementById("Joe").value = "珥";
+   document.getElementById("Amo").value = "摩";
+
+   document.getElementById("1Pe").value = "彼前";
+   document.getElementById("2Pe").value = "彼後";
+   document.getElementById("1Jn").value = "約壹";
+   document.getElementById("2Jn").value = "約貳";
+
+   document.getElementById("Ob").value = "俄";
+   document.getElementById("Jon").value = "拿";
+   document.getElementById("Mic").value = "彌";
+   document.getElementById("Nah").value = "鴻";
+   document.getElementById("Hab").value = "哈";
+
+   document.getElementById("3Jn").value = "約參";
+   document.getElementById("Jud").value = "猶";
+   document.getElementById("Rev").value = "啟";
+
+   document.getElementById("Zep").value = "番";
+   document.getElementById("Hag").value = "該";
+   document.getElementById("Zec").value = "亞";
+   document.getElementById("Mal").value = "瑪";
+
+}
+
+function English_Book_Name(){
+
+   document.getElementById("Gen").value = "Gen";
+   document.getElementById("Exo").value = "Exo";
+   document.getElementById("Lev").value = "Lev";
+   document.getElementById("Num").value = "Num";
+   document.getElementById("Deu").value = "Deu";
+
+   document.getElementById("Mt").value = "Mt";
+   document.getElementById("Mk").value = "Mk";
+   document.getElementById("Lk").value = "Lk";
+   document.getElementById("Jn").value = "Jn";
+
+   document.getElementById("Jos").value = "Jos";
+   document.getElementById("Jug").value = "Jug";
+   document.getElementById("Ru").value = "Ru";
+   document.getElementById("1Sa").value = "1Sa";
+   document.getElementById("2Sa").value = "2Sa";
+
+   document.getElementById("Act").value = "Act";
+   document.getElementById("Rom").value = "Rom";
+   document.getElementById("1Co").value = "1Co";
+   document.getElementById("2Co").value = "2Co";
+
+   document.getElementById("1Ki").value = "1Ki";
+   document.getElementById("2Ki").value = "2Ki";
+   document.getElementById("1Ch").value = "1Ch";
+   document.getElementById("2Ch").value = "2Ch";
+   document.getElementById("Ezr").value = "Ezr";
+
+   document.getElementById("Gal").value = "Gal";
+   document.getElementById("Eph").value = "Eph";
+   document.getElementById("Phi").value = "Phi";
+   document.getElementById("Col").value = "Col";
+
+   document.getElementById("Neh").value = "Neh";
+   document.getElementById("Est").value = "Est";
+   document.getElementById("Job").value = "Job";
+   document.getElementById("Ps").value = "Ps";
+   document.getElementById("Prv").value = "Prv";
+
+   document.getElementById("1Th").value = "1Th";
+   document.getElementById("2Th").value = "2Th";
+   document.getElementById("1Ti").value = "1Ti";
+   document.getElementById("2Ti").value = "2Ti";
+
+   document.getElementById("Ecc").value = "Ecc";
+   document.getElementById("Sos").value = "Sos";
+   document.getElementById("Isa").value = "Isa";
+   document.getElementById("Jer").value = "Jer";
+   document.getElementById("Lam").value = "Lam";
+
+   document.getElementById("Tit").value = "Tit";
+   document.getElementById("Phm").value = "Phm";
+   document.getElementById("Heb").value = "Heb";
+   document.getElementById("Jam").value = "Jam";
+
+   document.getElementById("Ezk").value = "Ezk";
+   document.getElementById("Dan").value = "Dan";
+   document.getElementById("Hos").value = "Hos";
+   document.getElementById("Joe").value = "Joe";
+   document.getElementById("Amo").value = "Amo";
+
+   document.getElementById("1Pe").value = "1Pe";
+   document.getElementById("2Pe").value = "2Pe";
+   document.getElementById("1Jn").value = "1Jn";
+   document.getElementById("2Jn").value = "2Jn";
+
+   document.getElementById("Ob").value = "Ob";
+   document.getElementById("Jon").value = "Jon";
+   document.getElementById("Mic").value = "Mic";
+   document.getElementById("Nah").value = "Nah";
+   document.getElementById("Hab").value = "Hab";
+
+   document.getElementById("3Jn").value = "3Jn";
+   document.getElementById("Jud").value = "Jud";
+   document.getElementById("Rev").value = "Rev";
+
+   document.getElementById("Zep").value = "Zep";
+   document.getElementById("Hag").value = "Hag";
+   document.getElementById("Zec").value = "Zec";
+   document.getElementById("Mal").value = "Mal";
+
+}
 
 function ChineseEng_Mode(){
 
-   document.getElementById("container4").style.height = "0%";
-   document.getElementById("container3").style.height = "0%";
-   document.getElementById("container1").style.height = "92%";
-   document.getElementById("container2").style.height = "92%";
+   // Add if condition on 2019.03.11
+   if(Mode_Input_Book==0 && Mode_Input_Chap==0 && Mode_Input_Vers==0 && Mode_Input_ToVers==0){ 
 
-   document.getElementById("container1").style.width = "50%";
-   document.getElementById("container2").style.width = "50%";
+      document.getElementById("container4").style.height = "0%";
+      document.getElementById("container3").style.height = "0%";
+      document.getElementById("container1").style.height = "92%";
+      document.getElementById("container2").style.height = "92%";
+
+      document.getElementById("container1").style.width = "50%";
+      document.getElementById("container2").style.width = "50%";
+
+   }
+   else if(Mode_Show_His_BM==1){ 
+
+      document.getElementById("container4").style.height = "0%";
+      document.getElementById("container3").style.height = "0%";
+      document.getElementById("container1").style.height = "92%";
+      document.getElementById("container2").style.height = "92%";
+
+      document.getElementById("container1").style.width = "50%";
+      document.getElementById("container2").style.width = "50%";
+
+   }
 
 }
 
 
 function Eng_Mode(){
 
-   document.getElementById("container4").style.height = "0%";
-   document.getElementById("container3").style.height = "0%";
-   document.getElementById("container1").style.height = "92%";
-   document.getElementById("container2").style.height = "92%";
+   // Add if condition on 2019.03.11
+   if(Mode_Input_Book==0 && Mode_Input_Chap==0 && Mode_Input_Vers==0 && Mode_Input_ToVers==0){ 
 
-   document.getElementById("container1").style.width = "0%";
-   document.getElementById("container2").style.width = "100%";
+      document.getElementById("container4").style.height = "0%";
+      document.getElementById("container3").style.height = "0%";
+      document.getElementById("container1").style.height = "92%";
+      document.getElementById("container2").style.height = "92%";
+
+      document.getElementById("container1").style.width = "0%";
+      document.getElementById("container2").style.width = "100%";
+
+   }
+   else if(Mode_Show_His_BM==1){ 
+
+      document.getElementById("container4").style.height = "0%";
+      document.getElementById("container3").style.height = "0%";
+      document.getElementById("container1").style.height = "92%";
+      document.getElementById("container2").style.height = "92%";
+
+      document.getElementById("container1").style.width = "50%";
+      document.getElementById("container2").style.width = "50%";
+
+   }
 
 }
 
+
 function Chinese_Mode2(){
 
-   document.getElementById("container4").style.height = "0%";
-   document.getElementById("container3").style.height = "0%";
-   document.getElementById("container1").style.height = "92%";
-   document.getElementById("container2").style.height = "92%";
+   // Add if condition on 2019.03.11
+   if(Mode_Input_Book==0 && Mode_Input_Chap==0 && Mode_Input_Vers==0 && Mode_Input_ToVers==0){ 
 
-   document.getElementById("container1").style.width = "100%";
-   document.getElementById("container2").style.width = "0%";
+      document.getElementById("container4").style.height = "0%";
+      document.getElementById("container3").style.height = "0%";
+      document.getElementById("container1").style.height = "92%";
+      document.getElementById("container2").style.height = "92%";
+
+      document.getElementById("container1").style.width = "100%";
+      document.getElementById("container2").style.width = "0%";
+
+   }
+   else if(Mode_Show_His_BM==1){
+
+      document.getElementById("container4").style.height = "0%";
+      document.getElementById("container3").style.height = "0%";
+      document.getElementById("container1").style.height = "92%";
+      document.getElementById("container2").style.height = "92%";
+
+      document.getElementById("container1").style.width = "50%";
+      document.getElementById("container2").style.width = "50%";
+
+   }
 
 }
 
@@ -785,7 +1175,7 @@ function Chinese_Mode(){
    Mode_Chinese=1;
    Mode2_ChineseEng=0;
 
-   keyFunction2('enter');;
+   keyFunction2('enter');efocus();
 
 }
 
@@ -794,12 +1184,15 @@ function ChineseEng_Mode2(){
    Mode_Chinese=0;
    Mode2_ChineseEng=1;
 
-   keyFunction2('enter');;
+   keyFunction2('enter');efocus();
 
 }
 
+var Mode_V; // 1 means V_Mode
+
 function V_Mode(){
 
+   //increase_fontsize();
    document.getElementById("His_Container").style.height = "1200px";
    document.getElementById("Bible_Container").style.height = "1200px";
    document.getElementById("header1").style.height = "4%";
@@ -808,6 +1201,7 @@ function V_Mode(){
 
 function H_Mode(){
 
+   //decrease_fontsize();
    document.getElementById("His_Container").style.height = "600px";
    document.getElementById("Bible_Container").style.height = "600px";
    document.getElementById("header1").style.height = "8%";
@@ -886,6 +1280,16 @@ function Input_Book_Mode() {
    //Mode_Study=0;  // 1 means Mode-On, 0 means Mode-Off
    //Mode_Class=1;  // 1 means Mode-On, 0 means Mode-Off
 
+
+   // Add on 2019.03.11
+   Mode_Show_His_BM = 0; // 1 means press Verse History or Verse Bookmarks
+   Mode_Input_Book = 1; // 1 means press "Book" button
+   Mode_Input_Chap = 0; // 1 means press "Chap" button
+   Mode_Input_Vers = 0; // 1 means press "Verse" button
+   Mode_Input_ToVers = 0; // 1 means press "ToVerse" button
+   // End of Add on 2019.03.11
+
+
    document.getElementById("container5").style.visibility='hidden'; // hide
    document.getElementById("container5").style.height = "0%";
 
@@ -918,6 +1322,14 @@ function Input_Chap_Mode() {
 
    //Mode_Study=0;  // 1 means Mode-On, 0 means Mode-Off
    //Mode_Class=1;  // 1 means Mode-On, 0 means Mode-Off
+
+   // Add on 2019.03.11
+   Mode_Show_His_BM = 0; // 1 means press Verse History or Verse Bookmarks
+   Mode_Input_Book = 0; // 1 means press "Book" button
+   Mode_Input_Chap = 1; // 1 means press "Chap" button
+   Mode_Input_Vers = 0; // 1 means press "Verse" button
+   Mode_Input_ToVers = 0; // 1 means press "ToVerse" button
+   // End of Add on 2019.03.11
 
    document.getElementById("container5").style.visibility='hidden'; // hide
    document.getElementById("container5").style.height = "0%";
@@ -957,6 +1369,14 @@ function Input_Vers_Mode() {
    //Mode_Study=0;  // 1 means Mode-On, 0 means Mode-Off
    //Mode_Class=1;  // 1 means Mode-On, 0 means Mode-Off
 
+   // Add on 2019.03.11
+   Mode_Show_His_BM = 0; // 1 means press Verse History or Verse Bookmarks
+   Mode_Input_Book = 0; // 1 means press "Book" button
+   Mode_Input_Chap = 0; // 1 means press "Chap" button
+   Mode_Input_Vers = 1; // 1 means press "Verse" button
+   Mode_Input_ToVers = 0; // 1 means press "ToVerse" button
+   // End of Add on 2019.03.11
+
    document.getElementById("container5").style.visibility='hidden'; // hide
    document.getElementById("container5").style.height = "0%";
 
@@ -994,6 +1414,14 @@ function Input_ToVers_Mode() {
 
    //Mode_Study=0;  // 1 means Mode-On, 0 means Mode-Off
    //Mode_Class=1;  // 1 means Mode-On, 0 means Mode-Off
+
+   // Add on 2019.03.11
+   Mode_Show_His_BM = 0; // 1 means press Verse History or Verse Bookmarks
+   Mode_Input_Book = 0; // 1 means press "Book" button
+   Mode_Input_Chap = 0; // 1 means press "Chap" button
+   Mode_Input_Vers = 0; // 1 means press "Verse" button
+   Mode_Input_ToVers = 1; // 1 means press "ToVerse" button
+   // End of Add on 2019.03.11
 
    document.getElementById("Chap_Verse_Disp").innerHTML = "To Verse";
 
@@ -1051,6 +1479,19 @@ function Pre_Set_Mode() {
 
 }
 
+function Set_Enter() { // add on 2019.03.11
+
+   // Add on 2019.03.11
+   // Reset
+   Mode_Show_His_BM = 0; // 1 means press Verse History or Verse Bookmarks
+   Mode_Input_Book = 0; // 1 means press "Book" button
+   Mode_Input_Chap = 0; // 1 means press "Chap" button
+   Mode_Input_Vers = 0; // 1 means press "Verse" button
+   Mode_Input_ToVers = 0; // 1 means press "ToVerse" button
+   // End of Add on 2019.03.11
+
+}
+
 
 var VersHis = [] ;
 var VersHis_B = [] ;
@@ -1070,6 +1511,69 @@ var VersBM_tmp_V = [] ;
 var VersBM_tmp_T = [] ;
 
 var Bookmark_file_No = 60; // 30
+
+
+var VersBM2 = [] ;   // for verse bookmark2
+var VersBM2_B = [] ;
+var VersBM2_C = [] ;
+var VersBM2_V = [] ;
+var VersBM2_T = [] ;
+
+var VersBM2_tmp_B = [] ;
+var VersBM2_tmp_C = [] ;
+var VersBM2_tmp_V = [] ;
+var VersBM2_tmp_T = [] ;
+
+
+var VersBM1 = [] ;   // for verse bookmark1
+var VersBM1_B = [] ;
+var VersBM1_C = [] ;
+var VersBM1_V = [] ;
+var VersBM1_T = [] ;
+
+var VersBM1_tmp_B = [] ;
+var VersBM1_tmp_C = [] ;
+var VersBM1_tmp_V = [] ;
+var VersBM1_tmp_T = [] ;
+
+
+var VersBM3 = [] ;   // for verse bookmark3
+var VersBM3_B = [] ;
+var VersBM3_C = [] ;
+var VersBM3_V = [] ;
+var VersBM3_T = [] ;
+
+var VersBM3_tmp_B = [] ;
+var VersBM3_tmp_C = [] ;
+var VersBM3_tmp_V = [] ;
+var VersBM3_tmp_T = [] ;
+
+
+var VersBM4 = [] ;   // for verse bookmark4
+var VersBM4_B = [] ;
+var VersBM4_C = [] ;
+var VersBM4_V = [] ;
+var VersBM4_T = [] ;
+
+var VersBM4_tmp_B = [] ;
+var VersBM4_tmp_C = [] ;
+var VersBM4_tmp_V = [] ;
+var VersBM4_tmp_T = [] ;
+
+var VersBM5 = [] ;   // for verse bookmark5
+var VersBM5_B = [] ;
+var VersBM5_C = [] ;
+var VersBM5_V = [] ;
+var VersBM5_T = [] ;
+
+var VersBM5_tmp_B = [] ;
+var VersBM5_tmp_C = [] ;
+var VersBM5_tmp_V = [] ;
+var VersBM5_tmp_T = [] ;
+
+
+
+
 
 function Write_Bookmark(arg1) { // arg1 = VersBMLen, including Deleted items
 
@@ -1206,6 +1710,94 @@ function Read_Bookmark() {  // Read from files to Bookmark Array Only, Do Not Sh
 
 
 }  // End of function Read_Bookmark()
+
+
+
+function Read_Bookmark1() { 
+
+   var BookMK1_Len = BookMK1[0];  // record how many Bookmark1 records
+
+   //alert(BookMK2_Len);
+
+   for (i = 0; i < BookMK1_Len; i++) {
+
+      VersBM1_B[i] = BookMK1[4*i+1];  // arg1
+      VersBM1_C[i] = BookMK1[4*i+2];  // arg2
+      VersBM1_V[i] = BookMK1[4*i+3];  // arg3  
+      VersBM1_T[i] = BookMK1[4*i+4];  // arg4
+
+      var tmp_B = VersBM1_B[i];  // arg1
+      var tmp_C = VersBM1_C[i];  // arg2
+      var tmp_V = VersBM1_V[i];  // arg3  
+      var tmp_T = VersBM1_T[i];  // arg4
+
+       var VBM_Bname = BookAbbr4[tmp_B]; // arg1
+       var VBM_Chap = tmp_C + 1;
+       var VBM_Vers = tmp_V;
+       var VBM_To_Vers = tmp_T;
+
+       if(tmp_T>tmp_V)
+          var VBM = VBM_Bname + ' ' + VBM_Chap + ':' + VBM_Vers + '~' + VBM_To_Vers; 
+       else
+          var VBM = VBM_Bname + ' ' + VBM_Chap + ':' + VBM_Vers; 
+
+
+       VersBM1[i]=VBM;  // Put in new record
+
+   }
+
+}  // End of function Read_Bookmark1()
+
+
+function Read_Bookmark2() { 
+
+   var BookMK2_Len = BookMK2[0];  // record how many Bookmark2 records
+
+   //alert(BookMK2_Len);
+
+   for (i = 0; i < BookMK2_Len; i++) {
+
+      //BookMK2[i+1] = VersBM2_B[i];  // arg1
+      //BookMK2[i+2] = VersBM2_C[i];  // arg2
+      //BookMK2[i+3] = VersBM2_V[i];  // arg3  
+      //BookMK2[i+4] = VersBM2_T[i];  // arg4
+
+      VersBM2_B[i] = BookMK2[4*i+1];  // arg1
+      VersBM2_C[i] = BookMK2[4*i+2];  // arg2
+      VersBM2_V[i] = BookMK2[4*i+3];  // arg3  
+      VersBM2_T[i] = BookMK2[4*i+4];  // arg4
+
+      var tmp_B = VersBM2_B[i];  // arg1
+      var tmp_C = VersBM2_C[i];  // arg2
+      var tmp_V = VersBM2_V[i];  // arg3  
+      var tmp_T = VersBM2_T[i];  // arg4
+
+       var VBM_Bname = BookAbbr4[tmp_B]; // arg1
+       var VBM_Chap = tmp_C + 1;
+       var VBM_Vers = tmp_V;
+       var VBM_To_Vers = tmp_T;
+
+       if(tmp_T>tmp_V)
+          var VBM = VBM_Bname + ' ' + VBM_Chap + ':' + VBM_Vers + '~' + VBM_To_Vers; 
+       else
+          var VBM = VBM_Bname + ' ' + VBM_Chap + ':' + VBM_Vers; 
+
+       //if(arg3==999 && arg4==999) {
+
+       //   var VBM = VBM_Bname + ' ' + VBM_Chap;
+
+       //}
+    
+       //VersBM2.unshift(VBM);  // Put in new record
+
+
+       VersBM2[i]=VBM;  // Put in new record
+
+   }
+
+}  // End of function Read_Bookmark2()
+
+
 
 function Add_Bookmark(arg1,arg2,arg3,arg4) {  // Add new item to Bookmark Array
 
@@ -1475,6 +2067,478 @@ function History_to_Bookmarks() { // 將資料 由 History 轉至 Bookmark
 }  // End of function History_to_Bookmarks()
 
 
+
+function History_to_Bookmarks3() { // 將資料 由 History 轉至 Bookmark3, 先清空 Bookmark3
+
+
+    Delete_Bookmarks3();
+  
+    var text1, VersHisLen, i;
+
+
+    VersHisLen = VersHis.length;
+
+    //var VersBM1_B_Len = VersBM1_B.length; 
+
+
+
+    for (i = (VersHisLen-1); i > -1; i--) {    
+
+    //for (i = 0; i < VersHisLen; i++) {   
+ 
+
+        Show_Bookmark3_Add_Group(VersHis_B[i],VersHis_C[i],VersHis_V[i],VersHis_T[i]);    
+
+       
+    }
+
+    Show_Bookmark3_Only();
+
+    //Write_Bookmark1();
+
+
+}  // End of function History_to_Bookmarks3()
+
+
+function History_to_Bookmarks4() { // 將資料 由 History 轉至 Bookmark4, 先清空 Bookmark4
+
+
+    Delete_Bookmarks4();
+  
+    var text1, VersHisLen, i;
+
+
+    VersHisLen = VersHis.length;
+
+    //var VersBM1_B_Len = VersBM1_B.length; 
+
+
+
+    for (i = (VersHisLen-1); i > -1; i--) {    
+
+    //for (i = 0; i < VersHisLen; i++) {   
+ 
+
+        Show_Bookmark4_Add_Group(VersHis_B[i],VersHis_C[i],VersHis_V[i],VersHis_T[i]);    
+
+       
+    }
+
+    Show_Bookmark4_Only();
+
+    //Write_Bookmark1();
+
+
+}  // End of function History_to_Bookmarks4()
+
+
+function History_to_Bookmarks5() { // 將資料 由 History 轉至 Bookmark5, 先清空 Bookmark5
+
+
+    Delete_Bookmarks5();
+  
+    var text1, VersHisLen, i;
+
+
+    VersHisLen = VersHis.length;
+
+    //var VersBM1_B_Len = VersBM1_B.length; 
+
+
+
+    for (i = (VersHisLen-1); i > -1; i--) {    
+
+    //for (i = 0; i < VersHisLen; i++) {   
+ 
+
+        Show_Bookmark5_Add_Group(VersHis_B[i],VersHis_C[i],VersHis_V[i],VersHis_T[i]);    
+
+       
+    }
+
+    Show_Bookmark5_Only();
+
+    //Write_Bookmark1();
+
+
+}  // End of function History_to_Bookmarks5()
+
+
+
+function Delete_Bookmarks3() { // 刪除Bookmarks3 Array中資料
+
+
+         //Delete Bookmarks3 -- Start
+
+           //var text1, VersHisLen, i;
+           //VersHisLen = VersHis.length;
+           //text1 = "Verse History<br>";
+
+           var text1, VersBM3Len, i;
+           VersBM3Len = VersBM3.length;
+
+           VersBM3.splice(0, VersBM3Len);
+           VersBM3_B.splice(0, VersBM3Len);
+           VersBM3_C.splice(0, VersBM3Len);
+           VersBM3_V.splice(0, VersBM3Len);
+           VersBM3_T.splice(0, VersBM3Len);
+
+           //if(Show_History_F==1) { // 1 means Show, 0 means Hide
+
+           //   document.getElementById("Vers_history").innerHTML = text1;
+
+           //}
+
+         //Delete All History -- End
+
+
+}  // End of function Delete_Bookmarks3()
+
+
+function Delete_Bookmarks4() { // 刪除Bookmarks4 Array中資料
+
+
+         //Delete Bookmarks4 -- Start
+
+           //var text1, VersHisLen, i;
+           //VersHisLen = VersHis.length;
+           //text1 = "Verse History<br>";
+
+           var text1, VersBM4Len, i;
+           VersBM4Len = VersBM4.length;
+
+           VersBM4.splice(0, VersBM4Len);
+           VersBM4_B.splice(0, VersBM4Len);
+           VersBM4_C.splice(0, VersBM4Len);
+           VersBM4_V.splice(0, VersBM4Len);
+           VersBM4_T.splice(0, VersBM4Len);
+
+           //if(Show_History_F==1) { // 1 means Show, 0 means Hide
+
+           //   document.getElementById("Vers_history").innerHTML = text1;
+
+           //}
+
+         //Delete All History -- End
+
+
+}  // End of function Delete_Bookmarks4()
+
+
+function Delete_Bookmarks5() { // 刪除Bookmarks5 Array中資料
+
+
+         //Delete Bookmarks5 -- Start
+
+           //var text1, VersHisLen, i;
+           //VersHisLen = VersHis.length;
+           //text1 = "Verse History<br>";
+
+           var text1, VersBM5Len, i;
+           VersBM5Len = VersBM5.length;
+
+           VersBM5.splice(0, VersBM5Len);
+           VersBM5_B.splice(0, VersBM5Len);
+           VersBM5_C.splice(0, VersBM5Len);
+           VersBM5_V.splice(0, VersBM5Len);
+           VersBM5_T.splice(0, VersBM5Len);
+
+           //if(Show_History_F==1) { // 1 means Show, 0 means Hide
+
+           //   document.getElementById("Vers_history").innerHTML = text1;
+
+           //}
+
+         //Delete All History -- End
+
+
+}  // End of function Delete_Bookmarks5()
+
+
+
+function Show_Bookmark3_Add_Group(arg1,arg2,arg3,arg4) {   // Add new item to Bookmark3
+                                                // Show all items in Bookmark1
+                                                // Write all items to files
+                                                // For adding many items, after finished write once out side the function
+
+
+    var VerseBM3_existence = 0; // 0 means No duplicate, 1 means found duplicate
+
+
+    var VersBM3_B_Len = VersBM3_B.length; 
+
+
+
+    if(VersBM3_B_Len==0) { // means VersBM3_B is empty
+
+       VersBM3_B.unshift(arg1); 
+       VersBM3_C.unshift(arg2); 
+       VersBM3_V.unshift(arg3); 
+       VersBM3_T.unshift(arg4); 
+
+       var VBM_Bname = BookAbbr4[arg1]; // arg1
+       var VBM_Chap = arg2 + 1;
+       var VBM_Vers = arg3;
+       var VBM_To_Vers = arg4;
+
+       if(arg4>arg3)
+          var VBM = VBM_Bname + ' ' + VBM_Chap + ':' + VBM_Vers + '~' + VBM_To_Vers; 
+       else
+          var VBM = VBM_Bname + ' ' + VBM_Chap + ':' + VBM_Vers; 
+
+       if(arg3==999 && arg4==999) {
+
+          var VBM = VBM_Bname + ' ' + VBM_Chap;
+
+       }
+    
+       VersBM3.unshift(VBM);  // Put in new record
+
+    }    
+    else {
+
+       for (i = 0; i < VersBM3_B_Len; i++) {
+
+          if(VersBM3_B_Len>0) {
+
+             if(VersBM3_B[i]==arg1 && VersBM3_C[i]==arg2 && VersBM3_V[i]==arg3 && VersBM3_T[i]==arg4) { //20190303
+
+                VerseBM3_existence = 1; // 0 means No duplicate, 1 means found duplicate
+
+             }
+
+          }
+
+       }
+
+  
+       if(VerseBM3_existence==0) { // 0 means No duplicate, 1 means found duplicate
+
+          VersBM3_B.unshift(arg1); 
+          VersBM3_C.unshift(arg2); 
+          VersBM3_V.unshift(arg3); 
+          VersBM3_T.unshift(arg4); 
+
+          var VBM_Bname = BookAbbr4[arg1]; // arg1
+          var VBM_Chap = arg2 + 1;
+          var VBM_Vers = arg3;
+          var VBM_To_Vers = arg4;
+
+          if(arg4>arg3)
+             var VBM = VBM_Bname + ' ' + VBM_Chap + ':' + VBM_Vers + '~' + VBM_To_Vers; 
+          else
+             var VBM = VBM_Bname + ' ' + VBM_Chap + ':' + VBM_Vers; 
+
+          if(arg3==999 && arg4==999) {
+
+             var VBM = VBM_Bname + ' ' + VBM_Chap;
+
+          }
+    
+          VersBM3.unshift(VBM);  // Put in new record
+
+       } // End of (VerseBM3_existence==0)
+
+    } // End of if(VersBM3_B_Len==0)
+
+
+    var text1, VersBM3Len, i;
+
+    VersBM3Len = VersBM3.length;
+
+
+}  // End of function Show_Bookmark3_Add_Group()
+
+
+function Show_Bookmark4_Add_Group(arg1,arg2,arg3,arg4) {   // Add new item to Bookmark4
+                                                // Show all items in Bookmark1
+                                                // Write all items to files
+                                                // For adding many items, after finished write once out side the function
+
+
+    var VerseBM4_existence = 0; // 0 means No duplicate, 1 means found duplicate
+
+
+    var VersBM4_B_Len = VersBM4_B.length; 
+
+
+
+    if(VersBM4_B_Len==0) { // means VersBM4_B is empty
+
+       VersBM4_B.unshift(arg1); 
+       VersBM4_C.unshift(arg2); 
+       VersBM4_V.unshift(arg3); 
+       VersBM4_T.unshift(arg4); 
+
+       var VBM_Bname = BookAbbr4[arg1]; // arg1
+       var VBM_Chap = arg2 + 1;
+       var VBM_Vers = arg3;
+       var VBM_To_Vers = arg4;
+
+       if(arg4>arg3)
+          var VBM = VBM_Bname + ' ' + VBM_Chap + ':' + VBM_Vers + '~' + VBM_To_Vers; 
+       else
+          var VBM = VBM_Bname + ' ' + VBM_Chap + ':' + VBM_Vers; 
+
+       if(arg3==999 && arg4==999) {
+
+          var VBM = VBM_Bname + ' ' + VBM_Chap;
+
+       }
+    
+       VersBM4.unshift(VBM);  // Put in new record
+
+    }    
+    else {
+
+       for (i = 0; i < VersBM4_B_Len; i++) {
+
+          if(VersBM4_B_Len>0) {
+
+             if(VersBM4_B[i]==arg1 && VersBM4_C[i]==arg2 && VersBM4_V[i]==arg3 && VersBM4_T[i]==arg4) { //20190303
+
+                VerseBM4_existence = 1; // 0 means No duplicate, 1 means found duplicate
+
+             }
+
+          }
+
+       }
+
+  
+       if(VerseBM4_existence==0) { // 0 means No duplicate, 1 means found duplicate
+
+          VersBM4_B.unshift(arg1); 
+          VersBM4_C.unshift(arg2); 
+          VersBM4_V.unshift(arg3); 
+          VersBM4_T.unshift(arg4); 
+
+          var VBM_Bname = BookAbbr4[arg1]; // arg1
+          var VBM_Chap = arg2 + 1;
+          var VBM_Vers = arg3;
+          var VBM_To_Vers = arg4;
+
+          if(arg4>arg3)
+             var VBM = VBM_Bname + ' ' + VBM_Chap + ':' + VBM_Vers + '~' + VBM_To_Vers; 
+          else
+             var VBM = VBM_Bname + ' ' + VBM_Chap + ':' + VBM_Vers; 
+
+          if(arg3==999 && arg4==999) {
+
+             var VBM = VBM_Bname + ' ' + VBM_Chap;
+
+          }
+    
+          VersBM4.unshift(VBM);  // Put in new record
+
+       } // End of (VerseBM4_existence==0)
+
+    } // End of if(VersBM4_B_Len==0)
+
+
+    var text1, VersBM4Len, i;
+
+    VersBM4Len = VersBM4.length;
+
+
+}  // End of function Show_Bookmark4_Add_Group()
+
+
+function Show_Bookmark5_Add_Group(arg1,arg2,arg3,arg4) {   // Add new item to Bookmark5
+                                                // Show all items in Bookmark1
+                                                // Write all items to files
+                                                // For adding many items, after finished write once out side the function
+
+
+    var VerseBM5_existence = 0; // 0 means No duplicate, 1 means found duplicate
+
+
+    var VersBM5_B_Len = VersBM5_B.length; 
+
+
+
+    if(VersBM5_B_Len==0) { // means VersBM5_B is empty
+
+       VersBM5_B.unshift(arg1); 
+       VersBM5_C.unshift(arg2); 
+       VersBM5_V.unshift(arg3); 
+       VersBM5_T.unshift(arg4); 
+
+       var VBM_Bname = BookAbbr4[arg1]; // arg1
+       var VBM_Chap = arg2 + 1;
+       var VBM_Vers = arg3;
+       var VBM_To_Vers = arg4;
+
+       if(arg4>arg3)
+          var VBM = VBM_Bname + ' ' + VBM_Chap + ':' + VBM_Vers + '~' + VBM_To_Vers; 
+       else
+          var VBM = VBM_Bname + ' ' + VBM_Chap + ':' + VBM_Vers; 
+
+       if(arg3==999 && arg4==999) {
+
+          var VBM = VBM_Bname + ' ' + VBM_Chap;
+
+       }
+    
+       VersBM5.unshift(VBM);  // Put in new record
+
+    }    
+    else {
+
+       for (i = 0; i < VersBM5_B_Len; i++) {
+
+          if(VersBM5_B_Len>0) {
+
+             if(VersBM5_B[i]==arg1 && VersBM5_C[i]==arg2 && VersBM5_V[i]==arg3 && VersBM5_T[i]==arg4) { //20190303
+
+                VerseBM5_existence = 1; // 0 means No duplicate, 1 means found duplicate
+
+             }
+
+          }
+
+       }
+
+  
+       if(VerseBM5_existence==0) { // 0 means No duplicate, 1 means found duplicate
+
+          VersBM5_B.unshift(arg1); 
+          VersBM5_C.unshift(arg2); 
+          VersBM5_V.unshift(arg3); 
+          VersBM5_T.unshift(arg4); 
+
+          var VBM_Bname = BookAbbr4[arg1]; // arg1
+          var VBM_Chap = arg2 + 1;
+          var VBM_Vers = arg3;
+          var VBM_To_Vers = arg4;
+
+          if(arg4>arg3)
+             var VBM = VBM_Bname + ' ' + VBM_Chap + ':' + VBM_Vers + '~' + VBM_To_Vers; 
+          else
+             var VBM = VBM_Bname + ' ' + VBM_Chap + ':' + VBM_Vers; 
+
+          if(arg3==999 && arg4==999) {
+
+             var VBM = VBM_Bname + ' ' + VBM_Chap;
+
+          }
+    
+          VersBM5.unshift(VBM);  // Put in new record
+
+       } // End of (VerseBM5_existence==0)
+
+    } // End of if(VersBM5_B_Len==0)
+
+
+    var text1, VersBM5Len, i;
+
+    VersBM5Len = VersBM5.length;
+
+
+}  // End of function Show_Bookmark5_Add_Group()
+
+
+
 function Delete_All_History() { // 刪除所有Array中資料
 
    //const remote = require('electron').remote;
@@ -1584,6 +2648,13 @@ function Delete_All_Bookmarks() {  // Delete all items from Bookmarks
 
 var Show_History_F = 1; // 1 means Show, 0 means Hide
 var Show_Bookmark_F = 1; // 1 means Show, 0 means Hide
+var Show_Bookmark2_F = 1; // 1 means Show, 0 means Hide
+var Show_Bookmark1_F = 1; // 1 means Show, 0 means Hide
+
+var Show_Bookmark3_F = 1; // 1 means Show, 0 means Hide
+var Show_Bookmark4_F = 1; // 1 means Show, 0 means Hide
+var Show_Bookmark5_F = 1; // 1 means Show, 0 means Hide
+
 
 function Show_History_Only() { // Show all items in VersHis Array
 
@@ -1633,7 +2704,7 @@ function Hide_History_Only() { // Hide all items in VersHis Array
 
    Show_History_F = 0; // 1 means Show, 0 means Hide
 
-   if(Show_History_F==0 && Show_Bookmark_F==0) { // 1 means Show, 0 means Hide
+   if(Show_History_F==0 && Show_Bookmark_F==0 && Show_Bookmark1_F==0 && Show_Bookmark2_F==0 && Show_Bookmark3_F==0 && Show_Bookmark4_F==0 && Show_Bookmark5_F==0) { // 1 means Show, 0 means Hide
 
       document.getElementById("His_Container").style.width = "0%";
       document.getElementById("Bible_Container").style.width = "100%";
@@ -1749,6 +2820,21 @@ function Show_His_BM_Vers2(arg1,arg2,arg3,arg4) {
    now_To_Verse = arg4;  // add on 2018.08.19
 
    readchapter(arg1, arg2, arg3, arg4);
+
+   if(Mode_Input_Book==1 || Mode_Input_Chap==1 || Mode_Input_Vers==1 || Mode_Input_ToVers==1){
+
+      Pre_Set_Mode();
+      Set_Enter();
+      keyFunction2('enter');efocus(); return false; // Add on 2019.03.12   
+
+   }
+
+   Mode_Show_His_BM = 1; // 1 means press Verse History or Verse Bookmarks
+   // Reset
+   Mode_Input_Book = 0; // 1 means press "Book" button
+   Mode_Input_Chap = 0; // 1 means press "Chap" button
+   Mode_Input_Vers = 0; // 1 means press "Verse" button
+   Mode_Input_ToVers = 0; // 1 means press "ToVerse" button
 
 }  // End of function Show_His_BM_Vers2()
 
@@ -2056,6 +3142,296 @@ function Show_Bookmark_Only() {   // Show all items in Bookmark *** Only ***
 
 }   // End of function Show_Bookmark_Only()
 
+
+function change_color(arg1){
+
+   //document.getElementById("39431").style.color="maroon";
+   document.getElementById(arg1).style.color="maroon";
+
+}
+
+
+
+function Show_Bookmark1_Only() {   // Show all items in Bookmark1 *** Only ***
+                                   // Do Not Write all items to files ***
+
+
+    //Read_Bookmark2();
+
+
+    Show_Bookmark1_F = 1; // 1 means Show, 0 means Hide
+
+    var text1, VersBM1Len, i;
+
+    //var VersBM2_B_Len = VersBM2_B.length;
+
+    VersBM1Len = VersBM1.length;
+
+    text1 = "Verse Bookmarks1<br>";
+
+
+    //text1 = "Verse Bookmarks2<br>" + "BookMK2[0] : " + BookMK2[0] + "<br>" + "BookMK2[1] : " + BookMK2[1] + "<br>" + "VersBM2_B[0] : " + VersBM2_B[0] + "<br>";  // for test  
+
+
+    //for (i = 0; i < VersBMLen; i++) {   // Show Verse Bookmarks
+
+    for (i = (VersBM1Len-1); i > -1; i--) {   // Show Verse Bookmarks1
+
+        //text1 += '<a href="" onClick="return false;">' + VersBM[i] + '</a><br>';
+
+        //text1 += '<button onclick="return false;">-</button> <a href="" onClick="return false;">' + VersBM[i] + '</a><br>';
+
+        if(VersBM1[i]=="Deleted"){
+           // Do nothing
+        }
+        else {
+
+
+           if(VersBM1_V[i]==999 && VersBM1_T[i]==999) {
+
+              //text1 += '<button onclick="Delete_Bookmark2('+i+');return false;">-</button> <a href="" onClick="Show_His_BM_Vers3(' + VersBM2_B[i] + ',' + VersBM2_C[i] + '); return false;">' + VersBM2[i] + '</a><br>';
+
+           } 
+           else {   
+
+              //text1 += '<button onclick="return false;">O</button> <a href="" onClick="Show_His_BM_Vers2(' + VersBM2_B[i] + ',' + VersBM2_C[i] + ',' + VersBM2_V[i] + ',' + VersBM2_T[i] + '); return false;">' + VersBM2[i] + '</a><br>';
+
+              text1 += '<button onclick=";return false;">O</button> <a href="" id="3'+VersBM1_B[i]+VersBM1_C[i]+VersBM1_V[i]+VersBM1_T[i]+i+'0" onClick="Show_His_BM_Vers2(' + VersBM1_B[i] + ',' + VersBM1_C[i] + ',' + VersBM1_V[i] + ',' + VersBM1_T[i] + ');change_color(3'+VersBM1_B[i]+VersBM1_C[i]+VersBM1_V[i]+VersBM1_T[i]+i+'0);return false;">' + VersBM1[i] + '</a><br>';
+
+           }
+
+        }
+
+    }
+
+    document.getElementById("His_Container").style.width = "16%";
+    document.getElementById("Bible_Container").style.width = "84%";
+
+    //V_or_H_Mode();
+
+    document.getElementById("Vers_bookmark1").innerHTML = text1;
+
+
+}   // End of function Show_Bookmark1_Only()
+
+
+function Show_Bookmark2_Only() {   // Show all items in Bookmark2 *** Only ***
+                                   // Do Not Write all items to files ***
+
+
+    //Read_Bookmark2();
+
+
+    Show_Bookmark2_F = 1; // 1 means Show, 0 means Hide
+
+    var text1, VersBM2Len, i;
+
+    //var VersBM2_B_Len = VersBM2_B.length;
+
+    VersBM2Len = VersBM2.length;
+
+    text1 = "Verse Bookmarks2<br>";
+
+
+    //text1 = "Verse Bookmarks2<br>" + "BookMK2[0] : " + BookMK2[0] + "<br>" + "BookMK2[1] : " + BookMK2[1] + "<br>" + "VersBM2_B[0] : " + VersBM2_B[0] + "<br>";  // for test  
+
+
+    //for (i = 0; i < VersBMLen; i++) {   // Show Verse Bookmarks
+
+    for (i = (VersBM2Len-1); i > -1; i--) {   // Show Verse Bookmarks2
+
+        //text1 += '<a href="" onClick="return false;">' + VersBM[i] + '</a><br>';
+
+        //text1 += '<button onclick="return false;">-</button> <a href="" onClick="return false;">' + VersBM[i] + '</a><br>';
+
+        if(VersBM2[i]=="Deleted"){
+           // Do nothing
+        }
+        else {
+
+
+           if(VersBM2_V[i]==999 && VersBM2_T[i]==999) {
+
+              text1 += '<button onclick="Delete_Bookmark2('+i+');return false;">-</button> <a href="" onClick="Show_His_BM_Vers3(' + VersBM2_B[i] + ',' + VersBM2_C[i] + '); return false;">' + VersBM2[i] + '</a><br>';
+
+           } 
+           else {   
+
+              //text1 += '<button onclick="return false;">O</button> <a href="" onClick="Show_His_BM_Vers2(' + VersBM2_B[i] + ',' + VersBM2_C[i] + ',' + VersBM2_V[i] + ',' + VersBM2_T[i] + '); return false;">' + VersBM2[i] + '</a><br>';
+
+              text1 += '<button onclick=";return false;">O</button> <a href="" id="1'+VersBM2_B[i]+VersBM2_C[i]+VersBM2_V[i]+VersBM2_T[i]+i+'0" onClick="Show_His_BM_Vers2(' + VersBM2_B[i] + ',' + VersBM2_C[i] + ',' + VersBM2_V[i] + ',' + VersBM2_T[i] + ');change_color(1'+VersBM2_B[i]+VersBM2_C[i]+VersBM2_V[i]+VersBM2_T[i]+i+'0);return false;">' + VersBM2[i] + '</a><br>';
+
+           }
+
+        }
+
+    }
+
+    document.getElementById("His_Container").style.width = "16%";
+    document.getElementById("Bible_Container").style.width = "84%";
+
+    //V_or_H_Mode();
+
+    document.getElementById("Vers_bookmark2").innerHTML = text1;
+
+
+}   // End of function Show_Bookmark2_Only()
+
+
+function Show_Bookmark3_Only() {   // Show all items in Bookmark3 *** Only ***
+                                   // Do Not Write all items to files ***
+
+
+    Show_Bookmark3_F = 1; // 1 means Show, 0 means Hide
+
+    var text1, VersBM3Len, i;
+
+
+    VersBM3Len = VersBM3.length;
+
+    text1 = "Verse Bookmarks3<br>";
+
+
+    for (i = (VersBM3Len-1); i > -1; i--) {   // Show Verse Bookmarks3
+
+
+        if(VersBM3[i]=="Deleted"){
+           // Do nothing
+        }
+        else {
+
+
+           if(VersBM3_V[i]==999 && VersBM3_T[i]==999) {
+
+              //text1 += '<button onclick="Delete_Bookmark2('+i+');return false;">-</button> <a href="" onClick="Show_His_BM_Vers3(' + VersBM2_B[i] + ',' + VersBM2_C[i] + '); return false;">' + VersBM2[i] + '</a><br>';
+
+           } 
+           else {   
+
+              //text1 += '<button onclick="return false;">O</button> <a href="" onClick="Show_His_BM_Vers2(' + VersBM2_B[i] + ',' + VersBM2_C[i] + ',' + VersBM2_V[i] + ',' + VersBM2_T[i] + '); return false;">' + VersBM2[i] + '</a><br>';
+
+              text1 += '<button onclick=";return false;">O</button> <a href="" id="5'+VersBM3_B[i]+VersBM3_C[i]+VersBM3_V[i]+VersBM3_T[i]+i+'0" onClick="Show_His_BM_Vers2(' + VersBM3_B[i] + ',' + VersBM3_C[i] + ',' + VersBM3_V[i] + ',' + VersBM3_T[i] + ');change_color(5'+VersBM3_B[i]+VersBM3_C[i]+VersBM3_V[i]+VersBM3_T[i]+i+'0);return false;">' + VersBM3[i] + '</a><br>';
+
+           }
+
+        }
+
+    }
+
+    document.getElementById("His_Container").style.width = "16%";
+    document.getElementById("Bible_Container").style.width = "84%";
+
+    //V_or_H_Mode();
+
+    document.getElementById("Vers_bookmark3").innerHTML = text1;
+
+
+}   // End of function Show_Bookmark3_Only()
+
+
+function Show_Bookmark4_Only() {   // Show all items in Bookmark4 *** Only ***
+                                   // Do Not Write all items to files ***
+
+
+    Show_Bookmark4_F = 1; // 1 means Show, 0 means Hide
+
+    var text1, VersBM4Len, i;
+
+
+    VersBM4Len = VersBM4.length;
+
+    text1 = "Verse Bookmarks4<br>";
+
+
+    for (i = (VersBM4Len-1); i > -1; i--) {   // Show Verse Bookmarks4
+
+
+        if(VersBM4[i]=="Deleted"){
+           // Do nothing
+        }
+        else {
+
+
+           if(VersBM4_V[i]==999 && VersBM4_T[i]==999) {
+
+              //text1 += '<button onclick="Delete_Bookmark2('+i+');return false;">-</button> <a href="" onClick="Show_His_BM_Vers3(' + VersBM2_B[i] + ',' + VersBM2_C[i] + '); return false;">' + VersBM2[i] + '</a><br>';
+
+           } 
+           else {   
+
+              //text1 += '<button onclick="return false;">O</button> <a href="" onClick="Show_His_BM_Vers2(' + VersBM2_B[i] + ',' + VersBM2_C[i] + ',' + VersBM2_V[i] + ',' + VersBM2_T[i] + '); return false;">' + VersBM2[i] + '</a><br>';
+
+              text1 += '<button onclick=";return false;">O</button> <a href="" id="6'+VersBM4_B[i]+VersBM4_C[i]+VersBM4_V[i]+VersBM4_T[i]+i+'0" onClick="Show_His_BM_Vers2(' + VersBM4_B[i] + ',' + VersBM4_C[i] + ',' + VersBM4_V[i] + ',' + VersBM4_T[i] + ');change_color(6'+VersBM4_B[i]+VersBM4_C[i]+VersBM4_V[i]+VersBM4_T[i]+i+'0);return false;">' + VersBM4[i] + '</a><br>';
+
+           }
+
+        }
+
+    }
+
+    document.getElementById("His_Container").style.width = "16%";
+    document.getElementById("Bible_Container").style.width = "84%";
+
+    //V_or_H_Mode();
+
+    document.getElementById("Vers_bookmark4").innerHTML = text1;
+
+
+}   // End of function Show_Bookmark4_Only()
+
+
+function Show_Bookmark5_Only() {   // Show all items in Bookmark5 *** Only ***
+                                   // Do Not Write all items to files ***
+
+
+    Show_Bookmark5_F = 1; // 1 means Show, 0 means Hide
+
+    var text1, VersBM5Len, i;
+
+
+    VersBM5Len = VersBM5.length;
+
+    text1 = "Verse Bookmarks5<br>";
+
+
+    for (i = (VersBM5Len-1); i > -1; i--) {   // Show Verse Bookmarks5
+
+
+        if(VersBM5[i]=="Deleted"){
+           // Do nothing
+        }
+        else {
+
+
+           if(VersBM5_V[i]==999 && VersBM5_T[i]==999) {
+
+              //text1 += '<button onclick="Delete_Bookmark2('+i+');return false;">-</button> <a href="" onClick="Show_His_BM_Vers3(' + VersBM2_B[i] + ',' + VersBM2_C[i] + '); return false;">' + VersBM2[i] + '</a><br>';
+
+           } 
+           else {   
+
+              //text1 += '<button onclick="return false;">O</button> <a href="" onClick="Show_His_BM_Vers2(' + VersBM2_B[i] + ',' + VersBM2_C[i] + ',' + VersBM2_V[i] + ',' + VersBM2_T[i] + '); return false;">' + VersBM2[i] + '</a><br>';
+
+              text1 += '<button onclick=";return false;">O</button> <a href="" id="7'+VersBM5_B[i]+VersBM5_C[i]+VersBM5_V[i]+VersBM5_T[i]+i+'0" onClick="Show_His_BM_Vers2(' + VersBM5_B[i] + ',' + VersBM5_C[i] + ',' + VersBM5_V[i] + ',' + VersBM5_T[i] + ');change_color(7'+VersBM5_B[i]+VersBM5_C[i]+VersBM5_V[i]+VersBM5_T[i]+i+'0);return false;">' + VersBM5[i] + '</a><br>';
+
+           }
+
+        }
+
+    }
+
+    document.getElementById("His_Container").style.width = "16%";
+    document.getElementById("Bible_Container").style.width = "84%";
+
+    //V_or_H_Mode();
+
+    document.getElementById("Vers_bookmark5").innerHTML = text1;
+
+
+}   // End of function Show_Bookmark5_Only()
+
+
+
 function Hide_Bookmark_Only() {   // Show all items in Bookmark *** Only ***
                                                      // Do Not Write all items to files ***
 
@@ -2108,7 +3484,7 @@ function Hide_Bookmark_Only() {   // Show all items in Bookmark *** Only ***
 
     }
 
-   if(Show_History_F==0 && Show_Bookmark_F==0) { // 1 means Show, 0 means Hide
+   if(Show_History_F==0 && Show_Bookmark_F==0 && Show_Bookmark1_F==0 && Show_Bookmark2_F==0 && Show_Bookmark3_F==0 && Show_Bookmark4_F==0 && Show_Bookmark5_F==0) { // 1 means Show, 0 means Hide
 
       document.getElementById("His_Container").style.width = "0%";
       document.getElementById("Bible_Container").style.width = "100%";
@@ -2119,6 +3495,252 @@ function Hide_Bookmark_Only() {   // Show all items in Bookmark *** Only ***
 
 
 }   // End of function Hide_Bookmark_Only()
+
+
+
+function Hide_Bookmark1_Only() {   // Show all items in Bookmark1 *** Only ***
+                                   // Do Not Write all items to files ***
+
+    Show_Bookmark1_F = 0; // 1 means Show, 0 means Hide
+
+    var text1, VersBM1Len, i;
+
+
+    VersBM1Len = VersBM1.length;
+
+    text1 = "Verse Bookmarks1<br>";
+
+    //for (i = 0; i < VersBMLen; i++) {   // Show Verse Bookmarks1
+
+    for (i = (VersBM1Len-1); i > -1; i--) {   // Show Verse Bookmarks1
+
+        //text1 += '<a href="" onClick="return false;">' + VersBM[i] + '</a><br>';
+
+        //text1 += '<button onclick="return false;">-</button> <a href="" onClick="return false;">' + VersBM[i] + '</a><br>';
+
+        if(VersBM1[i]=="Deleted"){
+           // Do nothing
+        }
+        else {
+
+           //Show_His_BM_Vers(
+
+           //text1 += '<button onclick="Delete_Bookmark('+i+');return false;">-</button> <a href="" onClick="return false;">' + VersBM[i] + '</a><br>';
+
+
+           if(VersBM1_V[i]==999 && VersBM1_T[i]==999) {
+
+              //text1 += '<button onclick="Delete_Bookmark2('+i+');return false;">-</button> <a href="" onClick="Show_His_BM_Vers3(' + VersBM2_B[i] + ',' + VersBM2_C[i] + '); return false;">' + VersBM2[i] + '</a><br>';
+
+           } 
+           else {   
+
+              //text1 += '<button onclick="Delete_Bookmark2('+i+');return false;">-</button> <a href="" onClick="Show_His_BM_Vers2(' + VersBM2_B[i] + ',' + VersBM2_C[i] + ',' + VersBM2_V[i] + ',' + VersBM2_T[i] + '); return false;">' + VersBM2[i] + '</a><br>';
+
+           }
+
+
+           //text1 += '<button onclick="Show_Bookmark(' + VersHis_B[i] + ',' + VersHis_C[i] + ',' + VersHis_V[i] + ',' + VersHis_T[i] + ');return false;">' + '+' + '</button>' + ' ' + '<a href="" onClick="Show_His_BM_Vers(' + VersHis_B[i] + ',' + VersHis_C[i] + ',' + VersHis_V[i] + ',' + VersHis_T[i] + ');return false;">' + VersHis[i] + '</a><br>';
+
+           //text1 += '<button onclick="Delete_Bookmark('+i+');return false;">-</button> <a href="" onClick="Show_His_BM_Vers(' + VersBM_B[i] + ',' + VersBM_C[i] + ',' + VersBM_V[i] + ',' VersBM_T[i] + ');return false;">' + VersBM[i] + '</a><br>';
+
+           //text1 += '<button onclick="Delete_Bookmark('+i+');return false;">-</button> <a href="" onClick="Show_His_BM_Vers(' + VersBM_B[i] + ',' + VersBM_C[i] + ',' + VersBM_V[i] + ',' VersBM_T[i] + ');return false;">' + VersBM[i] + '</a><br>';
+
+        }
+
+    }
+
+   if(Show_History_F==0 && Show_Bookmark_F==0 && Show_Bookmark1_F==0 && Show_Bookmark2_F==0 && Show_Bookmark3_F==0 && Show_Bookmark4_F==0 && Show_Bookmark5_F==0) { // 1 means Show, 0 means Hide
+
+      document.getElementById("His_Container").style.width = "0%";
+      document.getElementById("Bible_Container").style.width = "100%";
+
+   }
+
+    document.getElementById("Vers_bookmark1").innerHTML = "";
+
+
+}   // End of function Hide_Bookmark1_Only()
+
+
+function Hide_Bookmark2_Only() {   // Show all items in Bookmark2 *** Only ***
+                                   // Do Not Write all items to files ***
+
+    Show_Bookmark2_F = 0; // 1 means Show, 0 means Hide
+
+    var text1, VersBM2Len, i;
+
+
+    VersBM2Len = VersBM2.length;
+
+    text1 = "Verse Bookmarks2<br>";
+
+    //for (i = 0; i < VersBMLen; i++) {   // Show Verse Bookmarks1
+
+    for (i = (VersBM2Len-1); i > -1; i--) {   // Show Verse Bookmarks2
+
+        //text1 += '<a href="" onClick="return false;">' + VersBM[i] + '</a><br>';
+
+        //text1 += '<button onclick="return false;">-</button> <a href="" onClick="return false;">' + VersBM[i] + '</a><br>';
+
+        if(VersBM2[i]=="Deleted"){
+           // Do nothing
+        }
+        else {
+
+           //Show_His_BM_Vers(
+
+           //text1 += '<button onclick="Delete_Bookmark('+i+');return false;">-</button> <a href="" onClick="return false;">' + VersBM[i] + '</a><br>';
+
+
+           if(VersBM2_V[i]==999 && VersBM2_T[i]==999) {
+
+              text1 += '<button onclick="Delete_Bookmark2('+i+');return false;">-</button> <a href="" onClick="Show_His_BM_Vers3(' + VersBM2_B[i] + ',' + VersBM2_C[i] + '); return false;">' + VersBM2[i] + '</a><br>';
+
+           } 
+           else {   
+
+              text1 += '<button onclick="Delete_Bookmark2('+i+');return false;">-</button> <a href="" onClick="Show_His_BM_Vers2(' + VersBM2_B[i] + ',' + VersBM2_C[i] + ',' + VersBM2_V[i] + ',' + VersBM2_T[i] + '); return false;">' + VersBM2[i] + '</a><br>';
+
+           }
+
+
+           //text1 += '<button onclick="Show_Bookmark(' + VersHis_B[i] + ',' + VersHis_C[i] + ',' + VersHis_V[i] + ',' + VersHis_T[i] + ');return false;">' + '+' + '</button>' + ' ' + '<a href="" onClick="Show_His_BM_Vers(' + VersHis_B[i] + ',' + VersHis_C[i] + ',' + VersHis_V[i] + ',' + VersHis_T[i] + ');return false;">' + VersHis[i] + '</a><br>';
+
+           //text1 += '<button onclick="Delete_Bookmark('+i+');return false;">-</button> <a href="" onClick="Show_His_BM_Vers(' + VersBM_B[i] + ',' + VersBM_C[i] + ',' + VersBM_V[i] + ',' VersBM_T[i] + ');return false;">' + VersBM[i] + '</a><br>';
+
+           //text1 += '<button onclick="Delete_Bookmark('+i+');return false;">-</button> <a href="" onClick="Show_His_BM_Vers(' + VersBM_B[i] + ',' + VersBM_C[i] + ',' + VersBM_V[i] + ',' VersBM_T[i] + ');return false;">' + VersBM[i] + '</a><br>';
+
+        }
+
+    }
+
+   if(Show_History_F==0 && Show_Bookmark_F==0 && Show_Bookmark1_F==0 && Show_Bookmark2_F==0 && Show_Bookmark3_F==0 && Show_Bookmark4_F==0 && Show_Bookmark5_F==0) { // 1 means Show, 0 means Hide
+
+      document.getElementById("His_Container").style.width = "0%";
+      document.getElementById("Bible_Container").style.width = "100%";
+
+   }
+
+    document.getElementById("Vers_bookmark2").innerHTML = "";
+
+
+}   // End of function Hide_Bookmark2_Only()
+
+
+function Hide_Bookmark3_Only() {   // Show all items in Bookmark3 *** Only ***
+                                   // Do Not Write all items to files ***
+
+    Show_Bookmark3_F = 0; // 1 means Show, 0 means Hide
+
+    //var text1, VersBM3Len, i;
+
+
+    //VersBM3Len = VersBM3.length;
+
+    //text1 = "Verse Bookmarks3<br>";
+
+    //for (i = 0; i < VersBMLen; i++) {   // Show Verse Bookmarks1
+
+
+
+   if(Show_History_F==0 && Show_Bookmark_F==0 && Show_Bookmark1_F==0 && Show_Bookmark2_F==0 && Show_Bookmark3_F==0 && Show_Bookmark4_F==0 && Show_Bookmark5_F==0) { // 1 means Show, 0 means Hide
+
+      document.getElementById("His_Container").style.width = "0%";
+      document.getElementById("Bible_Container").style.width = "100%";
+
+   }
+
+    document.getElementById("Vers_bookmark3").innerHTML = "";
+
+
+}   // End of function Hide_Bookmark3_Only()
+
+
+function Hide_Bookmark4_Only() {   // Show all items in Bookmark4 *** Only ***
+                                   // Do Not Write all items to files ***
+
+    Show_Bookmark4_F = 0; // 1 means Show, 0 means Hide
+
+    //var text1, VersBM3Len, i;
+
+
+    //VersBM3Len = VersBM3.length;
+
+    //text1 = "Verse Bookmarks3<br>";
+
+    //for (i = 0; i < VersBMLen; i++) {   // Show Verse Bookmarks1
+
+
+
+   if(Show_History_F==0 && Show_Bookmark_F==0 && Show_Bookmark1_F==0 && Show_Bookmark2_F==0 && Show_Bookmark3_F==0 && Show_Bookmark4_F==0 && Show_Bookmark5_F==0) { // 1 means Show, 0 means Hide
+
+      document.getElementById("His_Container").style.width = "0%";
+      document.getElementById("Bible_Container").style.width = "100%";
+
+   }
+
+    document.getElementById("Vers_bookmark4").innerHTML = "";
+
+
+}   // End of function Hide_Bookmark4_Only()
+
+
+function Hide_Bookmark5_Only() {   // Show all items in Bookmark5 *** Only ***
+                                   // Do Not Write all items to files ***
+
+    Show_Bookmark5_F = 0; // 1 means Show, 0 means Hide
+
+    //var text1, VersBM3Len, i;
+
+
+    //VersBM3Len = VersBM3.length;
+
+    //text1 = "Verse Bookmarks3<br>";
+
+    //for (i = 0; i < VersBMLen; i++) {   // Show Verse Bookmarks1
+
+
+
+   if(Show_History_F==0 && Show_Bookmark_F==0 && Show_Bookmark1_F==0 && Show_Bookmark2_F==0 && Show_Bookmark3_F==0 && Show_Bookmark4_F==0 && Show_Bookmark5_F==0) { // 1 means Show, 0 means Hide
+
+      document.getElementById("His_Container").style.width = "0%";
+      document.getElementById("Bible_Container").style.width = "100%";
+
+   }
+
+    document.getElementById("Vers_bookmark5").innerHTML = "";
+
+
+}   // End of function Hide_Bookmark5_Only()
+
+
+
+function Hide_All(){
+
+   Show_History_F=0;
+   Show_Bookmark_F=0;
+   Show_Bookmark5_F=0;
+   Show_Bookmark4_F=0;
+   Show_Bookmark3_F=0;
+   Show_Bookmark2_F=0;
+   Show_Bookmark1_F=0;
+
+   document.getElementById("His_Container").style.width = "0%";
+   document.getElementById("Bible_Container").style.width = "100%";
+
+   document.getElementById("Vers_history").innerHTML = "";
+   document.getElementById("Vers_bookmark").innerHTML = "";
+   document.getElementById("Vers_bookmark5").innerHTML = "";
+   document.getElementById("Vers_bookmark4").innerHTML = "";
+   document.getElementById("Vers_bookmark3").innerHTML = "";
+   document.getElementById("Vers_bookmark2").innerHTML = "";
+   document.getElementById("Vers_bookmark1").innerHTML = "";
+
+
+}   // End of function Hide_All()
+
+
 
 function Delete_Bookmark(arg1) {   // Delete item from Bookmark
                                    // Show all items in Bookmark
@@ -2144,27 +3766,29 @@ function Delete_Bookmark(arg1) {   // Delete item from Bookmark
 
     //for (i = 0; i < VersBMLen; i++) {
 
-    for (i = (VersBMLen-1); i > -1; i--) {   // Show Verse Bookmarks
+    //for (i = (VersBMLen-1); i > -1; i--) {   // Show Verse Bookmarks
 
-        //text1 += '<a href="" onClick="return false;">' + VersBM[i] + '</a><br>';
+    //    //text1 += '<a href="" onClick="return false;">' + VersBM[i] + '</a><br>';
 
-        //text1 += '<button onclick="return false;">-</button> <a href="" onClick="return false;">' + VersBM[i] + '</a><br>';
+    //    //text1 += '<button onclick="return false;">-</button> <a href="" onClick="return false;">' + VersBM[i] + '</a><br>';
 
 
-        if(VersBM[i]=="Deleted"){
-           // Do nothing
-           //VersBMLen_Tmp = VersBMLen - 1;
-        }
-        else {
-           text1 += '<button onclick="Delete_Bookmark('+i+');return false;">-</button> <a href="" onClick="return false;">' + VersBM[i] + '</a><br>';
+    //    if(VersBM[i]=="Deleted"){
+    //       // Do nothing
+    //       //VersBMLen_Tmp = VersBMLen - 1;
+    //    }
+    //    else {
+    //       text1 += '<button onclick="Delete_Bookmark('+i+');return false;">-</button> <a href="" onClick="return false;">' + VersBM[i] + '</a><br>';
 
-        }
+    //    }
 
-    }
+    //}
 
-    document.getElementById("Vers_bookmark").innerHTML = text1;
+    //document.getElementById("Vers_bookmark").innerHTML = text1;
 
-    Write_Bookmark(VersBMLen); // write all bookmark to files
+    //Write_Bookmark(VersBMLen); // write all bookmark to files
+
+    Show_Bookmark_Only();
 
 }  // End of function Delete_Bookmark()
 
@@ -2219,6 +3843,37 @@ function Set_NKJV() {
 <table>
 <tr>
 
+<td>
+<form name="BV" id="BV" style="font-size:14pt">
+<input type="radio" name="BibleVersion" id="NKJV" value="NKJV" onclick="keyFunction2('enter');efocus();" checked> NKJV
+<input type="radio" name="BibleVersion" id="NIV" value="NIV" onclick="keyFunction2('enter');efocus();"> NIV
+<input type="radio" name="BibleVersion" id="呂振中" value="呂振中" onclick="keyFunction2('enter');efocus();"> 呂振中譯本
+<input type="radio" name="BibleVersion" id="AllV" value="All" onclick="keyFunction2('enter');efocus();"> 全部版本
+</form>
+</td>
+
+
+
+<td></td>
+
+<td>
+<a id="a12" href="javascript:;" onclick="change12()">原文-1</a>
+</td>
+
+<td></td>
+
+<td></td>
+
+<td>
+<a id="a5" href="javascript:;" onclick="change5()">原文-2</a>
+</td>
+
+<td></td>
+
+<td>
+<a id="a4" href="javascript:;" onclick="change4()">聽NKJV</a>
+</td>
+
 
 <td></td>
 
@@ -2246,12 +3901,17 @@ function Set_NKJV() {
 </FORM>
 </td>
 
+<td></td><td></td><td></td>
 
 <td>
 <a id="a3" href="javascript:;" onclick="change3()">查經模式</a>
 </td>
 
+<td></td>
 
+<td>
+<a id="b99" href="javascript:;" onclick="change8()">英介</a>
+</td>
 
 </tr>
 </table>
@@ -2614,26 +4274,69 @@ function Qmaxverse(index,index2) {   // find out maximum verse of chapter of boo
 <div style="font-size:2pt"> <HR width="100%"> </div>
 
 <table>
+
 <tr>
-<td></td><td></td><td></td><td></td>
 
 <td><button onclick="Show_History_Only()">Show History</button></td>
 <td><button onclick="Hide_History_Only()">Hide History</button></td>
 
-<td></td><td></td><td></td><td></td>
+<td></td><td></td><td></td>
 
-<td><button onclick="Show_Bookmark_Only()">Show Bookmark</button></td>
-<td><button onclick="Hide_Bookmark_Only()">Hide Bookmark</button></td>
+<td><button onclick="Show_Bookmark_Only()">Show BM</button></td>
+<td><button onclick="Hide_Bookmark_Only()">Hide BM</button></td>
 
-<td></td><td></td><td></td><td></td>
+<td></td><td></td><td></td>
 
-<td><button onclick="Delete_All_Bookmarks()">Del Bookmarks</button></td>
+<td><button onclick="Show_Bookmark1_Only()">Show BM1</button></td>
+<td><button onclick="Hide_Bookmark1_Only()">Hide BM1</button></td>
+
+<td></td><td></td><td></td>
+
+<td><button onclick="Show_Bookmark2_Only()">Show BM2</button></td>
+<td><button onclick="Hide_Bookmark2_Only()">Hide BM2</button></td>
+
+<td></td><td></td><td></td>
+
+<td><button onclick="Delete_All_Bookmarks()">Del BM</button></td>
 <td><button onclick="Delete_All_History()">Del History</button></td>
 
-<td></td><td></td><td></td><td></td>
+<td></td><td></td><td></td>
+
+<td><button onclick="Hide_All()">Hide All</button></td>
+
+</tr>
+
+<tr>
+
+<td><button onclick="Show_Bookmark3_Only()">Show BM3</button></td>
+<td><button onclick="Hide_Bookmark3_Only()">Hide BM3</button></td>
+
+<td></td><td></td><td></td>
+
+<td><button onclick="Show_Bookmark4_Only()">Show BM4</button></td>
+<td><button onclick="Hide_Bookmark4_Only()">Hide BM4</button></td>
+
+<td></td><td></td><td></td>
+
+<td><button onclick="Show_Bookmark5_Only()">Show BM5</button></td>
+<td><button onclick="Hide_Bookmark5_Only()">Hide BM5</button></td>
+
+<td></td><td></td><td></td>
+
+<td><button onclick="History_to_Bookmarks3()">His->BM3</button></td>
+<td><button onclick="History_to_Bookmarks4()">His->BM4</button></td>
+
+<td></td><td></td><td></td>
+
+<td><button onclick="History_to_Bookmarks5()">His->BM5</button></td>
+
+
+<td></td><td></td><td></td>
+
 
 
 </tr>
+
 </table>
 
 <div style="font-size:2pt"> <HR width="100%"> </div>
@@ -2641,18 +4344,7 @@ function Qmaxverse(index,index2) {   // find out maximum verse of chapter of boo
 </div>
 
 
-<div id="tool_area_4" style="height:0px;visibility:hidden">
 
-<td>
-<form name="BV" id="BV" style="font-size:14pt">
-<input type="radio" name="BibleVersion" id="NKJV" value="NKJV" onclick="keyFunction2('enter');efocus();" checked> NKJV
-<input type="radio" name="BibleVersion" id="NIV" value="NIV" onclick="keyFunction2('enter');efocus();"> NIV
-<input type="radio" name="BibleVersion" id="呂振中" value="呂振中" onclick="keyFunction2('enter');efocus();"> 呂振中譯本
-<input type="radio" name="BibleVersion" id="AllV" value="All" onclick="keyFunction2('enter');efocus();"> 全部版本
-</form>
-</td>
-
-</div>
 
 
 <table><tr>
@@ -2943,9 +4635,9 @@ function change2() {
 
 		isShow_Tool = true;
                 show_tool_area();
-		document.getElementById('a2').innerText = "藏工具";
+		document.getElementById('a2').innerText = "隱藏工具區";
 
-                //document.getElementById("BV").style.visibility='visible'; // hide
+                document.getElementById("BV").style.visibility='visible'; // hide
                 //document.getElementById("原文-1").style.visibility='visible'; // hide
                 //document.getElementById("原文-2").style.visibility='visible'; // hide
          
@@ -2963,9 +4655,9 @@ function change2() {
 
 		isShow_Tool = false;
                 hide_tool_area();
-		document.getElementById('a2').innerText = "顯工具";
+		document.getElementById('a2').innerText = "顯示工具區";
 
-                //document.getElementById("BV").style.visibility='hidden'; // hide
+                document.getElementById("BV").style.visibility='hidden'; // hide
                 //document.getElementById("原文-1").style.visibility='hidden'; // hide
                 //document.getElementById("原文-2").style.visibility='hidden'; // hide
 
@@ -2984,7 +4676,15 @@ function change2() {
 
 var isShow_Mode = false;
 function change3() {
-	if(!isShow_Mode) {  // 上課模式
+
+   // Add on 2019.03.11
+   // Reset
+   Mode_Input_Book = 0; // 1 means press "Book" button
+   Mode_Input_Chap = 0; // 1 means press "Chap" button
+   Mode_Input_Vers = 0; // 1 means press "Verse" button
+   Mode_Input_ToVers = 0; // 1 means press "ToVerse" button
+
+	if(!isShow_Mode) {  // 查經模式
 
 		isShow_Mode = true;
                 //show_tool_area();
@@ -2992,23 +4692,20 @@ function change3() {
 
                 Class_Mode();
                 //document.getElementById("a6").style.display="none"; // hide id="a6"
-
                 document.getElementById("a61").style.display="none"; // hide id="a6"
                 document.getElementById("a62").style.display="none"; // hide id="a6"
                 document.getElementById("a63").style.display="none"; // hide id="a6"
                 document.getElementById("a7").style.display="inline"; // display id="a7"
 
 	}
-	else {        // 查經模式
+	else {        // 上課模式
 
 		isShow_Mode = false;
                 //hide_tool_area();
 		document.getElementById('a3').innerText = "查經模式";
 
                 Study_Mode();
-                //document.getElementById("a6").style.display="inline"; // display id="a6
-
-
+                //document.getElementById("a6").style.display="inline"; // display id="a6"
                 document.getElementById("a61").style.display="inline"; // display id="a6"
                 document.getElementById("a62").style.display="inline"; // display id="a6"
                 document.getElementById("a63").style.display="inline"; // display id="a6"
@@ -3063,6 +4760,32 @@ function change5() {
 	}			
 }
 
+var isShow_12 = false;
+function change12() {
+	if(!isShow_12) {  // 原文-1
+
+		isShow_12 = true;
+                //show_tool_area();
+		document.getElementById('a12').innerText = "藏原文-1";
+
+                Go_to_Original_text_web();
+
+	}
+	else {        // 藏原文-1
+
+		isShow_12 = false;
+                //hide_tool_area();
+		document.getElementById('a12').innerText = "原文-1";
+
+                Hide_Original_text_web();
+
+	}			
+}
+
+
+
+
+
 
 var isShow_CE = false;  // Chinese English Mode
 function change6() {
@@ -3110,10 +4833,41 @@ function change7() {
 }
 
 
+var isShow_Interface = false;  // Chinese_Book_Name, English_Book_Name
+function change8() {
+	if(!isShow_Interface) {  // Chinese_Book_Name
+
+		isShow_Interface = true;
+		document.getElementById('b99').innerText = "中介";
+
+                Chinese_Book_Name();
+
+	}
+	else {        // English_Book_Name
+
+		isShow_Interface = false;
+		document.getElementById('b99').innerText = "英介";
+
+                English_Book_Name();
+
+	}			
+}
+
+
 
 </script>
 
 <div id="His_Container" style="height:600px;width:0%;float:left;font-size:14pt;overflow:auto;">
+
+  <p id="Vers_bookmark5"></p>
+
+  <p id="Vers_bookmark4"></p>
+
+  <p id="Vers_bookmark3"></p>
+
+  <p id="Vers_bookmark2"></p>
+
+  <p id="Vers_bookmark1"></p>
 
   <p id="Vers_bookmark"></p>
 
@@ -3125,14 +4879,14 @@ function change7() {
 <div id="Bible_Container" style="height:600px;width:100%;float:right;">
 
 
-<div id="header1" style="height:3%;color:red;">
+<div id="header1" style="height:8%;color:red;">
 
   <div id="prev" style="width:10%;float:left;">
-    <input style="font-size:14pt" type="button" name="M222" value="<Prev" ontouchstart="keyFunction2('left');; return false;">
+    <input style="font-size:14pt" type="button" name="M222" value="<Prev" ontouchstart="keyFunction2('left');efocus(); return false;">
   </div>
 
   <div id="next" style="width:10%;float:right;">
-    <input style="font-size:14pt" type="button" name="M222" value="Next>" ontouchstart="keyFunction2('right');; return false;">
+    <input style="font-size:14pt" type="button" name="M222" value="Next>" ontouchstart="keyFunction2('right');efocus(); return false;">
   </div>
 
   <div id="p1" style="width:80%;"> </div>
@@ -3151,7 +4905,7 @@ function change7() {
 
 
 
-<div id="container4" style="height:92%;width:100%;font-size:22pt">
+<div id="container4" style="height:92%;width:100%;font-size:24pt">
 
 <div id="bible_book_table" style="height:100%;">
 
@@ -3161,35 +4915,35 @@ function change7() {
 
 <tr>
 
-<td style="font-size:20pt">
-<a href="" onclick="keyFunction3(1);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">Gen</a>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button1" name="M222" id="Gen" value="Gen" ontouchstart="keyFunction3(1);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
-<td style="font-size:20pt">
-<a href="" onclick="keyFunction3(2);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">Exo</a>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button1" name="M222" id="Exo" value="Exo" ontouchstart="keyFunction3(2);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
-<td style="font-size:20pt">
-<a href="" onclick="keyFunction3(3);reset_Book_2_Str();reset_Book_3_Str();V_CF=1;keyFunction2('c');Input_Chap_Mode(); return false;">Lev</a>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button1" name="M222" id="Lev" value="Lev" ontouchstart="keyFunction3(3);reset_Book_2_Str();reset_Book_3_Str();V_CF=1;keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
-<td style="font-size:20pt">
-<a href="" onclick="keyFunction3(4);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">Num</a>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button1" name="M222" id="Num" value="Num" ontouchstart="keyFunction3(4);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
-<td style="font-size:20pt">
-<a href="" onclick="keyFunction3(5);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">Deu</a>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button1" name="M222" id="Deu" value="Deu" ontouchstart="keyFunction3(5);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
 
 <td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
 
-<td style="font-size:20pt">
-<a href="" onclick="keyFunction3(40);reset_Book_2_Str();reset_Book_3_Str();Book_3_Str_CF=1;T_CF=1;keyFunction2('c');Input_Chap_Mode(); return false;">Mt</a>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button1" name="M222" id="Mt" value="Mt" ontouchstart="keyFunction3(40);reset_Book_2_Str();reset_Book_3_Str();Book_3_Str_CF=1;T_CF=1;keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
-<td style="font-size:20pt">
-<a href="" onclick="keyFunction3(41);reset_Book_2_Str();reset_Book_3_Str();Book_3_Str_CF=1;keyFunction2('c');Input_Chap_Mode(); return false;">Mk</a>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button1" name="M222" id="Mk" value="Mk" ontouchstart="keyFunction3(41);reset_Book_2_Str();reset_Book_3_Str();Book_3_Str_CF=1;keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
-<td style="font-size:20pt">
-<a href="" onclick="keyFunction3(42);reset_Book_2_Str();reset_Book_3_Str();Book_3_Str_CF=1;keyFunction2('c');Input_Chap_Mode(); return false;">Lk</a>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button1" name="M222" id="Lk" value="Lk" ontouchstart="keyFunction3(42);reset_Book_2_Str();reset_Book_3_Str();Book_3_Str_CF=1;keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
-<td style="font-size:20pt">
-<a href="" onclick="keyFunction3(43);reset_Book_2_Str();reset_Book_3_Str();Book_3_Str_CF=1;keyFunction2('c');Input_Chap_Mode(); return false;">Jn</a>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button1" name="M222" id="Jn" value="Jn" ontouchstart="keyFunction3(43);reset_Book_2_Str();reset_Book_3_Str();Book_3_Str_CF=1;keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
 
 </tr>
@@ -3198,35 +4952,35 @@ function change7() {
 
 <tr>
 
-<td style="font-size:20pt">
-<b><a href="" onclick="keyFunction3(6);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">Jos</a></b>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button3" name="M222" id="Jos" value="Jos" ontouchstart="keyFunction3(6);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
-<td style="font-size:20pt">
-<a href="" onclick="keyFunction3(7);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">Jug</a>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button1" name="M222" id="Jug" value="Jug" ontouchstart="keyFunction3(7);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
-<td style="font-size:20pt">
-<a href="" onclick="keyFunction3(8);reset_Book_2_Str();reset_Book_3_Str();Book_3_Str_CF=1;keyFunction2('c');Input_Chap_Mode(); return false;">Ru</a>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button1" name="M222" id="Ru" value="Ru" ontouchstart="keyFunction3(8);reset_Book_2_Str();reset_Book_3_Str();Book_3_Str_CF=1;keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
-<td style="font-size:20pt">
-<a href="" onclick="keyFunction3(9);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">1Sa</a>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button1" name="M222" id="1Sa" value="1Sa" ontouchstart="keyFunction3(9);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
-<td style="font-size:20pt">
-<a href="" onclick="keyFunction3(10);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">2Sa</a>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button1" name="M222" id="2Sa" value="2Sa" ontouchstart="keyFunction3(10);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
 
 <td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
 
-<td style="font-size:20pt">
-<a href="" onclick="keyFunction3(44);reset_Book_2_Str();reset_Book_3_Str();T_CF=1;keyFunction2('c');Input_Chap_Mode(); return false;">Act</a>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button1" name="M222" id="Act" value="Act" ontouchstart="keyFunction3(44);reset_Book_2_Str();reset_Book_3_Str();T_CF=1;keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
-<td style="font-size:20pt">
-<a href="" onclick="keyFunction3(45);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">Rom</a>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button3" name="M222" id="Rom" value="Rom" ontouchstart="keyFunction3(45);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
-<td style="font-size:20pt">
-<a href="" onclick="keyFunction3(46);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">1Co</a>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button1" name="M222" id="1Co" value="1Co" ontouchstart="keyFunction3(46);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
-<td style="font-size:20pt">
-<a href="" onclick="keyFunction3(47);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">2Co</a>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button1" name="M222" id="2Co" value="2Co" ontouchstart="keyFunction3(47);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
 
 </tr>
@@ -3235,35 +4989,35 @@ function change7() {
 
 <tr>
 
-<td style="font-size:20pt">
-<a href="" onclick="keyFunction3(11);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">1Ki</a>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button1" name="M222" id="1Ki" value="1Ki" ontouchstart="keyFunction3(11);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
-<td style="font-size:20pt">
-<a href="" onclick="keyFunction3(12);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">2Ki</a>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button1" name="M222" id="2Ki" value="2Ki" ontouchstart="keyFunction3(12);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
-<td style="font-size:20pt">
-<a href="" onclick="keyFunction3(13);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">1Ch</a>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button1" name="M222" id="1Ch" value="1Ch" ontouchstart="keyFunction3(13);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
-<td style="font-size:20pt">
-<a href="" onclick="keyFunction3(14);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">2Ch</a>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button1" name="M222" id="2Ch" value="2Ch" ontouchstart="keyFunction3(14);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
-<td style="font-size:20pt">
-<a href="" onclick="keyFunction3(15);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">Ezr</a>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button3" name="M222" id="Ezr" value="Ezr" ontouchstart="keyFunction3(15);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
 
 <td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
 
-<td style="font-size:20pt">
-<a href="" onclick="keyFunction3(48);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">Gal</a>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button1" name="M222" id="Gal" value="Gal" ontouchstart="keyFunction3(48);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
-<td style="font-size:20pt">
-<a href="" onclick="keyFunction3(49);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">Eph</a>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button1" name="M222" id="Eph" value="Eph" ontouchstart="keyFunction3(49);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
-<td style="font-size:20pt">
-<a href="" onclick="keyFunction3(50);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">Phi</a>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button1" name="M222" id="Phi" value="Phi" ontouchstart="keyFunction3(50);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
-<td style="font-size:20pt">
-<b><a href="" onclick="keyFunction3(51);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">Col</a></b>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button3" name="M222" id="Col" value="Col" ontouchstart="keyFunction3(51);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
 
 </tr>
@@ -3272,35 +5026,35 @@ function change7() {
 
 <tr>
 
-<td style="font-size:20pt">
-<a href="" onclick="keyFunction3(16);reset_Book_2_Str();reset_Book_3_Str();Book_3_Str_CF=1;keyFunction2('c');Input_Chap_Mode(); return false;">Neh</a>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button1" name="M222" id="Neh" value="Neh" ontouchstart="keyFunction3(16);reset_Book_2_Str();reset_Book_3_Str();Book_3_Str_CF=1;keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
-<td style="font-size:20pt">
-<a href="" onclick="keyFunction3(17);reset_Book_2_Str();reset_Book_3_Str();T_CF=1;keyFunction2('c');Input_Chap_Mode(); return false;">Est</a>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button1" name="M222" id="Est" value="Est" ontouchstart="keyFunction3(17);reset_Book_2_Str();reset_Book_3_Str();T_CF=1;keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
-<td style="font-size:20pt">
-<a href="" onclick="keyFunction3(18);reset_Book_2_Str();reset_Book_3_Str();B_CF=1;keyFunction2('c');Input_Chap_Mode(); return false;">Job</a>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button1" name="M222" id="Job" value="Job" ontouchstart="keyFunction3(18);reset_Book_2_Str();reset_Book_3_Str();B_CF=1;keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
-<td style="font-size:20pt">
-<b><a href="" onclick="keyFunction3(19);reset_Book_2_Str();reset_Book_3_Str();Book_3_Str_CF=1;keyFunction2('c');Input_Chap_Mode(); return false;">Ps</a></b>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button3" name="M222" id="Ps" value="Ps" ontouchstart="keyFunction3(19);reset_Book_2_Str();reset_Book_3_Str();Book_3_Str_CF=1;keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
-<td style="font-size:20pt">
-<a href="" onclick="keyFunction3(20);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">Prv</a>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button1" name="M222" id="Prv" value="Prv" ontouchstart="keyFunction3(20);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
 
 <td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
 
-<td style="font-size:20pt">
-<a href="" onclick="keyFunction3(52);reset_Book_2_Str();reset_Book_3_Str();T_CF=1;keyFunction2('c');Input_Chap_Mode(); return false;">1Th</a>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button1" name="M222" id="1Th" value="1Th" ontouchstart="keyFunction3(52);reset_Book_2_Str();reset_Book_3_Str();T_CF=1;keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
-<td style="font-size:20pt">
-<a href="" onclick="keyFunction3(53);reset_Book_2_Str();reset_Book_3_Str();T_CF=1;keyFunction2('c');Input_Chap_Mode(); return false;">2Th</a>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button1" name="M222" id="2Th" value="2Th" ontouchstart="keyFunction3(53);reset_Book_2_Str();reset_Book_3_Str();T_CF=1;keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
-<td style="font-size:20pt">
-<a href="" onclick="keyFunction3(54);reset_Book_2_Str();reset_Book_3_Str();T_CF=1;keyFunction2('c');Input_Chap_Mode(); return false;">1Ti</a>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button3" name="M222" id="1Ti" value="1Ti" ontouchstart="keyFunction3(54);reset_Book_2_Str();reset_Book_3_Str();T_CF=1;keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
-<td style="font-size:20pt">
-<a href="" onclick="keyFunction3(55);reset_Book_2_Str();reset_Book_3_Str();T_CF=1;keyFunction2('c');Input_Chap_Mode(); return false;">2Ti</a>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button1" name="M222" id="2Ti" value="2Ti" ontouchstart="keyFunction3(55);reset_Book_2_Str();reset_Book_3_Str();T_CF=1;keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
 
 </tr>
@@ -3309,35 +5063,35 @@ function change7() {
 
 <tr>
 
-<td style="font-size:20pt">
-<a href="" onclick="keyFunction3(21);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">Ecc</a>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button1" name="M222" id="Ecc" value="Ecc" ontouchstart="keyFunction3(21);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
-<td style="font-size:20pt">
-<a href="" onclick="keyFunction3(22);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">Sos</a>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button1" name="M222" id="Sos" value="Sos" ontouchstart="keyFunction3(22);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
-<td style="font-size:20pt">
-<b><a href="" onclick="keyFunction3(23);reset_Book_2_Str();reset_Book_3_Str();Book_3_Str_CF=1;keyFunction2('c');Input_Chap_Mode(); return false;">Isa</a></b>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button3" name="M222" id="Isa" value="Isa" ontouchstart="keyFunction3(23);reset_Book_2_Str();reset_Book_3_Str();Book_3_Str_CF=1;keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
-<td style="font-size:20pt">
-<a href="" onclick="keyFunction3(24);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">Jer</a>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button1" name="M222" id="Jer" value="Jer" ontouchstart="keyFunction3(24);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
-<td style="font-size:20pt">
-<a href="" onclick="keyFunction3(25);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">Lam</a>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button1" name="M222" id="Lam" value="Lam" ontouchstart="keyFunction3(25);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
 
 <td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
 
-<td style="font-size:20pt">
-<a href="" onclick="keyFunction3(56);reset_Book_2_Str();reset_Book_3_Str();T_CF=1;keyFunction2('c');Input_Chap_Mode(); return false;">Tit</a>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button1" name="M222" id="Tit" value="Tit" ontouchstart="keyFunction3(56);reset_Book_2_Str();reset_Book_3_Str();T_CF=1;keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
-<td style="font-size:20pt">
-<a href="" onclick="keyFunction3(57);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">Phm</a>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button1" name="M222" id="Phm" value="Phm" ontouchstart="keyFunction3(57);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
-<td style="font-size:20pt">
-<a href="" onclick="keyFunction3(58);reset_Book_2_Str();reset_Book_3_Str();B_CF=1;keyFunction2('c');Input_Chap_Mode(); return false;">Heb</a>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button3" name="M222" id="Heb" value="Heb" ontouchstart="keyFunction3(58);reset_Book_2_Str();reset_Book_3_Str();B_CF=1;keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
-<td style="font-size:20pt">
-<a href="" onclick="keyFunction3(59);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">Jam</a>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button1" name="M222" id="Jam" value="Jam" ontouchstart="keyFunction3(59);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
 
 </tr>
@@ -3346,35 +5100,35 @@ function change7() {
 
 <tr>
 
-<td style="font-size:20pt">
-<a href="" onclick="keyFunction3(26);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">Ezk</a>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button1" name="M222" id="Ezk" value="Ezk" ontouchstart="keyFunction3(26);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
-<td style="font-size:20pt">
-<a href="" onclick="keyFunction3(27);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">Dan</a>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button1" name="M222" id="Dan" value="Dan" ontouchstart="keyFunction3(27);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
-<td style="font-size:20pt">
-<b><a href="" onclick="keyFunction3(28);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">Hos</a></b>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button3" name="M222" id="Hos" value="Hos" ontouchstart="keyFunction3(28);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
-<td style="font-size:20pt">
-<a href="" onclick="keyFunction3(29);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">Joe</a>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button1" name="M222" id="Joe" value="Joe" ontouchstart="keyFunction3(29);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
-<td style="font-size:20pt">
-<a href="" onclick="keyFunction3(30);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">Amo</a>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button1" name="M222" id="Amo" value="Amo" ontouchstart="keyFunction3(30);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
 
 <td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
 
-<td style="font-size:20pt">
-<a href="" onclick="keyFunction3(60);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">1Pe</a>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button1" name="M222" id="1Pe" value="1Pe" ontouchstart="keyFunction3(60);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
-<td style="font-size:20pt">
-<a href="" onclick="keyFunction3(61);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">2Pe</a>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button1" name="M222" id="2Pe" value="2Pe" ontouchstart="keyFunction3(61);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
-<td style="font-size:20pt">
-<a href="" onclick="keyFunction3(62);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">1Jn</a>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button3" name="M222" id="1Jn" value="1Jn" ontouchstart="keyFunction3(62);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
-<td style="font-size:20pt">
-<a href="" onclick="keyFunction3(63);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">2Jn</a>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button1" name="M222" id="2Jn" value="2Jn" ontouchstart="keyFunction3(63);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
 
 </tr>
@@ -3383,32 +5137,32 @@ function change7() {
 
 <tr>
 
-<td style="font-size:20pt">
-<a href="" onclick="keyFunction3(31);reset_Book_2_Str();reset_Book_3_Str();Book_3_Str_CF=1;B_CF=1;keyFunction2('c');Input_Chap_Mode(); return false;">Ob</a>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button1" name="M222" id="Ob" value="Ob" ontouchstart="keyFunction3(31);reset_Book_2_Str();reset_Book_3_Str();Book_3_Str_CF=1;B_CF=1;keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
-<td style="font-size:20pt">
-<b><a href="" onclick="keyFunction3(32);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">Jon</a></b>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button3" name="M222" id="Jon" value="Jon" ontouchstart="keyFunction3(32);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
-<td style="font-size:20pt">
-<a href="" onclick="keyFunction3(33);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">Mic</a>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button1" name="M222" id="Mic" value="Mic" ontouchstart="keyFunction3(33);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
-<td style="font-size:20pt">
-<a href="" onclick="keyFunction3(34);reset_Book_2_Str();reset_Book_3_Str();Book_3_Str_CF=1;keyFunction2('c');Input_Chap_Mode(); return false;">Nah</a>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button1" name="M222" id="Nah" value="Nah" ontouchstart="keyFunction3(34);reset_Book_2_Str();reset_Book_3_Str();Book_3_Str_CF=1;keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
-<td style="font-size:20pt">
-<a href="" onclick="keyFunction3(35);reset_Book_2_Str();reset_Book_3_Str();B_CF=1;keyFunction2('c');Input_Chap_Mode(); return false;">Hab</a>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button1" name="M222" id="Hab" value="Hab" ontouchstart="keyFunction3(35);reset_Book_2_Str();reset_Book_3_Str();B_CF=1;keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
 
 <td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
 
-<td style="font-size:20pt">
-<a href="" onclick="keyFunction3(64);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">3Jn</a>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button1" name="M222" id="3Jn" value="3Jn" ontouchstart="keyFunction3(64);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
-<td style="font-size:20pt">
-<a href="" onclick="keyFunction3(65);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">Jud</a>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button1" name="M222" id="Jud" value="Jud" ontouchstart="keyFunction3(65);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
-<td colspan=2 style="font-size:20pt">
-<a href="" onclick="keyFunction3(66);reset_Book_2_Str();reset_Book_3_Str();V_CF=1;keyFunction2('c');Input_Chap_Mode(); return false;">Rev</a>&nbsp&nbsp
+<td colspan=2 style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button1" name="M222" id="Rev" value="Rev" ontouchstart="keyFunction3(66);reset_Book_2_Str();reset_Book_3_Str();V_CF=1;keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
 
 </tr>
@@ -3417,17 +5171,17 @@ function change7() {
 
 <tr>
 
-<td style="font-size:20pt">
-<a href="" onclick="keyFunction3(36);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">Zep</a>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button3" name="M222" id="Zep" value="Zep" ontouchstart="keyFunction3(36);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
-<td style="font-size:20pt">
-<a href="" onclick="keyFunction3(37);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">Hag</a>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button1" name="M222" id="Hag" value="Hag" ontouchstart="keyFunction3(37);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
-<td style="font-size:20pt">
-<a href="" onclick="keyFunction3(38);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">Zec</a>&nbsp&nbsp
+<td style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button1" name="M222" id="Zec" value="Zec" ontouchstart="keyFunction3(38);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
-<td colspan=7 style="font-size:20pt">
-<a href="" onclick="keyFunction3(39);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">Mal</a>&nbsp&nbsp
+<td colspan=7 style="font-size:22pt">
+<input style="font-size:18pt" type="button" class="button1" name="M222" id="Mal" value="Mal" ontouchstart="keyFunction3(39);reset_Book_2_Str();reset_Book_3_Str();keyFunction2('c');Input_Chap_Mode(); return false;">
 </td> 
 
 </tr>
@@ -3512,7 +5266,7 @@ function change7() {
 </td> 
 <td>&nbsp&nbsp</td><td>&nbsp&nbsp</td><td>&nbsp&nbsp</td>
 <td >
-<input style="font-size:22pt" type="button" name="M222" value="Enter" ontouchstart="Pre_Set_Mode();keyFunction2('enter');; return false;">
+<input style="font-size:22pt" type="button" name="M222" value="Enter" ontouchstart="Pre_Set_Mode();Set_Enter();keyFunction2('enter');efocus(); return false;">
 </td>
 </tr>
 
@@ -3957,667 +5711,6 @@ function change7() {
 </div>
 
 </div>
-
-
-<center>
-<table>
-<table border=1 width=100% text=white>
-
-<tr>
-<td align=center>
-<input style="font-size:18pt" type="button" name="M222" id="Reset_Button" value="Reset" onclick="Reset_All();; return false;">
-</td>
-
-<td>
-<p align=center style="font-size:18pt;"><b>M</b>ember</p>
-</td>
-
-<td>
-<p align=center style="font-size:18pt;"><b>T</b>.<b>S</b>.</p>
-</td>
-
-<td>
-<p align=center style="font-size:18pt;">Total</p>
-</td>
-</tr>
-
-
-<tr>
-<td><p align=center style="font-size:18pt;color:blue"><b>B</b>rother</p></td>
-
-<td>
-<p align=center id="BroM" style="font-size:18pt;"></p>
-</td>
-
-<td>
-<p align=center id="BroTrs" style="font-size:18pt;"></p>
-</td>
-
-<td>
-<p align=center id="BroTotal" style="font-size:18pt;"></p>
-</td>
-</tr>
-
-
-<tr>
-<td><p align=center style="font-size:18pt;color:red"><b>S</b>ister</p></td>
-
-<td>
-<p align=center id="SisM" style="font-size:18pt;"></p>
-</td>
-
-<td>
-<p align=center id="SisTrs" style="font-size:18pt;"></p>
-</td>
-
-<td>
-<p align=center id="SisTotal" style="font-size:18pt;"></p>
-</td>
-</tr>
-
-
-<tr>
-<td><p align=center style="font-size:18pt;">Total</p></td>
-
-<td>
-<p align=center id="MemTotal" style="font-size:18pt;"></p>
-</td>
-
-<td>
-<p align=center id="TrsTotal" style="font-size:18pt;"></p>
-</td>
-
-<td>
-<p align=center id="AllTotal" style="font-size:18pt;"></p>
-</td>
-</tr>
-
-
-</table>
-</center>
-
-
-
-<center>
-<table>
-
-<tr>
-
-<td>
-<input style="font-size:18pt;color:blue" type="button" name="M222" id="Bro_Member" value="B.M." onclick="Input_BroMember_Mode();; return false;">
-</td>
-
-<td>
-<input style="font-size:18pt;color:blue" type="button" name="M222" id="Bro_TruSeeker" value="B.Ts." onclick="Input_BroTruSeeker_Mode();; return false;">
-</td>
-
-
-<td></td><td></td><td></td><td></td>
-
-<td>
-<input style="font-size:18pt;color:red" type="button" name="M222" id="Sis_Member" value="S.M." onclick="Input_SisMember_Mode();; return false;">
-</td>
-
-<td>
-<input style="font-size:18pt;color:red" type="button" name="M222" id="Sis_TruSeeker" value="S.Ts." onclick="Input_SisTruSeeker_Mode();; return false;">
-</td>
-
-
-</tr>
-
-<tr><td>&nbsp</td></tr>
-
-</table>
-</center>
-
-<script>
-
-var Bro_M = 0;
-var Bro_TrS = 0;   //Bro Truth Seeker
-var Bro_Total = 0; //Bro Total
-
-var Sis_M = 0;
-var Sis_TrS = 0;   //Sis Truth Seeker
-var Sis_Total = 0; //Sis Total
-
-var Mem_Total = 0; //Mem Total
-var TrS_Total = 0; //Truth Seeker Total
-var All_Total = 0; //All Total
-
-
-var In_BroM_F = 0;     // 1 means in Input_BroMember_Mode
-var In_BroTrS_F = 0;   // 1 means in Input_BroTruSeeker_Mode()
-
-var In_SisM_F = 0;     // 1 means in Input_SisMember_Mode()
-var In_SisTrS_F = 0;   // 1 means in Input_SisTruSeeker_Mode()
-
-
-var key_A=0;    // 1 means click "+"
-var key_A1=0;
-var key_A2=0;
-var key_A3=0;
-
-var key_S=0;    // 1 means click "-"
-var key_S1=0;
-var key_S2=0;
-var key_S3=0;
-
-var Add_Num = 0;
-var Sub_Num = 0;
-
-var A_num = 0;
-var A_num1 = 0;
-var A_num2 = 0;
-var A_num3 = 0;
-
-var S_num = 0;
-var S_num1 = 0;
-var S_num2 = 0;
-var S_num3 = 0;
-
-
-function Input_BroMember_Mode(){
-
-   In_BroM_F = 1;
-   In_BroTrS_F = 0;
-   In_SisM_F = 0;
-   In_SisTrS_F = 0;
-
-   document.getElementById("container_Disp").style.visibility='visible';
-   document.getElementById("container_Disp").style.height='70%';
-
-   document.getElementById("People_Number").style.color='blue';    //20180906
-   document.getElementById("People_Number").innerText= 'Brother Member: ' + Bro_M;
-
-   document.getElementById("container_Total").style.visibility='hidden';
-   document.getElementById("container_Total").style.height='0%';
-
-   document.getElementById("container_Reset_Button").style.visibility='hidden';
-   document.getElementById("container_Reset_Button").style.height='0%';
-   
-}
-
-function Input_SisMember_Mode(){
-
-   In_BroM_F = 0;
-   In_BroTrS_F = 0;
-   In_SisM_F = 1;
-   In_SisTrS_F = 0;
-
-   document.getElementById("container_Disp").style.visibility='visible';
-   document.getElementById("container_Disp").style.height='70%';
-
-   document.getElementById("People_Number").style.color='red';    //20180906
-   document.getElementById("People_Number").innerText= 'Sister Member: ' + Sis_M;
-
-   document.getElementById("container_Total").style.visibility='hidden';
-   document.getElementById("container_Total").style.height='0%';
-
-   document.getElementById("container_Reset_Button").style.visibility='hidden';
-   document.getElementById("container_Reset_Button").style.height='0%';
-   
-}
-
-
-
-function Input_BroTruSeeker_Mode(){
-
-   In_BroM_F = 0;
-   In_BroTrS_F = 1;
-   In_SisM_F = 0;
-   In_SisTrS_F = 0;
-
-   document.getElementById("container_Disp").style.visibility='visible';
-   document.getElementById("container_Disp").style.height='70%';
-
-   document.getElementById("People_Number").style.color='blue';    //20180906
-   document.getElementById("People_Number").innerText= 'Brother Truth Seeker: ' + Bro_TrS;
-
-   document.getElementById("container_Total").style.visibility='hidden';
-   document.getElementById("container_Total").style.height='0%';
-
-   document.getElementById("container_Reset_Button").style.visibility='hidden';
-   document.getElementById("container_Reset_Button").style.height='0%';
-   
-}
-
-function Input_SisTruSeeker_Mode(){
-
-   In_BroM_F = 0;
-   In_BroTrS_F = 0;
-   In_SisM_F = 0;
-   In_SisTrS_F = 1;
-
-   document.getElementById("container_Disp").style.visibility='visible';
-   document.getElementById("container_Disp").style.height='70%';
-
-   document.getElementById("People_Number").style.color='red';    //20180906
-   document.getElementById("People_Number").innerText= 'Sister Truth Seeker: ' + Sis_TrS;
-
-   document.getElementById("container_Total").style.visibility='hidden';
-   document.getElementById("container_Total").style.height='0%';
-
-   document.getElementById("container_Reset_Button").style.visibility='hidden';
-   document.getElementById("container_Reset_Button").style.height='0%';
-   
-}
-
-
-
-function Input_Bro_Mode(){
-
-   document.getElementById("container_Bro").style.visibility='visible';
-   document.getElementById("container_Bro").style.height='15%';
-
-   document.getElementById("container_Sis").style.visibility='hidden';
-   document.getElementById("container_Sis").style.height='0%';
-
-   document.getElementById("container_Total").style.visibility='hidden';
-   document.getElementById("container_Total").style.height='0%';
-
-   document.getElementById("container_Reset_Button").style.visibility='hidden';
-   document.getElementById("container_Reset_Button").style.height='0%';
-
-}
-
-function Input_Sis_Mode(){
-
-   document.getElementById("container_Bro").style.visibility='hidden';
-   document.getElementById("container_Bro").style.height='0%';
-
-   document.getElementById("container_Sis").style.visibility='visible';
-   document.getElementById("container_Sis").style.height='15%';
-
-   document.getElementById("container_Total").style.visibility='hidden';
-   document.getElementById("container_Total").style.height='0%';
-
-   document.getElementById("container_Reset_Button").style.visibility='hidden';
-   document.getElementById("container_Reset_Button").style.height='0%';
-
-}
-
-function Show_Total_Mode(){
-
-   document.getElementById("BroM").innerText= Bro_M;
-   document.getElementById("BroTrs").innerText= Bro_TrS;
-
-   document.getElementById("SisM").innerText= Sis_M;
-   document.getElementById("SisTrs").innerText= Sis_TrS;
-
-   document.getElementById("BroTotal").innerText= Bro_M + Bro_TrS;
-   document.getElementById("SisTotal").innerText= Sis_M + Sis_TrS;
-
-   document.getElementById("MemTotal").innerText= Bro_M + Sis_M;
-   document.getElementById("TrsTotal").innerText= Bro_TrS + Sis_TrS;
-
-   document.getElementById("AllTotal").innerText= Bro_M + Bro_TrS + Sis_M + Sis_TrS;
-
-
-   //document.getElementById("container_Total").style.visibility='visible';
-   //document.getElementById("container_Total").style.height='70%';
-
-   //document.getElementById("container_Bro").style.visibility='hidden';
-   //document.getElementById("container_Bro").style.height='0%';
-
-   //document.getElementById("container_Sis").style.visibility='hidden';
-   //document.getElementById("container_Sis").style.height='0%';
-
-   //document.getElementById("container_Disp").style.visibility='hidden';
-   //document.getElementById("container_Disp").style.height='0%';
-
-   //document.getElementById("container_Reset_Button").style.visibility='hidden';
-   //document.getElementById("container_Reset_Button").style.height='0%';
-
-}  // End of function Show_Total_Mode()
-
-
-function Reset_Mode(){
-
-   document.getElementById("container_Reset_Button").style.visibility='visible';
-   document.getElementById("container_Reset_Button").style.height='20%';
-
-   document.getElementById("container_Total").style.visibility='visible';
-   document.getElementById("container_Total").style.height='50%';
-
-
-   document.getElementById("BroM").innerText= Bro_M;
-   document.getElementById("BroTrs").innerText= Bro_TrS;
-
-   document.getElementById("SisM").innerText= Sis_M;
-   document.getElementById("SisTrs").innerText= Sis_TrS;
-
-   document.getElementById("BroTotal").innerText= Bro_M + Bro_TrS;
-   document.getElementById("SisTotal").innerText= Sis_M + Sis_TrS;
-
-   document.getElementById("MemTotal").innerText= Bro_M + Sis_M;
-   document.getElementById("TrsTotal").innerText= Bro_TrS + Sis_TrS;
-
-   document.getElementById("AllTotal").innerText= Bro_M + Bro_TrS + Sis_M + Sis_TrS;
-
-
-   //document.getElementById("container_Total").style.visibility='visible';
-   //document.getElementById("container_Total").style.height='70%';
-
-   document.getElementById("container_Bro").style.visibility='hidden';
-   document.getElementById("container_Bro").style.height='0%';
-
-   document.getElementById("container_Sis").style.visibility='hidden';
-   document.getElementById("container_Sis").style.height='0%';
-
-   document.getElementById("container_Disp").style.visibility='hidden';
-   document.getElementById("container_Disp").style.height='0%';
-
-}
-
-function Reset_All(){
-
-   Bro_M = 0;
-   Sis_M = 0;
-   Bro_TrS = 0;
-   Sis_TrS = 0;
-
-   document.getElementById("BroM").innerText= Bro_M;
-   document.getElementById("BroTrs").innerText= Bro_TrS;
-
-   document.getElementById("SisM").innerText= Sis_M;
-   document.getElementById("SisTrs").innerText= Sis_TrS;
-
-   document.getElementById("BroTotal").innerText= Bro_M + Bro_TrS;
-   document.getElementById("SisTotal").innerText= Sis_M + Sis_TrS;
-
-   document.getElementById("MemTotal").innerText= Bro_M + Sis_M;
-   document.getElementById("TrsTotal").innerText= Bro_TrS + Sis_TrS;
-
-   document.getElementById("AllTotal").innerText= Bro_M + Bro_TrS + Sis_M + Sis_TrS;
-
-}
-
-
-</script>
-
-
-<div id="Bible_Container2" style="height:560px;width:100%;">
-
-
-<div id="header2" style="height:2%;">
-
-
-
-</div>
-
-<div id="container_Bro" style="height:0%;visibility:hidden">
-
-<center>
-<table>
-<tr>
-
-
-<td>
-<input style="font-size:18pt;color:blue" type="button" name="M222" id="Bro_Member" value="Member" onclick="Input_BroMember_Mode();; return false;">
-</td>
-
-<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-
-<td>
-<input style="font-size:18pt;color:blue" type="button" name="M222" id="Bro_TruSeeker" value="Truth Seeker" onclick="Input_BroTruSeeker_Mode();; return false;">
-</td>
-
-</tr>
-</table>
-</center>
-
-</div>
-
-<div id="container_Sis" style="height:0%;visibility:hidden">
-
-<center>
-<table>
-<tr>
-
-
-<td>
-<input style="font-size:18pt;color:red" type="button" name="M222" id="Sis_Member" value="Member" onclick="Input_SisMember_Mode();; return false;">
-</td>
-
-<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-
-<td>
-<input style="font-size:18pt;color:red" type="button" name="M222" id="Sis_TruSeeker" value="Truth Seeker" onclick="Input_SisTruSeeker_Mode();; return false;">
-</td>
-
-</tr>
-</table>
-</center>
-
-</div>
-
-
-
-<div id="container_Total" style="height:0%;visibility:hidden">
-
-<center>
-<table>
-<table border=1 width=100% text=white>
-
-<tr>
-<td><p style="font-size:18pt;">&nbsp</p></td>
-
-<td>
-<p align=center style="font-size:18pt;">Member</p>
-</td>
-
-<td>
-<p align=center style="font-size:18pt;">T.S.</p>
-</td>
-
-<td>
-<p align=center style="font-size:18pt;">Total</p>
-</td>
-</tr>
-
-
-<tr>
-<td><p align=center style="font-size:18pt;">Brother</p></td>
-
-<td>
-<p align=center id="BroM" style="font-size:18pt;"></p>
-</td>
-
-<td>
-<p align=center id="BroTrs" style="font-size:18pt;"></p>
-</td>
-
-<td>
-<p align=center id="BroTotal" style="font-size:18pt;"></p>
-</td>
-</tr>
-
-
-<tr>
-<td><p align=center style="font-size:18pt;">Sister</p></td>
-
-<td>
-<p align=center id="SisM" style="font-size:18pt;"></p>
-</td>
-
-<td>
-<p align=center id="SisTrs" style="font-size:18pt;"></p>
-</td>
-
-<td>
-<p align=center id="SisTotal" style="font-size:18pt;"></p>
-</td>
-</tr>
-
-
-<tr>
-<td><p align=center style="font-size:18pt;">Total</p></td>
-
-<td>
-<p align=center id="MemTotal" style="font-size:18pt;"></p>
-</td>
-
-<td>
-<p align=center id="TrsTotal" style="font-size:18pt;"></p>
-</td>
-
-<td>
-<p align=center id="AllTotal" style="font-size:18pt;"></p>
-</td>
-</tr>
-
-
-</table>
-</center>
-
-
-</div>
-
-
-
-<div id="container_Reset_Button" style="height:0%;visibility:hidden">
-
-
-
-<center>
-<table>
-
-<tr><td><p style="font-size:14pt;"></p></td></tr>
-
-
-<td>
-<input style="font-size:18pt;color:red" type="button" name="M222" id="Reset_Button" value="Press to Reset All" onclick="Reset_All();; return false;">
-</td>
-
-</table>
-</center>
-
-
-
-</div>
-
-
-
-<div id="container_Disp" style="height:0%;visibility:hidden">
-
-<center>
-<table>
-
-<tr><td><p style="font-size:14pt;"></p></td></tr>
-
-<tr>
-<td><p id="People_Number" style="font-size:18pt;"></p></td>
-</tr>
-
-
-
-</table>
-</center>
-
-
-<center>
-<table>
-
-
-<tr><td><p style="font-size:14pt;"></p></td></tr>
-
-<tr>
-
-
-<td style="font-size:24pt">
-<input style="font-size:24pt" type="button" name="M222" value="7" onclick="keyFunction2(7); return false;">
-</td> 
-<td>&nbsp&nbsp</td><td>&nbsp&nbsp</td><td>&nbsp&nbsp</td>
-<td style="font-size:24pt">
-<input style="font-size:24pt" type="button" name="M222" value="8" onclick="keyFunction2(8); return false;">
-</td>
-<td>&nbsp&nbsp</td><td>&nbsp&nbsp</td><td>&nbsp&nbsp</td>
-<td style="font-size:24pt">
-<input style="font-size:24pt" type="button" name="M222" value="9" onclick="keyFunction2(9); return false;">
-</td>
-
-
-<td>&nbsp&nbsp</td><td>&nbsp&nbsp</td><td>&nbsp&nbsp</td><td>&nbsp&nbsp</td>
-<td style="font-size:24pt">
-<input style="font-size:24pt" type="button" name="M222" value="+" onclick="keyFunction2('A'); return false;">
-</td>
-
-</tr>
-
-<tr><td><p style="font-size:8pt;"></p></td></tr>
-
-<tr>
-
-
-<td style="font-size:24pt">
-<input style="font-size:24pt" type="button" name="M222" value="4" onclick="keyFunction2(4); return false;">
-</td> 
-<td>&nbsp&nbsp</td><td>&nbsp&nbsp</td><td>&nbsp&nbsp</td>
-<td style="font-size:24pt">
-<input style="font-size:24pt" type="button" name="M222" value="5" onclick="keyFunction2(5); return false;">
-</td>
-<td>&nbsp&nbsp</td><td>&nbsp&nbsp</td><td>&nbsp&nbsp</td>
-<td style="font-size:24pt">
-<input style="font-size:24pt" type="button" name="M222" value="6" onclick="keyFunction2(6); return false;">
-</td>
-
-
-<td>&nbsp&nbsp</td><td>&nbsp&nbsp</td><td>&nbsp&nbsp</td><td>&nbsp&nbsp</td>
-<td style="font-size:24pt">
-<input style="font-size:24pt" type="button" name="M222" value="--" onclick="keyFunction2('S'); return false;">
-</td>
-
-</tr>
-
-<tr><td><p style="font-size:8pt;"></p></td></tr>
-
-<tr>
-
-
-<td style="font-size:24pt">
-<input style="font-size:24pt" type="button" name="M222" value="1" onclick="keyFunction2(1); return false;">
-</td> 
-<td>&nbsp&nbsp</td><td>&nbsp&nbsp</td><td>&nbsp&nbsp</td>
-<td style="font-size:24pt">
-<input style="font-size:24pt" type="button" name="M222" value="2" onclick="keyFunction2(2); return false;">
-</td>
-<td>&nbsp&nbsp</td><td>&nbsp&nbsp</td><td>&nbsp&nbsp</td>
-<td style="font-size:24pt">
-<input style="font-size:24pt" type="button" name="M222" value="3" onclick="keyFunction2(3); return false;">
-</td>
-
-
-<td>&nbsp&nbsp</td><td>&nbsp&nbsp</td><td>&nbsp&nbsp</td><td>&nbsp&nbsp</td>
-<td style="font-size:24pt">
-<input style="font-size:24pt" type="button" name="M222" value="C" onclick="keyFunction2('C'); return false;">
-</td>
-
-</tr>
-
-<tr><td><p style="font-size:8pt;"></p></td></tr>
-
-<tr>
-
-<td>&nbsp&nbsp</td><td>&nbsp&nbsp</td><td>&nbsp&nbsp</td><td>&nbsp&nbsp</td>
-<td colspan=6 style="font-size:24pt">
-<input style="font-size:24pt" type="button" name="M222" value="0" onclick="keyFunction2(0); return false;">
-</td> 
-<td>&nbsp&nbsp</td><td>&nbsp&nbsp</td><td>&nbsp&nbsp</td>
-
-
-<td style="font-size:24pt">
-<input style="font-size:24pt" type="button" name="M222" value="E" onclick="keyFunction2('E');Show_Total_Mode(); return false;">
-</td>
-
-</tr>
-
-</table>
-</center>
-
-</div>
-
-</div>
-
 
 </body>
 </html>
