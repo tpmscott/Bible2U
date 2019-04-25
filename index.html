@@ -113,7 +113,7 @@
 <SCRIPT LANGUAGE="JavaScript" SRC="b6.js"></SCRIPT>
 <SCRIPT LANGUAGE="JavaScript" SRC="codes.js"></SCRIPT>
 <SCRIPT LANGUAGE="JavaScript" SRC="KeyFunction.js"></SCRIPT>
-<SCRIPT LANGUAGE="JavaScript" SRC="KeyFunction2.js"></SCRIPT>
+
 
 <script src="mousetrap.min.js"></script>
 <script src="mousetrap-pause.min.js"></script>
@@ -641,19 +641,19 @@ function Hide_a7(){
 <td></td><td></td><td></td>
 
 <td>
-<input style="font-size:14pt" type="button" name="M222" value="Book" ontouchstart="Input_Book_Mode();efocus(); return false;">
+<input style="font-size:14pt" type="button" name="M222" value="Book" onclick="Input_Book_Mode();efocus(); return false;">
 </td>
 
 <td></td><td></td>
 
 <td>
-<input style="font-size:14pt" type="button" name="M222" value="Chap" ontouchstart="keyFunction2('c');Input_Chap_Mode();; return false;">
+<input style="font-size:14pt" type="button" name="M222" value="Chap" onclick="keyFunction2('c');Input_Chap_Mode();; return false;">
 </td>
 
 <td></td><td></td>
 
 <td>
-<input style="font-size:14pt" type="button" name="M222" value="Verse" ontouchstart="keyFunction2('v');Input_Vers_Mode();; return false;">
+<input style="font-size:14pt" type="button" name="M222" value="Verse" onclick="keyFunction2('v');Input_Vers_Mode();; return false;">
 </td>
 
 <td></td><td></td><td></td>
@@ -1948,6 +1948,108 @@ function Show_History(arg1,arg2,arg3,arg4) { // 將資料存至 Array 並顯示
 
 }  // End of function Show_History()
 
+
+function Show_History2(arg1,arg2,arg3,arg4) { // 將資料存至 Array 並顯示, for Add BM Use, Add Write_Bookmark()
+
+    //var VH = Exo 4:11;    
+
+    VersHis_B.unshift(arg1); 
+    VersHis_C.unshift(arg2); 
+    VersHis_V.unshift(arg3); 
+    VersHis_T.unshift(arg4); 
+
+    var VH_Bname = BookAbbr4[arg1]; // arg1,  // BookAbbr3 改為 BookAbbr4 on 2018.08.22
+    var VH_Chap = arg2 + 1;
+    var VH_Vers = arg3;
+    var VH_To_Vers = arg4;
+
+    if(arg4>arg3)
+       var VH = VH_Bname + ' ' + VH_Chap + ':' + VH_Vers + '~' + VH_To_Vers; 
+    else
+       var VH = VH_Bname + ' ' + VH_Chap + ':' + VH_Vers; 
+
+    if(arg3==999 && arg4==999) {
+
+       VH = VH_Bname + ' ' + VH_Chap;
+
+    }
+
+    
+    VersHis.unshift(VH);  // Put in new record
+
+    var Verse_existence = 0; // 0 means No duplicate, 1 means found duplicate
+    var VHLen, j;
+    VHLen = VersHis.length;
+
+
+    if(VHLen==1){
+       Verse_existence = 0;
+    }
+    else if(VHLen==2){ 
+       var VH_tmp = VersHis[1];
+       if(VH==VH_tmp){
+         Verse_existence = 1; // 1 means found duplicate
+       }      
+    }
+    else {
+       for (j = 1; j < VHLen; j++) {
+          var VH_tmp = VersHis[j];
+          if(VH==VH_tmp){
+            Verse_existence = 1; // 1 means found duplicate
+          }          
+       }
+    }
+
+    if(Verse_existence==1){  // Remove the new duplicate record from array
+       //VersHis.shift();
+       // fruits.splice(0, 1);        // Removes the first element of fruits
+       VersHis.splice(0, 1);
+       VersHis_B.splice(0, 1);
+       VersHis_C.splice(0, 1);
+       VersHis_V.splice(0, 1);
+       VersHis_T.splice(0, 1);
+    }
+
+    var text1, VersHisLen, i;
+
+
+    VersHisLen = VersHis.length;
+
+    text1 = "Verse History<br>";
+
+    for (i = 0; i < VersHisLen; i++) {        
+
+        //text1 += '<button onclick="Show_Bookmark(' + VersHis_B[i] + ',' + VersHis_C[i] + ',' + VersHis_V[i] + ',' + VersHis_T[i] + ');return false;">' + '+' + '</button>' + ' ' + '<a href="" onClick="return false;">' + VersHis[i] + '</a><br>';
+
+        //Show_His_BM_Vers(
+
+        if(VersHis_V[i]==999 && VersHis_T[i]==999) {
+
+           text1 += '<button onclick="Show_Bookmark(' + VersHis_B[i] + ',' + VersHis_C[i] + ',' + VersHis_V[i] + ',' + VersHis_T[i] + ');return false;">' + '+' + '</button>' + ' ' + '<a href="" onClick="Show_His_BM_Vers3(' + VersHis_B[i] + ',' + VersHis_C[i] + ');return false;">' + VersHis[i] + '</a><br>';
+
+        }
+        else {
+
+           text1 += '<button onclick="Show_Bookmark(' + VersHis_B[i] + ',' + VersHis_C[i] + ',' + VersHis_V[i] + ',' + VersHis_T[i] + ');return false;">' + '+' + '</button>' + ' ' + '<a href="" onClick="Show_His_BM_Vers2(' + VersHis_B[i] + ',' + VersHis_C[i] + ',' + VersHis_V[i] + ',' + VersHis_T[i] + ');return false;">' + VersHis[i] + '</a><br>';
+
+        }
+
+        //<button onclick="Show_Bookmark(VersHis_B[i],..,VersHis_T[i])">+</button>
+       
+    }
+
+    if(Show_History_F==1) { // 1 means Show, 0 means Hide
+
+       document.getElementById("Vers_history").innerHTML = text1;
+
+    }
+
+    //Write_Bookmark();
+
+}  // End of function Show_History2()
+
+
+
 function Show_His_BM_Vers2(arg1,arg2,arg3,arg4) {
 
    now_Book = arg1;  // add on 2018.08.19
@@ -2203,6 +2305,239 @@ function Show_Bookmark(arg1,arg2,arg3,arg4) {   // Add new item to Bookmark
 
 }  // End of function Show_Bookmark()
 
+
+function Show_Bookmark2(arg1,arg2,arg3,arg4) {   // Add new item to Bookmark
+                                                // Show all items in Bookmark
+                                                // Write all items to files
+                                                // For Add BM Use
+
+
+         // Clear Tmp Array 
+
+         //var VersBM_Buf_B_Len = VersBM_Buf_B.length;
+
+
+         //for (i = 0; i < VersBM_Buf_B_Len; i++) {
+
+         //   delete VersBM_Buf_B[i];
+         //   delete VersBM_Buf_C[i];
+         //   delete VersBM_Buf_V[i];
+         //   delete VersBM_Buf_T[i];
+             
+         //}
+
+    //VersBM_Buf_B.unshift(arg1); 
+    //VersBM_Buf_C.unshift(arg2); 
+    //VersBM_Buf_V.unshift(arg3); 
+    //VersBM_Buf_T.unshift(arg4); 
+
+
+    var VerseBM_existence = 0; // 0 means No duplicate, 1 means found duplicate
+
+
+    //if(Verse_Bookmark_Empty==0) { // 0 means empty, 1 means not empty
+
+    //}
+
+
+    var VersBM_B_Len = VersBM_B.length; 
+
+    //var VersBM_Active_Len=0; // Take away the Deleted items // 2018.07.24
+
+    //var VersBM_Add_F; // 0 means < Bookmark_file_No, 1 means = Bookmark_file_No // 2018.07.24
+
+    VersBM_Deleted_Len=0; // 2018.07.24
+
+       for (i = 0; i < VersBM_B_Len; i++) { // 2018.07.24
+
+          if(VersBM[i]=="Deleted"){
+
+             VersBM_Deleted_Len = VersBM_Deleted_Len + 1;
+
+          }
+
+       }
+
+       VersBM_Active_Len = VersBM_B_Len - VersBM_Deleted_Len; // 2018.07.24
+
+       if(VersBM_Active_Len==Bookmark_file_No) { // 2018.07.24
+
+          VersBM_Add_F=1;
+
+          alert('You have reached the max Bookmarks: '+ Bookmark_file_No + ' , you can increase it by changing Bookmark_file_No in bible2.html'); 
+
+       }else if(VersBM_Active_Len<Bookmark_file_No) { // 2018.07.24
+
+          VersBM_Add_F=0;
+
+       }
+
+
+    if(VersBM_B_Len==0) { // means VersBM_B is empty
+
+       VersBM_B.unshift(arg1); 
+       VersBM_C.unshift(arg2); 
+       VersBM_V.unshift(arg3); 
+       VersBM_T.unshift(arg4); 
+
+       var VBM_Bname = BookAbbr4[arg1]; // arg1
+       var VBM_Chap = arg2 + 1;
+       var VBM_Vers = arg3;
+       var VBM_To_Vers = arg4;
+
+       if(arg4>arg3)
+          var VBM = VBM_Bname + ' ' + VBM_Chap + ':' + VBM_Vers + '~' + VBM_To_Vers; 
+       else
+          var VBM = VBM_Bname + ' ' + VBM_Chap + ':' + VBM_Vers; 
+
+       if(arg3==999 && arg4==999) {
+
+          var VBM = VBM_Bname + ' ' + VBM_Chap;
+
+       }
+    
+       VersBM.unshift(VBM);  // Put in new record
+
+    }    
+    //else {
+    else if(VersBM_Add_F==0){ // 2018.07.24
+
+       for (i = 0; i < VersBM_B_Len; i++) {
+
+          if(VersBM_B_Len>0) {
+
+             //if(VersBM_B[i]==VersBM_Buf_B[0] && VersBM_C[i]==VersBM_Buf_C[0] && VersBM_V[i]==VersBM_Buf_V[0] && VersBM_T[i]==VersBM_Buf_T[0]) {
+
+             if(VersBM_B[i]==arg1 && VersBM_C[i]==arg2 && VersBM_V[i]==arg3 && VersBM_T[i]==arg4) {
+
+                VerseBM_existence = 1; // 0 means No duplicate, 1 means found duplicate
+
+             }
+
+          }
+
+       }
+
+  
+       if(VerseBM_existence==0) { // 0 means No duplicate, 1 means found duplicate
+
+          VersBM_B.unshift(arg1); 
+          VersBM_C.unshift(arg2); 
+          VersBM_V.unshift(arg3); 
+          VersBM_T.unshift(arg4); 
+
+          var VBM_Bname = BookAbbr4[arg1]; // arg1
+          var VBM_Chap = arg2 + 1;
+          var VBM_Vers = arg3;
+          var VBM_To_Vers = arg4;
+
+          if(arg4>arg3)
+             var VBM = VBM_Bname + ' ' + VBM_Chap + ':' + VBM_Vers + '~' + VBM_To_Vers; 
+          else
+             var VBM = VBM_Bname + ' ' + VBM_Chap + ':' + VBM_Vers; 
+
+          if(arg3==999 && arg4==999) {
+
+             var VBM = VBM_Bname + ' ' + VBM_Chap;
+
+          }
+    
+          VersBM.unshift(VBM);  // Put in new record
+
+       } // End of (VerseBM_existence==0)
+
+    } // End of if(VersBM_B_Len==0)
+
+
+    //var VerseBM_existence = 0; // 0 means No duplicate, 1 means found duplicate
+    //var VBMLen, j;
+    //VBMLen = VersBM.length;
+
+
+    //if(VBMLen==1){
+    //   VerseBM_existence = 0;
+    //}
+    //else if(VBMLen==2){ 
+    //   var VBM_tmp = VersBM[1];
+    //   if(VBM==VBM_tmp){
+    //     VerseBM_existence = 1; // 1 means found duplicate
+    //   }      
+    //}
+    //else {
+    //   for (j = 1; j < VBMLen; j++) {
+    //      var VBM_tmp = VersBM[j];
+    //      if(VBM==VBM_tmp){
+    //        VerseBM_existence = 1; // 1 means found duplicate
+    //      }          
+    //   }
+    //}
+
+    //if(VerseBM_existence==1){  // Remove the new duplicate record from array
+    //   //VersHis.shift();
+    //   // fruits.splice(0, 1);        // Removes the first element of fruits
+    //   VersBM.splice(0, 1);
+    //}
+
+    var text1, VersBMLen, i;
+
+
+    VersBMLen = VersBM.length;
+
+    text1 = "Verse Bookmarks<br>";
+
+    //for (i = 0; i < VersBMLen; i++) {   // Show Verse Bookmarks
+
+    for (i = (VersBMLen-1); i > -1; i--) {   // Show Verse Bookmarks
+
+        //text1 += '<a href="" onClick="return false;">' + VersBM[i] + '</a><br>';
+
+        //text1 += '<button onclick="return false;">-</button> <a href="" onClick="return false;">' + VersBM[i] + '</a><br>';
+
+        if(VersBM[i]=="Deleted"){
+           // Do nothing
+        }
+        else {
+
+           //Show_His_BM_Vers(
+
+           //text1 += '<button onclick="Delete_Bookmark('+i+');return false;">-</button> <a href="" onClick="return false;">' + VersBM[i] + '</a><br>';
+
+
+           if(VersBM_V[i]==999 && VersBM_T[i]==999) {
+
+              text1 += '<button onclick="Delete_Bookmark('+i+');return false;">-</button> <a href="" onClick="Show_His_BM_Vers3(' + VersBM_B[i] + ',' + VersBM_C[i] + '); return false;">' + VersBM[i] + '</a><br>';
+
+           } 
+           else {   
+
+              text1 += '<button onclick="Delete_Bookmark('+i+');return false;">-</button> <a href="" onClick="Show_His_BM_Vers2(' + VersBM_B[i] + ',' + VersBM_C[i] + ',' + VersBM_V[i] + ',' + VersBM_T[i] + '); return false;">' + VersBM[i] + '</a><br>';
+
+           }
+
+
+           //text1 += '<button onclick="Show_Bookmark(' + VersHis_B[i] + ',' + VersHis_C[i] + ',' + VersHis_V[i] + ',' + VersHis_T[i] + ');return false;">' + '+' + '</button>' + ' ' + '<a href="" onClick="Show_His_BM_Vers(' + VersHis_B[i] + ',' + VersHis_C[i] + ',' + VersHis_V[i] + ',' + VersHis_T[i] + ');return false;">' + VersHis[i] + '</a><br>';
+
+           //text1 += '<button onclick="Delete_Bookmark('+i+');return false;">-</button> <a href="" onClick="Show_His_BM_Vers(' + VersBM_B[i] + ',' + VersBM_C[i] + ',' + VersBM_V[i] + ',' VersBM_T[i] + ');return false;">' + VersBM[i] + '</a><br>';
+
+           //text1 += '<button onclick="Delete_Bookmark('+i+');return false;">-</button> <a href="" onClick="Show_His_BM_Vers(' + VersBM_B[i] + ',' + VersBM_C[i] + ',' + VersBM_V[i] + ',' VersBM_T[i] + ');return false;">' + VersBM[i] + '</a><br>';
+
+        }
+
+
+
+//<button onclick="Delete_Bookmark(i)">+</button>
+    }
+
+    document.getElementById("Vers_bookmark").innerHTML = text1;
+
+    //Write_Bookmark(VersBMLen); // write all bookmark to files, // mark temp on 2018.08.22
+
+    Write_Bookmark();
+
+}  // End of function Show_Bookmark2()
+
+
+
 function Show_Bookmark_Only() {   // Show all items in Bookmark *** Only ***
                                                      // Do Not Write all items to files ***
 
@@ -2430,14 +2765,14 @@ function Set_NKJV() {
 <td></td>
 
 <td>
-<input type="button" value="放大" ontouchstart="increase_fontsize();return false;">
+<input type="button" value="放大" onclick="increase_fontsize();return false;">
 </td>
 
 
 <td></td>
 
 <td>
-<input type="button" value="縮小" ontouchstart="decrease_fontsize();return false;">
+<input type="button" value="縮小" onclick="decrease_fontsize();return false;">
 </td>
 
 
@@ -2831,7 +3166,8 @@ function Qmaxverse(index,index2) {   // find out maximum verse of chapter of boo
 
 <td><button onclick="Show_Bookmark_Only()">Show BM</button></td>
 <td><button onclick="Hide_Bookmark_Only()">Hide BM</button></td>
-<td><button style="color:green"  onclick="Write_Bookmark()">Save BM</button></td>
+<td><button style="color:red"  onclick="Show_Bookmark2(b_int,c_int,v_int,t_int)">Add BM</button></td>
+<td><button style="color:blue"  onclick="Write_Bookmark()">Save BM</button></td>
 
 <td></td><td></td><td></td><td></td>
 
@@ -3336,11 +3672,11 @@ function change7() {
 <div id="header1" style="height:3%;color:red;">
 
   <div id="prev" style="width:10%;float:left;">
-    <input style="font-size:14pt" type="button" name="M222" value="<Prev" ontouchstart="keyFunction2('left');; return false;">
+    <input style="font-size:14pt" type="button" name="M222" value="<Prev" onclick="keyFunction2('left');; return false;">
   </div>
 
   <div id="next" style="width:10%;float:right;">
-    <input style="font-size:14pt" type="button" name="M222" value="Next>" ontouchstart="keyFunction2('right');; return false;">
+    <input style="font-size:14pt" type="button" name="M222" value="Next>" onclick="keyFunction2('right');; return false;">
   </div>
 
   <div id="p1" style="width:80%;"> </div>
@@ -3662,65 +3998,65 @@ function change7() {
 <tr>
 
 <td style="font-size:36pt">
-<input style="font-size:20pt" type="button" name="M222" value="7" ontouchstart="keyFunction2(7); return false;">
+<input style="font-size:20pt" type="button" name="M222" value="7" onclick="keyFunction2(7); return false;">
 </td> 
 <td>&nbsp&nbsp</td><td>&nbsp&nbsp</td>
 <td style="font-size:36pt">
-<input style="font-size:20pt" type="button" name="M222" value="8" ontouchstart="keyFunction2(8); return false;">
+<input style="font-size:20pt" type="button" name="M222" value="8" onclick="keyFunction2(8); return false;">
 </td>
 <td>&nbsp&nbsp</td><td>&nbsp&nbsp</td>
 <td style="font-size:36pt">
-<input style="font-size:20pt" type="button" name="M222" value="9" ontouchstart="keyFunction2(9); return false;">
+<input style="font-size:20pt" type="button" name="M222" value="9" onclick="keyFunction2(9); return false;">
 </td>
 <td>&nbsp&nbsp</td><td>&nbsp&nbsp</td><td>&nbsp&nbsp</td>
 <td>
-<input style="font-size:20pt" type="button" name="M222" value="Chap" ontouchstart="keyFunction2('c');Input_Chap_Mode();; return false;">
+<input style="font-size:20pt" type="button" name="M222" value="Chap" onclick="keyFunction2('c');Input_Chap_Mode();; return false;">
 </td>
 </tr>
 
 <tr>
 <td style="font-size:36pt">
-<input style="font-size:20pt" type="button" name="M222" value="4" ontouchstart="keyFunction2(4); return false;">
+<input style="font-size:20pt" type="button" name="M222" value="4" onclick="keyFunction2(4); return false;">
 </td> 
 <td>&nbsp&nbsp</td><td>&nbsp&nbsp</td>
 <td style="font-size:36pt">
-<input style="font-size:20pt" type="button" name="M222" value="5" ontouchstart="keyFunction2(5); return false;">
+<input style="font-size:20pt" type="button" name="M222" value="5" onclick="keyFunction2(5); return false;">
 </td>
 <td>&nbsp&nbsp</td><td>&nbsp&nbsp</td>
 <td style="font-size:36pt">
-<input style="font-size:20pt" type="button" name="M222" value="6" ontouchstart="keyFunction2(6); return false;">
+<input style="font-size:20pt" type="button" name="M222" value="6" onclick="keyFunction2(6); return false;">
 </td>
 <td>&nbsp&nbsp</td><td>&nbsp&nbsp</td><td>&nbsp&nbsp</td>
 <td>
-<input style="font-size:20pt" type="button" name="M222" value="Verse" ontouchstart="keyFunction2('v');Input_Vers_Mode();; return false;">
+<input style="font-size:20pt" type="button" name="M222" value="Verse" onclick="keyFunction2('v');Input_Vers_Mode();; return false;">
 </td>
 </tr>
 
 <tr>
 <td style="font-size:36pt">
-<input style="font-size:20pt" type="button" name="M222" value="1" ontouchstart="keyFunction2(1); return false;">
+<input style="font-size:20pt" type="button" name="M222" value="1" onclick="keyFunction2(1); return false;">
 </td> 
 <td>&nbsp&nbsp</td><td>&nbsp&nbsp</td>
 <td style="font-size:36pt">
-<input style="font-size:20pt" type="button" name="M222" value="2" ontouchstart="keyFunction2(2); return false;">
+<input style="font-size:20pt" type="button" name="M222" value="2" onclick="keyFunction2(2); return false;">
 </td>
 <td>&nbsp&nbsp</td><td>&nbsp&nbsp</td>
 <td style="font-size:36pt">
-<input style="font-size:20pt" type="button" name="M222" value="3" ontouchstart="keyFunction2(3); return false;">
+<input style="font-size:20pt" type="button" name="M222" value="3" onclick="keyFunction2(3); return false;">
 </td>
 <td>&nbsp&nbsp</td><td>&nbsp&nbsp</td><td>&nbsp&nbsp</td>
 <td>
-<input style="font-size:20pt" type="button" name="M222" value="ToVerse" ontouchstart="keyFunction2('t');Input_ToVers_Mode();; return false;">
+<input style="font-size:20pt" type="button" name="M222" value="ToVerse" onclick="keyFunction2('t');Input_ToVers_Mode();; return false;">
 </td>
 </tr>
 
 <tr>
 <td colspan=7 style="font-size:36pt">
-<input style="font-size:20pt" type="button" name="M222" value="0" ontouchstart="keyFunction2(0); return false;">
+<input style="font-size:20pt" type="button" name="M222" value="0" onclick="keyFunction2(0); return false;">
 </td> 
 <td>&nbsp&nbsp</td><td>&nbsp&nbsp</td><td>&nbsp&nbsp</td>
 <td >
-<input style="font-size:22pt" type="button" name="M222" value="Enter" ontouchstart="Pre_Set_Mode();keyFunction2('enter');; return false;">
+<input style="font-size:22pt" type="button" name="M222" value="Enter" onclick="Pre_Set_Mode();keyFunction2('enter');; return false;">
 </td>
 </tr>
 
