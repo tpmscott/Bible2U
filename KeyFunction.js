@@ -1379,6 +1379,110 @@ function keyFunction2(arg1)
       Pres_T = t_int;
 
 
+      // Recoding_Current_Read
+
+      localStorage.current_b = b_int.toString();
+      localStorage.current_c = c_int.toString();
+      localStorage.current_v = v_int.toString();
+      localStorage.current_t = t_int.toString();
+
+
+      //if(Show_His_BM_Vers_F==1){
+
+      //   Show_His_BM_Vers2(b_int, c_int, v_int, t_int);
+
+      //}
+
+      //if(Show_His_BM_Vers2_F==1){
+
+      //   Show_His_BM_Vers2(b_int, c_int, v_int, t_int);
+      //   //Show_His_BM_Vers_Blue(b_int, c_int, v_int);
+
+      //}
+
+   }
+
+   if(arg1=='enter2'){ // for Init_Continuing_Read()
+      //alert('You pressed:' + arg1 ); // for test
+
+      // reset
+      key_b=0;
+      key_b1=0;
+      key_b2=0;
+      key_c=0;
+      key_c1=0;
+      key_c2=0;
+      key_c3=0;
+      key_v=0;
+      key_v1=0;
+      key_v2=0;
+      key_v3=0;
+      key_t=0;
+      key_t1=0;
+      key_t2=0;
+      key_t3=0;
+      reset_Book_2_Str();
+      reset_Book_3_Str();
+
+      now_B_verse_int=v_int;
+      now_B_to_verse_int=t_int;
+
+      // for test
+      //var Send_Verse = 'Gen ' + c_int + ':' + v_int;
+
+      //Show_History(b_int, c_int, v_int, t_int);        // for Verse History
+
+      readchapter(b_int, c_int, v_int, t_int);
+      //readchapter(b_int, c_int, v_int);
+
+
+      //if(Mode_Class==1){
+
+      //   Class_Mode();
+
+      //}
+
+      //if(Mode_Study==1){
+
+      //   Study_Mode();
+
+      //}
+
+
+      // Add on 2018.08.16 pre-set values for readchapter2() to check
+      // Onle set below variable when press Enter
+      now_Book = b_int;
+      now_Chap = c_int;
+      now_Verse = v_int;
+      now_To_Verse = t_int;
+
+
+      //Send_to_win34(1,b_int,c_int,v_int,t_int ,Send_word1,Send_word4,Send_word9);  // 8 args
+      //Send_to_win34(1,nowbook,nowchapter,nowsection,BibleVersion_Disp,disp_secs_a,0);
+
+
+      Proj_B = b_int;
+      Proj_C = c_int;
+      Proj_V = v_int;
+      Proj_T = t_int;
+
+
+      Pres_B = b_int;
+      Pres_C = c_int;
+      Pres_V = v_int;
+      Pres_T = t_int;
+
+
+      // Recoding_Current_Read
+
+      localStorage.current_b = b_int.toString();
+      localStorage.current_c = c_int.toString();
+      localStorage.current_v = v_int.toString();
+      localStorage.current_t = t_int.toString();
+
+
+
+
       //if(Show_His_BM_Vers_F==1){
 
       //   Show_His_BM_Vers2(b_int, c_int, v_int, t_int);
@@ -1493,6 +1597,15 @@ function keyFunction2(arg1)
 
 
       readchapter2(bnum_tmp,cnum_tmp,snum_tmp);  // Modify on 2018.08.16
+
+
+      // Recoding_Current_Read
+
+      localStorage.current_b = bnum_tmp.toString();
+      localStorage.current_c = cnum_tmp.toString();
+      localStorage.current_v = snum_tmp.toString();
+      localStorage.current_t = snum_tmp.toString();
+
 
 
       //Proj_B = nowbook;       // Marked on 2018.08.16
@@ -1617,6 +1730,14 @@ function keyFunction2(arg1)
 
 
       readchapter2(bnum_tmp,cnum_tmp,snum_tmp);  // Modify on 2018.08.16
+
+
+      // Recoding_Current_Read
+
+      localStorage.current_b = bnum_tmp.toString();
+      localStorage.current_c = cnum_tmp.toString();
+      localStorage.current_v = snum_tmp.toString();
+      localStorage.current_t = snum_tmp.toString();
 
 
       //Proj_B = nowbook;       // Marked on 2018.08.16
