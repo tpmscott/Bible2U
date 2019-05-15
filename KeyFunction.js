@@ -1308,6 +1308,535 @@ function keyFunction2(arg1)
       T_CF=0;
    }
 
+
+   // For Count.html Use ----------------------------------------------
+
+   if(arg1>-1 && arg1<10 && key_S==1 && key_S1==1 && key_S2==1 && key_S3==0 ){ // pressed third digit of Subtract Number
+      //alert('You pressed: b' + arg1 ); // for test
+      key_S3=1;
+      S_num3=arg1;
+      S_num=(S_num1*100) + (S_num2*10) + S_num3;
+
+
+      if(In_BroM_F==1){
+
+         if(S_num>Bro_M){
+            document.getElementById("People_Number").innerText= 'Brother Member: ' + Bro_M + ' - ' + 'error';
+         }
+         else{
+            document.getElementById("People_Number").innerText= 'Brother Member: ' + Bro_M + ' - ' + S_num;
+         }
+
+      }
+
+      if(In_SisM_F==1){
+
+         if(S_num>Sis_M){
+            document.getElementById("People_Number").innerText= 'Sister Member: ' + Sis_M + ' - ' + 'error';
+         }
+         else{
+            document.getElementById("People_Number").innerText= 'Sister Member: ' + Sis_M + ' - ' + S_num;
+         }
+
+      }
+
+      if(In_BroTrS_F==1){
+
+         if(S_num>Bro_TrS){
+            document.getElementById("People_Number").innerText= 'Brother Truth Seeker: ' + Bro_TrS + ' - ' + 'error';
+         }
+         else{
+            document.getElementById("People_Number").innerText= 'Brother Truth Seeker: ' + Bro_TrS + ' - ' + S_num;
+         }
+
+      }
+
+      if(In_SisTrS_F==1){
+
+         if(S_num>Sis_TrS){
+            document.getElementById("People_Number").innerText= 'Sister Truth Seeker: ' + Sis_TrS + ' - ' + 'error';
+         }
+         else{
+            document.getElementById("People_Number").innerText= 'Sister Truth Seeker: ' + Sis_TrS + ' - ' + S_num;
+         }
+
+      }
+
+
+   }
+
+   if(arg1>-1 && arg1<10 && key_S==1 && key_S1==1 && key_S2==0 ){ // pressed second digit of Subtract Number
+      //alert('You pressed: b' + arg1 ); // for test
+      key_S2=1;
+      S_num2=arg1;
+      S_num=(S_num1*10) + S_num2;
+
+      if(In_BroM_F==1){
+
+         if(S_num>Bro_M){
+            document.getElementById("People_Number").innerText= 'Brother Member: ' + Bro_M + ' - ' + 'error';
+         }
+         else{
+            document.getElementById("People_Number").innerText= 'Brother Member: ' + Bro_M + ' - ' + S_num;
+         }
+
+      }
+
+      if(In_SisM_F==1){
+
+         if(S_num>Sis_M){
+            document.getElementById("People_Number").innerText= 'Sister Member: ' + Sis_M + ' - ' + 'error';
+         }
+         else{
+            document.getElementById("People_Number").innerText= 'Sister Member: ' + Sis_M + ' - ' + S_num;
+         }
+
+      }
+
+      if(In_BroTrS_F==1){
+
+         if(S_num>Bro_TrS){
+            document.getElementById("People_Number").innerText= 'Brother Truth Seeker: ' + Bro_TrS + ' - ' + 'error';
+         }
+         else{
+            document.getElementById("People_Number").innerText= 'Brother Truth Seeker: ' + Bro_TrS + ' - ' + S_num;
+         }
+
+      }
+
+      if(In_SisTrS_F==1){
+
+         if(S_num>Sis_TrS){
+            document.getElementById("People_Number").innerText= 'Sister Truth Seeker: ' + Sis_TrS + ' - ' + 'error';
+         }
+         else{
+            document.getElementById("People_Number").innerText= 'Sister Truth Seeker: ' + Sis_TrS + ' - ' + S_num;
+         }
+
+      }
+
+   }
+
+   if(arg1>-1 && arg1<10 && key_S==1 && key_S1==0 && key_S2==0 ){ // pressed first digit of Subtract Number
+      key_S1=1;
+      S_num1=arg1;
+      S_num=S_num1;
+
+      if(In_BroM_F==1){
+
+         if(S_num>Bro_M){
+            document.getElementById("People_Number").innerText= 'Brother Member: ' + Bro_M + ' - ' + 'error';
+         }
+         else{
+            document.getElementById("People_Number").innerText= 'Brother Member: ' + Bro_M + ' - ' + S_num;
+         }
+
+      }
+
+      if(In_SisM_F==1){
+
+         if(S_num>Sis_M){
+            document.getElementById("People_Number").innerText= 'Sister Member: ' + Sis_M + ' - ' + 'error';
+         }
+         else{
+            document.getElementById("People_Number").innerText= 'Sister Member: ' + Sis_M + ' - ' + S_num;
+         }
+
+      }
+
+      if(In_BroTrS_F==1){
+
+         if(S_num>Bro_TrS){
+            document.getElementById("People_Number").innerText= 'Brother Truth Seeker: ' + Bro_TrS + ' - ' + 'error';
+         }
+         else{
+            document.getElementById("People_Number").innerText= 'Brother Truth Seeker: ' + Bro_TrS + ' - ' + S_num;
+         }
+
+      }
+
+      if(In_SisTrS_F==1){
+
+         if(S_num>Sis_TrS){
+            document.getElementById("People_Number").innerText= 'Sister Truth Seeker: ' + Sis_TrS + ' - ' + 'error';
+         }
+         else{
+            document.getElementById("People_Number").innerText= 'Sister Truth Seeker: ' + Sis_TrS + ' - ' + S_num;
+         }
+
+      }
+
+   }
+
+   if(arg1>-1 && arg1<10 && key_A==1 && key_A1==1 && key_A2==1 && key_A3==0 ){ // pressed third digit of Add Number
+      //alert('You pressed: b' + arg1 ); // for test
+      key_A3=1;
+      A_num3=arg1;
+      A_num=(A_num1*100) + (A_num2*10) + A_num3;
+
+      if(In_BroM_F==1){
+
+         document.getElementById("People_Number").innerText= 'Brother Member: ' + Bro_M + ' + ' + A_num;
+
+      }
+
+      if(In_SisM_F==1){
+
+         document.getElementById("People_Number").innerText= 'Sister Member: ' + Sis_M + ' + ' + A_num;
+
+      }
+
+      if(In_BroTrS_F==1){
+
+         document.getElementById("People_Number").innerText= 'Brother Truth Seeker: ' + Bro_TrS + ' + ' + A_num;
+
+      }
+
+      if(In_SisTrS_F==1){
+
+         document.getElementById("People_Number").innerText= 'Sister Truth Seeker: ' + Sis_TrS + ' + ' + A_num;
+
+      }
+
+   }
+
+   if(arg1>-1 && arg1<10 && key_A==1 && key_A1==1 && key_A2==0 ){ // pressed second digit of Add Number
+      //alert('You pressed: b' + arg1 ); // for test
+      key_A2=1;
+      A_num2=arg1;
+      A_num=(A_num1*10) + A_num2;
+
+      if(In_BroM_F==1){
+
+         document.getElementById("People_Number").innerText= 'Brother Member: ' + Bro_M + ' + ' + A_num;
+
+      }
+
+      if(In_SisM_F==1){
+
+         document.getElementById("People_Number").innerText= 'Sister Member: ' + Sis_M + ' + ' + A_num;
+
+      }
+
+      if(In_BroTrS_F==1){
+
+         document.getElementById("People_Number").innerText= 'Brother Truth Seeker: ' + Bro_TrS + ' + ' + A_num;
+
+      }
+
+      if(In_SisTrS_F==1){
+
+         document.getElementById("People_Number").innerText= 'Sister Truth Seeker: ' + Sis_TrS + ' + ' + A_num;
+
+      }
+
+   }
+
+   if(arg1>-1 && arg1<10 && key_A==1 && key_A1==0 && key_A2==0 ){ // pressed first digit of Add Number
+      key_A1=1;
+      A_num1=arg1;
+      A_num=A_num1;
+
+      if(In_BroM_F==1){
+
+         document.getElementById("People_Number").innerText= 'Brother Member: ' + Bro_M + ' + ' + A_num;
+
+      }
+
+      if(In_SisM_F==1){
+
+         document.getElementById("People_Number").innerText= 'Sister Member: ' + Sis_M + ' + ' + A_num;
+
+      }
+
+      if(In_BroTrS_F==1){
+
+         document.getElementById("People_Number").innerText= 'Brother Truth Seeker: ' + Bro_TrS + ' + ' + A_num;
+
+      }
+
+      if(In_SisTrS_F==1){
+
+         document.getElementById("People_Number").innerText= 'Sister Truth Seeker: ' + Sis_TrS + ' + ' + A_num;
+
+      }
+
+   }
+
+   if(arg1=='A'){ // Click "+"
+      //alert('You pressed:' + arg1 ); // for test
+
+      if(In_BroM_F==1){
+
+         document.getElementById("People_Number").innerText= 'Brother Member: ' + Bro_M + ' + ';
+
+      }
+
+      if(In_SisM_F==1){
+
+         document.getElementById("People_Number").innerText= 'Sister Member: ' + Sis_M + ' + ';
+
+      }
+
+      if(In_BroTrS_F==1){
+
+         document.getElementById("People_Number").innerText= 'Brother Truth Seeker: ' + Bro_TrS + ' + ';
+
+      }
+
+      if(In_SisTrS_F==1){
+
+         document.getElementById("People_Number").innerText= 'Sister Truth Seeker: ' + Sis_TrS + ' + ';
+
+      }
+
+      key_A=1;
+      key_A1=0;
+      key_A2=0;
+      key_A3=0;
+      A_num=0;
+      A_num1=0;
+      A_num2=0;
+      A_num3=0;
+
+      // Reset Subtract
+      key_S=0;
+      key_S1=0;
+      key_S2=0;
+      key_S3=0;
+      S_num=0;
+      S_num1=0;
+      S_num2=0;
+      S_num3=0;
+   }
+
+   if(arg1=='S'){ // Click "-"
+      //alert('You pressed:' + arg1 ); // for test
+
+      if(In_BroM_F==1){
+
+         document.getElementById("People_Number").innerText= 'Brother Member: ' + Bro_M + ' - ';
+
+      }
+
+      if(In_SisM_F==1){
+
+         document.getElementById("People_Number").innerText= 'Sister Member: ' + Sis_M + ' - ';
+
+      }
+
+      if(In_BroTrS_F==1){
+
+         document.getElementById("People_Number").innerText= 'Brother Truth Seeker: ' + Bro_TrS + ' - ';
+
+      }
+
+      if(In_SisTrS_F==1){
+
+         document.getElementById("People_Number").innerText= 'Sister Truth Seeker: ' + Sis_TrS + ' - ';
+
+      }
+
+      key_S=1;
+      key_S1=0;
+      key_S2=0;
+      key_S3=0;
+      S_num=0;
+      S_num1=0;
+      S_num2=0;
+      S_num3=0;
+
+      // Reset Add
+      key_A=0;
+      key_A1=0;
+      key_A2=0;
+      key_A3=0;
+      A_num=0;
+      A_num1=0;
+      A_num2=0;
+      A_num3=0;
+   }
+
+
+   if(arg1=='C'){ // Click "Cancel"
+
+      if(In_BroM_F==1){
+
+         document.getElementById("People_Number").innerText= 'Brother Member: ' + Bro_M;
+
+      }
+
+      if(In_SisM_F==1){
+
+         document.getElementById("People_Number").innerText= 'Sister Member: ' + Sis_M;
+
+      }
+
+      if(In_BroTrS_F==1){
+
+         document.getElementById("People_Number").innerText= 'Brother Truth Seeker: ' + Bro_TrS;
+
+      }
+
+      if(In_SisTrS_F==1){
+
+         document.getElementById("People_Number").innerText= 'Sister Truth Seeker: ' + Sis_TrS;
+
+      }
+
+      // Reset Add
+      key_A=0;
+      key_A1=0;
+      key_A2=0;
+      key_A3=0;
+
+      // Reset Subtract
+      key_S=0;
+      key_S1=0;
+      key_S2=0;
+      key_S3=0;
+
+      // Reset Rest of them
+      A_num=0;
+      A_num1=0;
+      A_num2=0;
+      A_num3=0;
+      S_num=0;
+      S_num=0;
+      S_num1=0;
+      S_num2=0;
+      S_num3=0;
+
+   }
+
+  
+   if(arg1=='E'){ // Click E means Enter  *****
+
+      if(In_BroM_F==1){
+
+         if(key_A1==1 && A_num>0){
+
+            Bro_M = Bro_M + A_num;
+
+         }
+
+         if(key_S1==1 && S_num>0){
+
+            if(Bro_M>S_num || Bro_M==S_num){
+
+               Bro_M = Bro_M - S_num;
+
+            }
+
+         }
+
+         document.getElementById("People_Number").innerText= 'Brother Member: ' + Bro_M;
+
+      } // End of if(In_BroM_F==1)
+
+      if(In_SisM_F==1){
+
+         if(key_A1==1 && A_num>0){
+
+            Sis_M = Sis_M + A_num;
+
+         }
+
+         if(key_S1==1 && S_num>0){
+
+            if(Sis_M>S_num || Sis_M==S_num){
+
+               Sis_M = Sis_M - S_num;
+
+            }
+
+         }
+
+         document.getElementById("People_Number").innerText= 'Sister Member: ' + Sis_M;
+
+      } // End of if(In_SisM_F==1)
+
+
+
+
+      if(In_BroTrS_F==1){
+
+         if(key_A1==1 && A_num>0){
+
+            Bro_TrS = Bro_TrS + A_num;
+
+         }
+
+         if(key_S1==1 && S_num>0){
+
+            if(Bro_TrS>S_num || Bro_TrS==S_num){
+
+               Bro_TrS = Bro_TrS - S_num;
+
+            }
+
+         }
+
+         document.getElementById("People_Number").innerText= 'Brother Truth Seeker: ' + Bro_TrS;
+
+      } // End of if(In_BroTrS_F==1)
+
+      if(In_SisTrS_F==1){
+
+         if(key_A1==1 && A_num>0){
+
+            Sis_TrS = Sis_TrS + A_num;
+
+         }
+
+         if(key_S1==1 && S_num>0){
+
+            if(Sis_TrS>S_num || Sis_TrS==S_num){
+
+               Sis_TrS = Sis_TrS - S_num;
+
+            }
+
+         }
+
+         document.getElementById("People_Number").innerText= 'Sister Truth Seeker: ' + Sis_TrS;
+
+      } // End of if(In_SisTrS_F==1)
+
+
+
+
+      // Reset Add
+      key_A=0;
+      key_A1=0;
+      key_A2=0;
+      key_A3=0;
+
+      // Reset Subtract
+      key_S=0;
+      key_S1=0;
+      key_S2=0;
+      key_S3=0;
+
+      // Reset Rest of them
+      A_num=0;
+      A_num1=0;
+      A_num2=0;
+      A_num3=0;
+      S_num=0;
+      S_num=0;
+      S_num1=0;
+      S_num2=0;
+      S_num3=0;
+
+   } // End of if(arg1=='E')
+
+
+
+   // For Count.html Use ----------------------------------------------
+
+
+
    if(arg1=='enter'){ // pressed enter  *****
       //alert('You pressed:' + arg1 ); // for test
 
