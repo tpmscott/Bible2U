@@ -2794,6 +2794,18 @@ function Set_NKJV() {
 </td>
 
 
+<td></td><td></td><td></td><td></td>
+
+<td>
+<a href="javascript:;" onclick="Open_Count_People()">¶}ºâ</a>
+</td>
+
+<td></td><td></td>
+
+<td>
+<a href="javascript:;" onclick="Close_Count_People()">Ãöºâ</a>
+</td>
+
 
 </tr>
 </table>
@@ -2838,6 +2850,24 @@ function efocus2() {  // do nothing
 //<td>
 //<input class="topfont2" type="button" name="B11" value="UnPause" onclick="Mousetrap.unpause(); return false;">
 //</td>
+
+
+function Open_Count_People(){
+
+   document.getElementById("container_Table").style.visibility='visible';
+
+}
+
+function Close_Count_People(){
+
+   document.getElementById("container_Table").style.visibility='hidden';
+   document.getElementById("People_Number").innerText= '';
+   document.getElementById("container_Disp").style.visibility='hidden';
+   document.getElementById("container_Disp").style.height='0%';
+
+}
+
+
 </script>
 
 <script>
@@ -4052,7 +4082,7 @@ function change7() {
 
 <tr>
 <td colspan=7 style="font-size:36pt">
-<input style="font-size:20pt" type="button" name="M222" value="0" onclick="keyFunction2(0); return false;">
+<input style="font-size:20pt" type="button" name="M222" value="0" onclick="keyFunction2(0);; return false;">
 </td> 
 <td>&nbsp&nbsp</td><td>&nbsp&nbsp</td><td>&nbsp&nbsp</td>
 <td >
@@ -4503,6 +4533,9 @@ function change7() {
 </div>
 
 
+
+<div id="container_Table" style="visibility:hidden">
+
 <center>
 <table>
 <table border=1 width=100% text=white>
@@ -4520,8 +4553,8 @@ function change7() {
 <p align=center style="font-size:18pt;"><b>T</b>.<b>S</b>.</p>
 </td>
 
-<td>
-<p align=center style="font-size:18pt;">Total</p>
+<td align=center>
+<input style="font-size:18pt" type="button" name="M222" id="Total_Button" value="Total" onclick="Show_Total(); return false;">
 </td>
 </tr>
 
@@ -4614,6 +4647,10 @@ function change7() {
 </table>
 </center>
 
+
+</div>
+
+
 <script>
 
 var Bro_M = 0;
@@ -4660,7 +4697,7 @@ var S_num2 = 0;
 var S_num3 = 0;
 
 
-function Input_BroMember_Mode(){
+function Input_BroMember_Mode_Old(){
 
    In_BroM_F = 1;
    In_BroTrS_F = 0;
@@ -4681,7 +4718,52 @@ function Input_BroMember_Mode(){
    
 }
 
-function Input_SisMember_Mode(){
+function Input_BroMember_Mode(){
+
+   In_BroM_F = 1;
+   In_BroTrS_F = 0;
+   In_SisM_F = 0;
+   In_SisTrS_F = 0;
+
+   document.getElementById("Bro_Member").style.color="white"; // black
+   document.getElementById("Bro_Member").style.backgroundColor='blue';
+
+   document.getElementById("Bro_TruSeeker").style.color="blue"; 
+   document.getElementById("Bro_TruSeeker").style.backgroundColor=''; 
+
+   document.getElementById("Sis_Member").style.color="red";
+   document.getElementById("Sis_Member").style.backgroundColor='';
+
+   document.getElementById("Sis_TruSeeker").style.color="red";
+   document.getElementById("Sis_TruSeeker").style.backgroundColor='';
+
+   document.getElementById("container_Disp").style.visibility='visible';
+   document.getElementById("container_Disp").style.height='70%';
+
+   document.getElementById("People_Number").style.color='blue';    //20180906
+   document.getElementById("People_Number").innerText= 'Brother Member: ' + Bro_M;
+
+   document.getElementById("container_Total").style.visibility='hidden';
+   document.getElementById("container_Total").style.height='0%';
+
+   document.getElementById("container_Reset_Button").style.visibility='hidden';
+   document.getElementById("container_Reset_Button").style.height='0%';
+
+   document.getElementById("BroM").style.color="white";
+   document.getElementById("BroM").style.backgroundColor='blue';
+   document.getElementById("BroTrs").style.color="black";
+   document.getElementById("BroTrs").style.backgroundColor='';
+   document.getElementById("SisM").style.color="black";
+   document.getElementById("SisM").style.backgroundColor='';
+   document.getElementById("SisTrs").style.color="black";
+   document.getElementById("SisTrs").style.backgroundColor='';
+
+   Reset_Number_Pad_Color();
+   
+}
+
+
+function Input_SisMember_Mode_Old(){
 
    In_BroM_F = 0;
    In_BroTrS_F = 0;
@@ -4702,9 +4784,63 @@ function Input_SisMember_Mode(){
    
 }
 
+function Input_SisMember_Mode(){
+
+   In_BroM_F = 0;
+   In_BroTrS_F = 0;
+   In_SisM_F = 1;
+   In_SisTrS_F = 0;
+
+   document.getElementById("Bro_Member").style.color="blue"; // black
+   document.getElementById("Bro_Member").style.backgroundColor='';
+
+   document.getElementById("Bro_TruSeeker").style.color="blue"; 
+   document.getElementById("Bro_TruSeeker").style.backgroundColor=''; 
+
+   document.getElementById("Sis_Member").style.color="white";
+   document.getElementById("Sis_Member").style.backgroundColor='red';
+
+   document.getElementById("Sis_TruSeeker").style.color="red";
+   document.getElementById("Sis_TruSeeker").style.backgroundColor='';
+
+   //document.getElementById("Bro_Member").style.color="white"; 
+   //document.getElementById("Bro_TruSeeker").style.color="white"; 
+   //document.getElementById("Sis_Member").style.color="black";
+   //document.getElementById("Sis_TruSeeker").style.color="white";
+
+   document.getElementById("container_Disp").style.visibility='visible';
+   document.getElementById("container_Disp").style.height='70%';
+
+   document.getElementById("People_Number").style.color='red';    //20180906
+   document.getElementById("People_Number").innerText= 'Sister Member: ' + Sis_M;
+
+   document.getElementById("container_Total").style.visibility='hidden';
+   document.getElementById("container_Total").style.height='0%';
+
+   document.getElementById("container_Reset_Button").style.visibility='hidden';
+   document.getElementById("container_Reset_Button").style.height='0%';
+
+   document.getElementById("BroM").style.color="black";
+   document.getElementById("BroM").style.backgroundColor='';
+   document.getElementById("BroTrs").style.color="black";
+   document.getElementById("BroTrs").style.backgroundColor='';
+   document.getElementById("SisM").style.color="white";
+   document.getElementById("SisM").style.backgroundColor='red';
+   document.getElementById("SisTrs").style.color="black";
+   document.getElementById("SisTrs").style.backgroundColor='';
+
+   //document.getElementById("BroM").style.backgroundColor='';
+   //document.getElementById("BroTrs").style.backgroundColor='';
+   //document.getElementById("SisM").style.backgroundColor='red';
+   //document.getElementById("SisTrs").style.backgroundColor='';
+
+   Reset_Number_Pad_Color();
+   
+}
 
 
-function Input_BroTruSeeker_Mode(){
+
+function Input_BroTruSeeker_Mode_Old(){
 
    In_BroM_F = 0;
    In_BroTrS_F = 1;
@@ -4725,7 +4861,62 @@ function Input_BroTruSeeker_Mode(){
    
 }
 
-function Input_SisTruSeeker_Mode(){
+function Input_BroTruSeeker_Mode(){
+
+   In_BroM_F = 0;
+   In_BroTrS_F = 1;
+   In_SisM_F = 0;
+   In_SisTrS_F = 0;
+
+   document.getElementById("Bro_Member").style.color="blue"; // black
+   document.getElementById("Bro_Member").style.backgroundColor='';
+
+   document.getElementById("Bro_TruSeeker").style.color="white"; 
+   document.getElementById("Bro_TruSeeker").style.backgroundColor='blue'; 
+
+   document.getElementById("Sis_Member").style.color="red";
+   document.getElementById("Sis_Member").style.backgroundColor='';
+
+   document.getElementById("Sis_TruSeeker").style.color="red";
+   document.getElementById("Sis_TruSeeker").style.backgroundColor='';
+
+   //document.getElementById("Bro_Member").style.color="white"; 
+   //document.getElementById("Bro_TruSeeker").style.color="black"; 
+   //document.getElementById("Sis_Member").style.color="white";
+   //document.getElementById("Sis_TruSeeker").style.color="white";
+
+   document.getElementById("container_Disp").style.visibility='visible';
+   document.getElementById("container_Disp").style.height='70%';
+
+   document.getElementById("People_Number").style.color='blue';    //20180906
+   document.getElementById("People_Number").innerText= 'Brother Truth Seeker: ' + Bro_TrS;
+
+   document.getElementById("container_Total").style.visibility='hidden';
+   document.getElementById("container_Total").style.height='0%';
+
+   document.getElementById("container_Reset_Button").style.visibility='hidden';
+   document.getElementById("container_Reset_Button").style.height='0%';
+
+   document.getElementById("BroM").style.color="black";
+   document.getElementById("BroM").style.backgroundColor='';
+   document.getElementById("BroTrs").style.color="white";
+   document.getElementById("BroTrs").style.backgroundColor='blue';
+   document.getElementById("SisM").style.color="black";
+   document.getElementById("SisM").style.backgroundColor='';
+   document.getElementById("SisTrs").style.color="black";
+   document.getElementById("SisTrs").style.backgroundColor='';
+
+   //document.getElementById("BroM").style.backgroundColor='';
+   //document.getElementById("BroTrs").style.backgroundColor='blue';
+   //document.getElementById("SisM").style.backgroundColor='';
+   //document.getElementById("SisTrs").style.backgroundColor='';
+
+   Reset_Number_Pad_Color();
+   
+}
+
+
+function Input_SisTruSeeker_Mode_Old(){
 
    In_BroM_F = 0;
    In_BroTrS_F = 0;
@@ -4743,6 +4934,60 @@ function Input_SisTruSeeker_Mode(){
 
    document.getElementById("container_Reset_Button").style.visibility='hidden';
    document.getElementById("container_Reset_Button").style.height='0%';
+   
+}
+
+function Input_SisTruSeeker_Mode(){
+
+   In_BroM_F = 0;
+   In_BroTrS_F = 0;
+   In_SisM_F = 0;
+   In_SisTrS_F = 1;
+
+   document.getElementById("Bro_Member").style.color="blue"; // black
+   document.getElementById("Bro_Member").style.backgroundColor='';
+
+   document.getElementById("Bro_TruSeeker").style.color="blue"; 
+   document.getElementById("Bro_TruSeeker").style.backgroundColor=''; 
+
+   document.getElementById("Sis_Member").style.color="red";
+   document.getElementById("Sis_Member").style.backgroundColor='';
+
+   document.getElementById("Sis_TruSeeker").style.color="white";
+   document.getElementById("Sis_TruSeeker").style.backgroundColor='red';
+
+   //document.getElementById("Bro_Member").style.color="white"; 
+   //document.getElementById("Bro_TruSeeker").style.color="white"; 
+   //document.getElementById("Sis_Member").style.color="white";
+   //document.getElementById("Sis_TruSeeker").style.color="black";
+
+   document.getElementById("container_Disp").style.visibility='visible';
+   document.getElementById("container_Disp").style.height='70%';
+
+   document.getElementById("People_Number").style.color='red';    //20180906
+   document.getElementById("People_Number").innerText= 'Sister Truth Seeker: ' + Sis_TrS;
+
+   document.getElementById("container_Total").style.visibility='hidden';
+   document.getElementById("container_Total").style.height='0%';
+
+   document.getElementById("container_Reset_Button").style.visibility='hidden';
+   document.getElementById("container_Reset_Button").style.height='0%';
+
+   document.getElementById("BroM").style.color="black";
+   document.getElementById("BroM").style.backgroundColor='';
+   document.getElementById("BroTrs").style.color="black";
+   document.getElementById("BroTrs").style.backgroundColor='';
+   document.getElementById("SisM").style.color="black";
+   document.getElementById("SisM").style.backgroundColor='';
+   document.getElementById("SisTrs").style.color="white";
+   document.getElementById("SisTrs").style.backgroundColor='red';
+
+   //document.getElementById("BroM").style.backgroundColor='';
+   //document.getElementById("BroTrs").style.backgroundColor='';
+   //document.getElementById("SisM").style.backgroundColor='';
+   //document.getElementById("SisTrs").style.backgroundColor='red';
+
+   Reset_Number_Pad_Color();
    
 }
 
@@ -4780,7 +5025,7 @@ function Input_Sis_Mode(){
 
 }
 
-function Show_Total_Mode(){
+function Show_Total_Mode_Old(){
 
    document.getElementById("BroM").innerText= Bro_M;
    document.getElementById("BroTrs").innerText= Bro_TrS;
@@ -4812,10 +5057,447 @@ function Show_Total_Mode(){
    //document.getElementById("container_Reset_Button").style.visibility='hidden';
    //document.getElementById("container_Reset_Button").style.height='0%';
 
+}  // End of function Show_Total_Mode_Old()
+
+function Show_Total_Mode(){
+
+   document.getElementById("BroM").innerText= Bro_M;
+   document.getElementById("BroTrs").innerText= Bro_TrS;
+
+   document.getElementById("SisM").innerText= Sis_M;
+   document.getElementById("SisTrs").innerText= Sis_TrS;
+
+   document.getElementById("BroTotal").innerText= Bro_M + Bro_TrS;
+   document.getElementById("SisTotal").innerText= Sis_M + Sis_TrS;
+
+   document.getElementById("MemTotal").innerText= Bro_M + Sis_M;
+   document.getElementById("TrsTotal").innerText= Bro_TrS + Sis_TrS;
+
+   document.getElementById("AllTotal").innerText= Bro_M + Bro_TrS + Sis_M + Sis_TrS;
+
+   document.getElementById("AllTotal").style.backgroundColor='green';
+
+   // Start Writing to Local Storage
+
+   localStorage.Bro_M = Bro_M;
+   localStorage.Sis_M = Sis_M;
+   localStorage.Bro_Trs = Bro_TrS;
+   localStorage.Sis_Trs = Sis_TrS;
+
+   // End of Writing to Local Storage
+
+
+   //document.getElementById("container_Total").style.visibility='visible';
+   //document.getElementById("container_Total").style.height='70%';
+
+   //document.getElementById("container_Bro").style.visibility='hidden';
+   //document.getElementById("container_Bro").style.height='0%';
+
+   //document.getElementById("container_Sis").style.visibility='hidden';
+   //document.getElementById("container_Sis").style.height='0%';
+
+   //document.getElementById("container_Disp").style.visibility='hidden';
+   //document.getElementById("container_Disp").style.height='0%';
+
+   //document.getElementById("container_Reset_Button").style.visibility='hidden';
+   //document.getElementById("container_Reset_Button").style.height='0%';
+
 }  // End of function Show_Total_Mode()
 
 
+function Show_Total(){
 
+   document.getElementById("Bro_Member").style.color="blue"; // black
+   document.getElementById("Bro_Member").style.backgroundColor='';
+
+   document.getElementById("Bro_TruSeeker").style.color="blue"; 
+   document.getElementById("Bro_TruSeeker").style.backgroundColor=''; 
+
+   document.getElementById("Sis_Member").style.color="red";
+   document.getElementById("Sis_Member").style.backgroundColor='';
+
+   document.getElementById("Sis_TruSeeker").style.color="red";
+   document.getElementById("Sis_TruSeeker").style.backgroundColor='';
+
+
+   document.getElementById("BroM").style.color="black";
+   document.getElementById("BroM").style.backgroundColor='';
+   document.getElementById("BroTrs").style.color="black";
+   document.getElementById("BroTrs").style.backgroundColor='';
+
+   document.getElementById("SisM").style.color="black";
+   document.getElementById("SisM").style.backgroundColor='';
+   document.getElementById("SisTrs").style.color="black";
+   document.getElementById("SisTrs").style.backgroundColor='';
+
+   document.getElementById("AllTotal").style.backgroundColor='';
+
+
+   document.getElementById("0").style.backgroundColor='';
+   document.getElementById("1").style.backgroundColor='';
+   document.getElementById("2").style.backgroundColor='';
+   document.getElementById("3").style.backgroundColor='';
+   document.getElementById("4").style.backgroundColor='';
+   document.getElementById("5").style.backgroundColor='';
+   document.getElementById("6").style.backgroundColor='';
+   document.getElementById("7").style.backgroundColor='';
+   document.getElementById("8").style.backgroundColor='';
+   document.getElementById("9").style.backgroundColor='';
+
+   document.getElementById("Add").style.backgroundColor='';
+   document.getElementById("Sub").style.backgroundColor='';
+   document.getElementById("C").style.backgroundColor='';
+
+   document.getElementById("E").style.backgroundColor='';
+
+   document.getElementById("People_Number").innerText= '';
+   document.getElementById("container_Disp").style.visibility='hidden';
+   document.getElementById("container_Disp").style.height='0%';
+
+} // End of function Show_Total()
+
+
+function Zero_Pressed() {
+
+   document.getElementById("0").style.backgroundColor='yellow';
+   document.getElementById("1").style.backgroundColor='';
+   document.getElementById("2").style.backgroundColor='';
+   document.getElementById("3").style.backgroundColor='';
+   document.getElementById("4").style.backgroundColor='';
+   document.getElementById("5").style.backgroundColor='';
+   document.getElementById("6").style.backgroundColor='';
+   document.getElementById("7").style.backgroundColor='';
+   document.getElementById("8").style.backgroundColor='';
+   document.getElementById("9").style.backgroundColor='';
+
+   document.getElementById("Add").style.backgroundColor='';
+   document.getElementById("Sub").style.backgroundColor='';
+   document.getElementById("C").style.backgroundColor='';
+
+   document.getElementById("E").style.backgroundColor='';
+
+   document.getElementById("AllTotal").style.backgroundColor='';
+
+}
+
+function One_Pressed() {
+
+   document.getElementById("0").style.backgroundColor='';
+   document.getElementById("1").style.backgroundColor='yellow';
+   document.getElementById("2").style.backgroundColor='';
+   document.getElementById("3").style.backgroundColor='';
+   document.getElementById("4").style.backgroundColor='';
+   document.getElementById("5").style.backgroundColor='';
+   document.getElementById("6").style.backgroundColor='';
+   document.getElementById("7").style.backgroundColor='';
+   document.getElementById("8").style.backgroundColor='';
+   document.getElementById("9").style.backgroundColor='';
+
+   document.getElementById("Add").style.backgroundColor='';
+   document.getElementById("Sub").style.backgroundColor='';
+   document.getElementById("C").style.backgroundColor='';
+
+   document.getElementById("E").style.backgroundColor='';
+
+   document.getElementById("AllTotal").style.backgroundColor='';
+
+}
+
+function Two_Pressed() {
+
+   document.getElementById("0").style.backgroundColor='';
+   document.getElementById("1").style.backgroundColor='';
+   document.getElementById("2").style.backgroundColor='yellow';
+   document.getElementById("3").style.backgroundColor='';
+   document.getElementById("4").style.backgroundColor='';
+   document.getElementById("5").style.backgroundColor='';
+   document.getElementById("6").style.backgroundColor='';
+   document.getElementById("7").style.backgroundColor='';
+   document.getElementById("8").style.backgroundColor='';
+   document.getElementById("9").style.backgroundColor='';
+
+   document.getElementById("Add").style.backgroundColor='';
+   document.getElementById("Sub").style.backgroundColor='';
+   document.getElementById("C").style.backgroundColor='';
+
+   document.getElementById("E").style.backgroundColor='';
+
+   document.getElementById("AllTotal").style.backgroundColor='';
+
+}
+
+function Three_Pressed() {
+
+   document.getElementById("0").style.backgroundColor='';
+   document.getElementById("1").style.backgroundColor='';
+   document.getElementById("2").style.backgroundColor='';
+   document.getElementById("3").style.backgroundColor='yellow';
+   document.getElementById("4").style.backgroundColor='';
+   document.getElementById("5").style.backgroundColor='';
+   document.getElementById("6").style.backgroundColor='';
+   document.getElementById("7").style.backgroundColor='';
+   document.getElementById("8").style.backgroundColor='';
+   document.getElementById("9").style.backgroundColor='';
+
+   document.getElementById("Add").style.backgroundColor='';
+   document.getElementById("Sub").style.backgroundColor='';
+   document.getElementById("C").style.backgroundColor='';
+
+   document.getElementById("E").style.backgroundColor='';
+
+   document.getElementById("AllTotal").style.backgroundColor='';
+
+}
+
+function Four_Pressed() {
+
+   document.getElementById("0").style.backgroundColor='';
+   document.getElementById("1").style.backgroundColor='';
+   document.getElementById("2").style.backgroundColor='';
+   document.getElementById("3").style.backgroundColor='';
+   document.getElementById("4").style.backgroundColor='yellow';
+   document.getElementById("5").style.backgroundColor='';
+   document.getElementById("6").style.backgroundColor='';
+   document.getElementById("7").style.backgroundColor='';
+   document.getElementById("8").style.backgroundColor='';
+   document.getElementById("9").style.backgroundColor='';
+
+   document.getElementById("Add").style.backgroundColor='';
+   document.getElementById("Sub").style.backgroundColor='';
+   document.getElementById("C").style.backgroundColor='';
+
+   document.getElementById("E").style.backgroundColor='';
+
+   document.getElementById("AllTotal").style.backgroundColor='';
+
+}
+
+function Five_Pressed() {
+
+   document.getElementById("0").style.backgroundColor='';
+   document.getElementById("1").style.backgroundColor='';
+   document.getElementById("2").style.backgroundColor='';
+   document.getElementById("3").style.backgroundColor='';
+   document.getElementById("4").style.backgroundColor='';
+   document.getElementById("5").style.backgroundColor='yellow';
+   document.getElementById("6").style.backgroundColor='';
+   document.getElementById("7").style.backgroundColor='';
+   document.getElementById("8").style.backgroundColor='';
+   document.getElementById("9").style.backgroundColor='';
+
+   document.getElementById("Add").style.backgroundColor='';
+   document.getElementById("Sub").style.backgroundColor='';
+   document.getElementById("C").style.backgroundColor='';
+
+   document.getElementById("E").style.backgroundColor='';
+
+   document.getElementById("AllTotal").style.backgroundColor='';
+
+}
+
+function Six_Pressed() {
+
+   document.getElementById("0").style.backgroundColor='';
+   document.getElementById("1").style.backgroundColor='';
+   document.getElementById("2").style.backgroundColor='';
+   document.getElementById("3").style.backgroundColor='';
+   document.getElementById("4").style.backgroundColor='';
+   document.getElementById("5").style.backgroundColor='';
+   document.getElementById("6").style.backgroundColor='yellow';
+   document.getElementById("7").style.backgroundColor='';
+   document.getElementById("8").style.backgroundColor='';
+   document.getElementById("9").style.backgroundColor='';
+
+   document.getElementById("Add").style.backgroundColor='';
+   document.getElementById("Sub").style.backgroundColor='';
+   document.getElementById("C").style.backgroundColor='';
+
+   document.getElementById("E").style.backgroundColor='';
+
+   document.getElementById("AllTotal").style.backgroundColor='';
+
+}
+
+function Seven_Pressed() {
+
+   document.getElementById("0").style.backgroundColor='';
+   document.getElementById("1").style.backgroundColor='';
+   document.getElementById("2").style.backgroundColor='';
+   document.getElementById("3").style.backgroundColor='';
+   document.getElementById("4").style.backgroundColor='';
+   document.getElementById("5").style.backgroundColor='';
+   document.getElementById("6").style.backgroundColor='';
+   document.getElementById("7").style.backgroundColor='yellow';
+   document.getElementById("8").style.backgroundColor='';
+   document.getElementById("9").style.backgroundColor='';
+
+   document.getElementById("Add").style.backgroundColor='';
+   document.getElementById("Sub").style.backgroundColor='';
+   document.getElementById("C").style.backgroundColor='';
+
+   document.getElementById("E").style.backgroundColor='';
+
+   document.getElementById("AllTotal").style.backgroundColor='';
+
+}
+
+function Eight_Pressed() {
+
+   document.getElementById("0").style.backgroundColor='';
+   document.getElementById("1").style.backgroundColor='';
+   document.getElementById("2").style.backgroundColor='';
+   document.getElementById("3").style.backgroundColor='';
+   document.getElementById("4").style.backgroundColor='';
+   document.getElementById("5").style.backgroundColor='';
+   document.getElementById("6").style.backgroundColor='';
+   document.getElementById("7").style.backgroundColor='';
+   document.getElementById("8").style.backgroundColor='yellow';
+   document.getElementById("9").style.backgroundColor='';
+
+   document.getElementById("Add").style.backgroundColor='';
+   document.getElementById("Sub").style.backgroundColor='';
+   document.getElementById("C").style.backgroundColor='';
+
+   document.getElementById("E").style.backgroundColor='';
+
+   document.getElementById("AllTotal").style.backgroundColor='';
+
+}
+
+function Nine_Pressed() {
+
+   document.getElementById("0").style.backgroundColor='';
+   document.getElementById("1").style.backgroundColor='';
+   document.getElementById("2").style.backgroundColor='';
+   document.getElementById("3").style.backgroundColor='';
+   document.getElementById("4").style.backgroundColor='';
+   document.getElementById("5").style.backgroundColor='';
+   document.getElementById("6").style.backgroundColor='';
+   document.getElementById("7").style.backgroundColor='';
+   document.getElementById("8").style.backgroundColor='';
+   document.getElementById("9").style.backgroundColor='yellow';
+
+   document.getElementById("Add").style.backgroundColor='';
+   document.getElementById("Sub").style.backgroundColor='';
+   document.getElementById("C").style.backgroundColor='';
+
+   document.getElementById("E").style.backgroundColor='';
+
+   document.getElementById("AllTotal").style.backgroundColor='';
+
+}
+
+function Add_Pressed() {
+
+   document.getElementById("0").style.backgroundColor='';
+   document.getElementById("1").style.backgroundColor='';
+   document.getElementById("2").style.backgroundColor='';
+   document.getElementById("3").style.backgroundColor='';
+   document.getElementById("4").style.backgroundColor='';
+   document.getElementById("5").style.backgroundColor='';
+   document.getElementById("6").style.backgroundColor='';
+   document.getElementById("7").style.backgroundColor='';
+   document.getElementById("8").style.backgroundColor='';
+   document.getElementById("9").style.backgroundColor='';
+
+   document.getElementById("Add").style.backgroundColor='yellow';
+   document.getElementById("Sub").style.backgroundColor='';
+   document.getElementById("C").style.backgroundColor='';
+
+   document.getElementById("E").style.backgroundColor='';
+
+   document.getElementById("AllTotal").style.backgroundColor='';
+
+}
+
+function Sub_Pressed() {
+
+   document.getElementById("0").style.backgroundColor='';
+   document.getElementById("1").style.backgroundColor='';
+   document.getElementById("2").style.backgroundColor='';
+   document.getElementById("3").style.backgroundColor='';
+   document.getElementById("4").style.backgroundColor='';
+   document.getElementById("5").style.backgroundColor='';
+   document.getElementById("6").style.backgroundColor='';
+   document.getElementById("7").style.backgroundColor='';
+   document.getElementById("8").style.backgroundColor='';
+   document.getElementById("9").style.backgroundColor='';
+
+   document.getElementById("Add").style.backgroundColor='';
+   document.getElementById("Sub").style.backgroundColor='yellow';
+   document.getElementById("C").style.backgroundColor='';
+
+   document.getElementById("E").style.backgroundColor='';
+
+   document.getElementById("AllTotal").style.backgroundColor='';
+
+}
+
+function C_Pressed() {
+
+   document.getElementById("0").style.backgroundColor='';
+   document.getElementById("1").style.backgroundColor='';
+   document.getElementById("2").style.backgroundColor='';
+   document.getElementById("3").style.backgroundColor='';
+   document.getElementById("4").style.backgroundColor='';
+   document.getElementById("5").style.backgroundColor='';
+   document.getElementById("6").style.backgroundColor='';
+   document.getElementById("7").style.backgroundColor='';
+   document.getElementById("8").style.backgroundColor='';
+   document.getElementById("9").style.backgroundColor='';
+
+   document.getElementById("Add").style.backgroundColor='';
+   document.getElementById("Sub").style.backgroundColor='';
+   document.getElementById("C").style.backgroundColor='yellow';
+
+   document.getElementById("E").style.backgroundColor='';
+
+   document.getElementById("AllTotal").style.backgroundColor='';
+
+}
+
+function E_Pressed() {
+
+   document.getElementById("0").style.backgroundColor='';
+   document.getElementById("1").style.backgroundColor='';
+   document.getElementById("2").style.backgroundColor='';
+   document.getElementById("3").style.backgroundColor='';
+   document.getElementById("4").style.backgroundColor='';
+   document.getElementById("5").style.backgroundColor='';
+   document.getElementById("6").style.backgroundColor='';
+   document.getElementById("7").style.backgroundColor='';
+   document.getElementById("8").style.backgroundColor='';
+   document.getElementById("9").style.backgroundColor='';
+
+   document.getElementById("Add").style.backgroundColor='';
+   document.getElementById("Sub").style.backgroundColor='';
+   document.getElementById("C").style.backgroundColor='';
+
+   document.getElementById("E").style.backgroundColor='yellow';
+
+}
+
+
+function Reset_Number_Pad_Color() {
+
+   document.getElementById("0").style.backgroundColor='';
+   document.getElementById("1").style.backgroundColor='';
+   document.getElementById("2").style.backgroundColor='';
+   document.getElementById("3").style.backgroundColor='';
+   document.getElementById("4").style.backgroundColor='';
+   document.getElementById("5").style.backgroundColor='';
+   document.getElementById("6").style.backgroundColor='';
+   document.getElementById("7").style.backgroundColor='';
+   document.getElementById("8").style.backgroundColor='';
+   document.getElementById("9").style.backgroundColor='';
+
+   document.getElementById("Add").style.backgroundColor='';
+   document.getElementById("Sub").style.backgroundColor='';
+   document.getElementById("C").style.backgroundColor='';
+
+   document.getElementById("E").style.backgroundColor='';
+
+}
 
 function Init_Total_Mode(){
 
@@ -4924,7 +5606,7 @@ function Reset_Mode(){
 
 }
 
-function Reset_All(){
+function Reset_All_Old(){
 
    Bro_M = 0;
    Sis_M = 0;
@@ -4944,6 +5626,42 @@ function Reset_All(){
    document.getElementById("TrsTotal").innerText= Bro_TrS + Sis_TrS;
 
    document.getElementById("AllTotal").innerText= Bro_M + Bro_TrS + Sis_M + Sis_TrS;
+
+}
+
+function Reset_All(){
+
+   Bro_M = 0;
+   Sis_M = 0;
+   Bro_TrS = 0;
+   Sis_TrS = 0;
+
+   // Start Writing to Local Storage
+
+   localStorage.Bro_M = Bro_M;
+   localStorage.Sis_M = Sis_M;
+   localStorage.Bro_Trs = Bro_TrS;
+   localStorage.Sis_Trs = Sis_TrS;
+
+   // End of Writing to Local Storage
+
+   document.getElementById("BroM").innerText= Bro_M;
+   document.getElementById("BroTrs").innerText= Bro_TrS;
+
+   document.getElementById("SisM").innerText= Sis_M;
+   document.getElementById("SisTrs").innerText= Sis_TrS;
+
+   document.getElementById("BroTotal").innerText= Bro_M + Bro_TrS;
+   document.getElementById("SisTotal").innerText= Sis_M + Sis_TrS;
+
+   document.getElementById("MemTotal").innerText= Bro_M + Sis_M;
+   document.getElementById("TrsTotal").innerText= Bro_TrS + Sis_TrS;
+
+   document.getElementById("AllTotal").innerText= Bro_M + Bro_TrS + Sis_M + Sis_TrS;
+
+   // ---
+
+   Show_Total();
 
 }
 
@@ -5140,21 +5858,21 @@ function Reset_All(){
 
 
 <td style="font-size:24pt">
-<input style="font-size:24pt" type="button" name="M222" value="7" onclick="keyFunction2(7); return false;">
+<input style="font-size:24pt" type="button" name="M222" id="7" value="7" onclick="keyFunction2(7);Seven_Pressed(); return false;">
 </td> 
 <td>&nbsp&nbsp</td><td>&nbsp&nbsp</td><td>&nbsp&nbsp</td>
 <td style="font-size:24pt">
-<input style="font-size:24pt" type="button" name="M222" value="8" onclick="keyFunction2(8); return false;">
+<input style="font-size:24pt" type="button" name="M222" id="8" value="8" onclick="keyFunction2(8);Eight_Pressed(); return false;">
 </td>
 <td>&nbsp&nbsp</td><td>&nbsp&nbsp</td><td>&nbsp&nbsp</td>
 <td style="font-size:24pt">
-<input style="font-size:24pt" type="button" name="M222" value="9" onclick="keyFunction2(9); return false;">
+<input style="font-size:24pt" type="button" name="M222" id="9" value="9" onclick="keyFunction2(9);Nine_Pressed(); return false;">
 </td>
 
 
 <td>&nbsp&nbsp</td><td>&nbsp&nbsp</td><td>&nbsp&nbsp</td><td>&nbsp&nbsp</td>
 <td style="font-size:24pt">
-<input style="font-size:24pt" type="button" name="M222" value="+" onclick="keyFunction2('A'); return false;">
+<input style="font-size:24pt" type="button" name="M222" id="Add" value=" ¡Ï" onclick="keyFunction2('A');Add_Pressed(); return false;">
 </td>
 
 </tr>
@@ -5165,21 +5883,21 @@ function Reset_All(){
 
 
 <td style="font-size:24pt">
-<input style="font-size:24pt" type="button" name="M222" value="4" onclick="keyFunction2(4); return false;">
+<input style="font-size:24pt" type="button" name="M222" id="4" value="4" onclick="keyFunction2(4);Four_Pressed(); return false;">
 </td> 
 <td>&nbsp&nbsp</td><td>&nbsp&nbsp</td><td>&nbsp&nbsp</td>
 <td style="font-size:24pt">
-<input style="font-size:24pt" type="button" name="M222" value="5" onclick="keyFunction2(5); return false;">
+<input style="font-size:24pt" type="button" name="M222" id="5" value="5" onclick="keyFunction2(5);Five_Pressed(); return false;">
 </td>
 <td>&nbsp&nbsp</td><td>&nbsp&nbsp</td><td>&nbsp&nbsp</td>
 <td style="font-size:24pt">
-<input style="font-size:24pt" type="button" name="M222" value="6" onclick="keyFunction2(6); return false;">
+<input style="font-size:24pt" type="button" name="M222" id="6" value="6" onclick="keyFunction2(6);Six_Pressed(); return false;">
 </td>
 
 
 <td>&nbsp&nbsp</td><td>&nbsp&nbsp</td><td>&nbsp&nbsp</td><td>&nbsp&nbsp</td>
 <td style="font-size:24pt">
-<input style="font-size:24pt" type="button" name="M222" value="--" onclick="keyFunction2('S'); return false;">
+<input style="font-size:24pt" type="button" name="M222" id="Sub" value=" ¡Ð" onclick="keyFunction2('S');Sub_Pressed(); return false;">
 </td>
 
 </tr>
@@ -5190,21 +5908,21 @@ function Reset_All(){
 
 
 <td style="font-size:24pt">
-<input style="font-size:24pt" type="button" name="M222" value="1" onclick="keyFunction2(1); return false;">
+<input style="font-size:24pt" type="button" name="M222" id="1" value="1" onclick="keyFunction2(1);One_Pressed(); return false;">
 </td> 
 <td>&nbsp&nbsp</td><td>&nbsp&nbsp</td><td>&nbsp&nbsp</td>
 <td style="font-size:24pt">
-<input style="font-size:24pt" type="button" name="M222" value="2" onclick="keyFunction2(2); return false;">
+<input style="font-size:24pt" type="button" name="M222" id="2" value="2" onclick="keyFunction2(2);Two_Pressed(); return false;">
 </td>
 <td>&nbsp&nbsp</td><td>&nbsp&nbsp</td><td>&nbsp&nbsp</td>
 <td style="font-size:24pt">
-<input style="font-size:24pt" type="button" name="M222" value="3" onclick="keyFunction2(3); return false;">
+<input style="font-size:24pt" type="button" name="M222" id="3" value="3" onclick="keyFunction2(3);Three_Pressed(); return false;">
 </td>
 
 
 <td>&nbsp&nbsp</td><td>&nbsp&nbsp</td><td>&nbsp&nbsp</td><td>&nbsp&nbsp</td>
 <td style="font-size:24pt">
-<input style="font-size:24pt" type="button" name="M222" value="C" onclick="keyFunction2('C'); return false;">
+<input style="font-size:24pt" type="button" name="M222" id="C" value=" C " onclick="keyFunction2('C');C_Pressed(); return false;">
 </td>
 
 </tr>
@@ -5215,13 +5933,13 @@ function Reset_All(){
 
 <td>&nbsp&nbsp</td><td>&nbsp&nbsp</td><td>&nbsp&nbsp</td><td>&nbsp&nbsp</td>
 <td colspan=6 style="font-size:24pt">
-<input style="font-size:24pt" type="button" name="M222" value="0" onclick="keyFunction2(0); return false;">
+<input style="font-size:24pt" type="button" name="M222" id="0" value="0" onclick="keyFunction2(0);Zero_Pressed(); return false;">
 </td> 
 <td>&nbsp&nbsp</td><td>&nbsp&nbsp</td><td>&nbsp&nbsp</td>
 
 
 <td style="font-size:24pt">
-<input style="font-size:24pt" type="button" name="M222" value="E" onclick="keyFunction2('E');Show_Total_Mode(); return false;">
+<input style="font-size:24pt" type="button" name="M222" id="E" value=" E " onclick="keyFunction2('E');Show_Total_Mode();E_Pressed(); return false;">
 </td>
 
 </tr>
