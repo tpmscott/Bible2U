@@ -614,7 +614,7 @@ function Hide_a7(){
 
 
 </head>
-<body onload="Init_Total_Mode();Init_BM();Init_Continuing_Read();Hide_a7();Pre_Set_Mode();Study_Mode();; return false;" text="#000000" link="#0000ff" alink="#ffffff" vlink="#0000ff" background="back5.jpg">
+<body onload="Init_Total_Mode();Init_BM();Init_Continuing_Read();Hide_a7();Pre_Set_Mode();Study_Mode();Init_BM2(); return false;" text="#000000" link="#0000ff" alink="#ffffff" vlink="#0000ff" background="back5.jpg">
 
 
 <table><tr><td>
@@ -839,6 +839,101 @@ function Init_Continuing_Read(){ // Read from LocalStorage
 
 
 }  // End of function Init_Continuing_Read()
+
+
+function Write_to_BM2() { // Click Set BM2
+
+      // Initial
+
+      if(localStorage.BM2_Set) {
+         // 
+      }else {
+         localStorage.BM2_Set = '0';
+      }
+
+      if(localStorage.BM2_Set=='0') { // Do nothing when == '1'
+
+         // Write Current_Read to localStorage.BM2_
+
+         localStorage.BM2_b = localStorage.current_b;
+         localStorage.BM2_c = localStorage.current_c;
+         localStorage.BM2_v = localStorage.current_v;
+         localStorage.BM2_t = localStorage.current_t;
+
+         //
+
+         localStorage.BM2_Set = '1'; // 1 means Set BM2 been Clicked, 0 means not yet
+
+         document.getElementById("Set_BM2").style.backgroundColor='blue';
+         document.getElementById("Read_BM2").style.backgroundColor='red';
+
+         document.getElementById("Set_BM2").style.color="white"; // black
+         document.getElementById("Read_BM2").style.color="white"; // black
+
+      }
+
+}
+
+
+function Read_From_BM2() { // Click Read BM2
+
+      // Initial
+
+      if(localStorage.BM2_Set) {
+         // 
+      }else {
+         localStorage.BM2_Set = '0'; // 1 means Set BM2 been Clicked, 0 means not yet
+      }
+
+      if(localStorage.BM2_Set=='1') { // Do nothing when == '0'
+
+         b_int = Number(localStorage.BM2_b);
+         c_int = Number(localStorage.BM2_c);
+         v_int = Number(localStorage.BM2_v);
+         t_int = Number(localStorage.BM2_t);
+
+         Pre_Set_Mode();
+         readchapter(b_int, c_int, v_int, t_int);
+
+         localStorage.current_b = b_int.toString();
+         localStorage.current_c = c_int.toString();
+         localStorage.current_v = v_int.toString();
+         localStorage.current_t = t_int.toString();
+
+         localStorage.BM2_Set = '0';
+
+         document.getElementById("Set_BM2").style.backgroundColor='';
+         document.getElementById("Read_BM2").style.backgroundColor='';
+
+         document.getElementById("Set_BM2").style.color="black"; // black
+         document.getElementById("Read_BM2").style.color="black"; // black
+
+      }
+
+}
+
+function Init_BM2() {
+
+      // Initial
+
+      if(localStorage.BM2_Set) {
+         // 
+      }else {
+         localStorage.BM2_Set = '0'; // 1 means Set BM2 been Clicked, 0 means not yet
+      }
+
+      if(localStorage.BM2_Set=='1') {
+
+         document.getElementById("Set_BM2").style.backgroundColor='blue';
+         document.getElementById("Read_BM2").style.backgroundColor='red';
+
+         document.getElementById("Set_BM2").style.color="white"; // black
+         document.getElementById("Read_BM2").style.color="white"; // black
+
+      }
+
+}
+
 
 
 //function Recoding_Current_Read() {
@@ -3189,8 +3284,8 @@ function Qmaxverse(index,index2) {   // find out maximum verse of chapter of boo
 <tr>
 <td></td><td></td><td></td><td></td>
 
-<td><button onclick="Show_History_Only()">Show History</button></td>
-<td><button onclick="Hide_History_Only()">Hide History</button></td>
+<td><button id="Set_BM2" onclick="Write_to_BM2()">Set BM2</button></td>
+<td><button id="Read_BM2" onclick="Read_From_BM2()">Read BM2</button></td>
 
 <td></td><td></td><td></td><td></td>
 
@@ -3201,8 +3296,10 @@ function Qmaxverse(index,index2) {   // find out maximum verse of chapter of boo
 
 <td></td><td></td><td></td><td></td>
 
+<td><button onclick="Show_History_Only()">Show His.</button></td>
+<td><button onclick="Hide_History_Only()">Hide His.</button></td>
 <td><button onclick="Delete_All_Bookmarks()">Del BM</button></td>
-<td><button onclick="Delete_All_History()">Del History</button></td>
+<td><button onclick="Delete_All_History()">Del His.</button></td>
 
 <td></td><td></td><td></td><td></td>
 
