@@ -4542,7 +4542,7 @@ function change7() {
 
 <tr>
 <td align=center>
-<input style="font-size:18pt" type="button" name="M222" id="Reset_Button" value="Reset" onclick="Reset_All();; return false;">
+<input style="font-size:18pt" type="button" name="M222" id="Reset_Button" value="Reset" onclick="Reset_All();Display_Count_People_Time();; return false;">
 </td>
 
 <td>
@@ -4609,6 +4609,16 @@ function change7() {
 </td>
 </tr>
 
+<tr>
+
+<td colspan="4">
+<center>
+<p style="font-size:18pt" id="Count_Time"></p>
+</center>
+</td>
+
+</tr>
+
 
 </table>
 </center>
@@ -4642,16 +4652,65 @@ function change7() {
 
 </tr>
 
-<tr><td>&nbsp</td></tr>
 
 </table>
 </center>
+
 
 
 </div>
 
 
 <script>
+
+function Display_Count_People_Time() {
+
+   // For Display Count People Time
+
+   var d = new Date();
+   var Y = d.getFullYear();
+   var M = d.getMonth() + 1;
+   var D = d.getDate();
+   var h = d.getHours();
+   var m = d.getMinutes();
+
+   var m_Str = m.toString();
+
+   if(m_Str=='0') m_Str = '00';
+   if(m_Str=='1') m_Str = '01';
+   if(m_Str=='2') m_Str = '02';
+   if(m_Str=='3') m_Str = '03';
+   if(m_Str=='4') m_Str = '04';
+   if(m_Str=='5') m_Str = '05';
+   if(m_Str=='6') m_Str = '06';
+   if(m_Str=='7') m_Str = '07';
+   if(m_Str=='8') m_Str = '08';
+   if(m_Str=='9') m_Str = '09';
+
+   var Date_Str = Y.toString() + '.' + M.toString() + '.' + D.toString() ;
+   var Time_STr = h.toString() + ':' + m_Str;
+
+   var days =  ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+
+   var days_Str = days[d.getDay()];
+
+   var Date_Time_Str = '@' + Date_Str + ' ' + days_Str + ' ' + Time_STr;
+
+   document.getElementById("Count_Time").innerHTML = Date_Time_Str;
+
+
+   // End of Display Count People Time
+
+   // Start Writing to Local Storage
+
+   localStorage.Count_Date_Time = Date_Time_Str;
+
+   // End of Writing to Local Storage
+
+
+}
+
+
 
 var Bro_M = 0;
 var Bro_TrS = 0;   //Bro Truth Seeker
@@ -5527,6 +5586,15 @@ function Init_Total_Mode(){
       localStorage.Sis_Trs = 0;
    }
 
+   if(localStorage.Count_Date_Time) {
+      //localStorage.Count_Date_Time = localStorage.Count_Date_Time;
+   }else {
+      localStorage.Count_Date_Time = '';
+   }
+
+   var Date_Time_Str = localStorage.Count_Date_Time;
+
+
    Bro_M = Number(localStorage.Bro_M);
    Bro_TrS = Number(localStorage.Bro_Trs);
    Sis_M = Number(localStorage.Sis_M);
@@ -5548,6 +5616,8 @@ function Init_Total_Mode(){
    document.getElementById("TrsTotal").innerText= Bro_TrS + Sis_TrS;
 
    document.getElementById("AllTotal").innerText= Bro_M + Bro_TrS + Sis_M + Sis_TrS;
+
+   document.getElementById("Count_Time").innerHTML = Date_Time_Str;
 
 
    //document.getElementById("container_Total").style.visibility='visible';
@@ -5939,7 +6009,7 @@ function Reset_All(){
 
 
 <td style="font-size:24pt">
-<input style="font-size:24pt" type="button" name="M222" id="E" value=" E " onclick="keyFunction2('E');Show_Total_Mode();E_Pressed(); return false;">
+<input style="font-size:24pt" type="button" name="M222" id="E" value=" E " onclick="keyFunction2('E');Show_Total_Mode();E_Pressed();Display_Count_People_Time(); return false;">
 </td>
 
 </tr>
