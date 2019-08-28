@@ -8524,33 +8524,115 @@ function pray() {
 }
 
 
+
+function Encrypt_and_Save() {
+
+   // Encrypt
+
+   //localStorage.Note3_Content = document.ANNO_FORM.A1.value;
+
+   //var Nametext_input = document.getElementById("FirstName").value; 
+   var Nametext_input = document.getElementById("A1").value; 
+
+   var Key_input = document.getElementById("Key").value; 
+
+   var encryptedName = CryptoJS.AES.encrypt(Nametext_input, Key_input);
+
+   //encryptedName = CryptoJS.AES.encrypt(Nametext_input, 'secret key 123');
+
+   var encryptedName_Str = encryptedName.toString();
+
+   //Encrypted_Name = encryptedName;
+
+   //Encrypted_Name = encryptedName_Str;
+
+   //document.getElementById("Encrypted_Name").innerHTML = encryptedName_Str;
+
+   // Save to LocalStorage
+
+   localStorage.MyNote = encryptedName;
+
+}
+
+function Read_and_Decrypt() {
+
+   // Read from LocalStorage
+
+   // document.getElementById("A1").value = localStorage.Note3_Content;
+
+   if(localStorage.MyNote) {
+      //localStorage.Name = localStorage.Name;
+   }else {
+      localStorage.MyNote = '';
+   }
+
+   var encryptedName = localStorage.MyNote;
+
+
+   // Decrypt
+   //var decryptedName  = CryptoJS.AES.decrypt(Encrypted_Name.toString(), 'secret key 123'); // secret key 123
+   //var decryptedName  = CryptoJS.AES.decrypt(Encrypted_Name.toString(), 'secret key 123'); // secret key 123
+   //var decryptedName  = CryptoJS.AES.decrypt(Encrypted_Name, 'secret key 123'); // secret key 123
+
+   var Key_input = document.getElementById("Key").value;
+
+   var decryptedName  = CryptoJS.AES.decrypt(encryptedName.toString(), Key_input); // secret key 123
+
+   var decryptedName_Str = decryptedName.toString(CryptoJS.enc.Utf8);
+
+   //document.getElementById("Decrypted_Name").innerHTML = decryptedName_Str;
+   document.getElementById("A1").value = decryptedName_Str;
+
+}
+
+
+
+
+
 // Determine the type of search, and make
 // sure the user has entered something
 function validate(entry) {
-  if (entry.charAt(0) == "+") {
-    entry = entry.substring(1,entry.length);
-    searchType = SEARCHALL;
-    }
-  else if (entry.substring(0,4) == "url:") {
-    entry = entry.substring(5,entry.length);
-    searchType = SEARCHURL;
-    }
-  else { searchType = SEARCHANY; }
-  while (entry.charAt(0) == ' ') {
-    entry = entry.substring(1,entry.length);
-    document.search.query.value = entry;
-    }
-  while (entry.charAt(entry.length - 1) == ' ') {
-    entry = entry.substring(0,entry.length - 1);
-    document.search.query.value = entry;
-    }
-/*  if (entry.length < 3) {
-    alert("You cannot search strings that small. Elaborate a little.");
-    document.search.query.focus();
-    return;
-    }
-*/  convertString(entry);
+
+  if(entry=='MyNote') {
+
+     document.getElementById("search_result").innerHTML = '';
+
+     document.getElementById("My_Note").style.visibility='visible';
+     document.getElementById("My_Note").style.height = "92%";
+
   }
+  else {
+
+     document.getElementById("My_Note").style.visibility='hidden';
+     document.getElementById("My_Note").style.height = "0%";
+
+     if (entry.charAt(0) == "+") {
+       entry = entry.substring(1,entry.length);
+       searchType = SEARCHALL;
+       }
+     else if (entry.substring(0,4) == "url:") {
+       entry = entry.substring(5,entry.length);
+       searchType = SEARCHURL;
+       }
+     else { searchType = SEARCHANY; }
+     while (entry.charAt(0) == ' ') {
+       entry = entry.substring(1,entry.length);
+       document.search.query.value = entry;
+       }
+     while (entry.charAt(entry.length - 1) == ' ') {
+       entry = entry.substring(0,entry.length - 1);
+       document.search.query.value = entry;
+       }
+   /*  if (entry.length < 3) {
+       alert("You cannot search strings that small. Elaborate a little.");
+       document.search.query.focus();
+       return;
+       }
+   */  convertString(entry);
+
+  } // End of if(entry=='MyNote')
+
+} // End of function validate(entry)
 
 // Put the search terms in an array and
 // and call appropriate search algorithm
