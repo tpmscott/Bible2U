@@ -3829,7 +3829,7 @@ function change7() {
 
 <div id="My_Note" style="height:0%;width:100%;font-size:20pt;overflow: auto;visibility:hidden">
 
-   Key: <input type="password" name="Key" value="" id="Key"><br>
+   Key: <input type="password" name="Key" value="" id="Key" onfocus="Mousetrap.pause();" onBlur="Mousetrap.unpause();"><br>
    <button onclick="Read_and_Decrypt()">Read</button>
    <button onclick="Encrypt_and_Save()">Save</button>
    <button onclick="">Close</button><br><br>
