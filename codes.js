@@ -8585,7 +8585,16 @@ function Read_and_Decrypt() {
 
 }
 
+function Close_MyNote() {
 
+   document.getElementById("My_Note").style.visibility='hidden';
+   document.getElementById("My_Note").style.height = "0%";
+
+   document.getElementById("A1").value = '';
+   document.getElementById("Key").value = '';
+   document.getElementById("Search_Txt").value = '';
+
+}
 
 
 

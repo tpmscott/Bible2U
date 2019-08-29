@@ -2876,7 +2876,7 @@ function Set_NKJV() {
 
 <td>
 <FORM NAME="search" onsubmit="Call_validate();Search_Mode(); return false;">
-<INPUT class="topfont2" TYPE=TEXT NAME="query" SIZE="12" onfocus="Mousetrap.pause()" onBlur="Mousetrap.unpause()">
+<INPUT class="topfont2" TYPE=TEXT NAME="query" SIZE="12" id="Search_Txt" onfocus="Mousetrap.pause()" onBlur="Mousetrap.unpause()">
 <input class="topfont2" type="submit" name="submit1" value="¬d¸ß">
 <td>
 <input class="topfont2" type="button" name="B11" value="Ãö¬d¸ß" onclick="Hide_Search_Mode(); return false;">
@@ -3830,9 +3830,11 @@ function change7() {
 <div id="My_Note" style="height:0%;width:100%;font-size:20pt;overflow: auto;visibility:hidden">
 
    Key: <input type="password" name="Key" value="" id="Key" onfocus="Mousetrap.pause();" onBlur="Mousetrap.unpause();"><br>
-   <button onclick="Read_and_Decrypt()">Read</button>
-   <button onclick="Encrypt_and_Save()">Save</button>
-   <button onclick="">Close</button><br><br>
+   <button onclick="Read_and_Decrypt()">Read</button> 
+   &nbsp&nbsp
+   <button onclick="Close_MyNote()">Close</button>
+   &nbsp&nbsp
+   <button onclick="Encrypt_and_Save()">Save</button><br><br>
 
 
 <form name="ANNO_FORM">
