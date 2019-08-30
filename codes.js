@@ -8524,6 +8524,119 @@ function pray() {
 }
 
 
+function Encrypt_and_Save_Key() {
+
+   // Encrypt
+
+   //localStorage.Note3_Content = document.ANNO_FORM.A1.value;
+
+   //var Nametext_input = document.getElementById("FirstName").value; 
+   //var Nametext_input = document.getElementById("A1").value; 
+   var Nametext_input = document.getElementById("Key").value; 
+
+   var Key_input = document.getElementById("Key").value; 
+
+   var encryptedName = CryptoJS.AES.encrypt(Nametext_input, Key_input);
+
+   //encryptedName = CryptoJS.AES.encrypt(Nametext_input, 'secret key 123');
+
+   var encryptedName_Str = encryptedName.toString();
+
+   //Encrypted_Name = encryptedName;
+
+   //Encrypted_Name = encryptedName_Str;
+
+   //document.getElementById("Encrypted_Name").innerHTML = encryptedName_Str;
+
+   // Save to LocalStorage
+
+   localStorage.MyNote_Key = encryptedName;
+
+}
+
+function Read_and_Decrypt_Key() {
+
+   // Read from LocalStorage
+
+   // document.getElementById("A1").value = localStorage.Note3_Content;
+
+   if(localStorage.MyNote_Key) {
+      //localStorage.Name = localStorage.Name;
+   }else {
+      localStorage.MyNote_Key = '';
+   }
+
+   var encryptedName = localStorage.MyNote_Key;
+
+
+   // Decrypt
+   //var decryptedName  = CryptoJS.AES.decrypt(Encrypted_Name.toString(), 'secret key 123'); // secret key 123
+   //var decryptedName  = CryptoJS.AES.decrypt(Encrypted_Name.toString(), 'secret key 123'); // secret key 123
+   //var decryptedName  = CryptoJS.AES.decrypt(Encrypted_Name, 'secret key 123'); // secret key 123
+
+   var Key_input = document.getElementById("Key").value;
+
+   var decryptedName  = CryptoJS.AES.decrypt(encryptedName.toString(), Key_input); // secret key 123
+
+   var decryptedName_Str = decryptedName.toString(CryptoJS.enc.Utf8);
+
+   document.getElementById("Decrypted_Name").innerHTML = decryptedName_Str;
+   //document.getElementById("A1").value = decryptedName_Str;
+
+} // End of function Read_and_Decrypt_Key()
+
+
+function Read_and_Decrypt_Comcare_Key() {
+
+   // Read from LocalStorage
+
+   // document.getElementById("A1").value = localStorage.Note3_Content;
+
+   if(localStorage.MyNote_Key) {
+      //localStorage.Name = localStorage.Name;
+   }else {
+      localStorage.MyNote_Key = '';
+   }
+
+   var encryptedName = localStorage.MyNote_Key;
+
+
+   // Decrypt
+   //var decryptedName  = CryptoJS.AES.decrypt(Encrypted_Name.toString(), 'secret key 123'); // secret key 123
+   //var decryptedName  = CryptoJS.AES.decrypt(Encrypted_Name.toString(), 'secret key 123'); // secret key 123
+   //var decryptedName  = CryptoJS.AES.decrypt(Encrypted_Name, 'secret key 123'); // secret key 123
+
+   var Key_input = document.getElementById("Key").value;
+
+   var decryptedName  = CryptoJS.AES.decrypt(encryptedName.toString(), Key_input); // secret key 123
+
+   var decryptedName_Str = decryptedName.toString(CryptoJS.enc.Utf8);
+
+   if(Key_input==decryptedName_Str) {
+
+      document.getElementById("Decrypted_Name").innerHTML = 'Same';
+
+      document.getElementById("My_Note_Content").style.visibility='visible';
+      document.getElementById("My_Note_Content").style.height = "84%";
+      document.getElementById("My_Note").style.height = "8%";
+
+   }
+   else {
+
+      document.getElementById("Decrypted_Name").innerHTML = 'Different';
+
+      document.getElementById("My_Note_Content").style.visibility='hidden';
+      document.getElementById("My_Note_Content").style.height = "0%";
+      document.getElementById("My_Note").style.height = "92%";
+
+   }
+
+   //document.getElementById("Decrypted_Name").innerHTML = decryptedName_Str;
+   //document.getElementById("A1").value = decryptedName_Str;
+
+} // End of function Read_and_Decrypt_Comcare_Key()
+
+
 
 function Encrypt_and_Save() {
 
@@ -8589,6 +8702,9 @@ function Close_MyNote() {
 
    document.getElementById("My_Note").style.visibility='hidden';
    document.getElementById("My_Note").style.height = "0%";
+
+   document.getElementById("My_Note_Content").style.visibility='hidden';
+   document.getElementById("My_Note_Content").style.height = "0%";
 
    document.getElementById("A1").value = '';
    document.getElementById("Key").value = '';
