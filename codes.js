@@ -8696,7 +8696,44 @@ function Read_and_Decrypt() {
    //document.getElementById("Decrypted_Name").innerHTML = decryptedName_Str;
    document.getElementById("A1").value = decryptedName_Str;
 
+   document.getElementById("A1").readOnly = false;
+
 }
+
+function Read_Only_and_Decrypt() {
+
+   // Read from LocalStorage
+
+   // document.getElementById("A1").value = localStorage.Note3_Content;
+
+   if(localStorage.MyNote) {
+      //localStorage.Name = localStorage.Name;
+   }else {
+      localStorage.MyNote = '';
+   }
+
+   var encryptedName = localStorage.MyNote;
+
+
+   // Decrypt
+   //var decryptedName  = CryptoJS.AES.decrypt(Encrypted_Name.toString(), 'secret key 123'); // secret key 123
+   //var decryptedName  = CryptoJS.AES.decrypt(Encrypted_Name.toString(), 'secret key 123'); // secret key 123
+   //var decryptedName  = CryptoJS.AES.decrypt(Encrypted_Name, 'secret key 123'); // secret key 123
+
+   var Key_input = document.getElementById("Key").value;
+
+   var decryptedName  = CryptoJS.AES.decrypt(encryptedName.toString(), Key_input); // secret key 123
+
+   var decryptedName_Str = decryptedName.toString(CryptoJS.enc.Utf8);
+
+   //document.getElementById("Decrypted_Name").innerHTML = decryptedName_Str;
+   document.getElementById("A1").value = decryptedName_Str;
+
+   document.getElementById("A1").readOnly = true;
+
+}
+
+
 
 function Close_MyNote() {
 
