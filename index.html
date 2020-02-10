@@ -618,7 +618,7 @@ function Hide_a7(){
 
 
 </head>
-<body onload="Init_Total_Mode();Init_BM();Init_Continuing_Read();Hide_a7();Pre_Set_Mode();Study_Mode();Init_BM2();decrease_fontsize();decrease_fontsize(); return false;" text="#000000" link="#0000ff" alink="#ffffff" vlink="#0000ff" background="back5.jpg">
+<body onload="Init_Total_Mode();Init_BM();Init_Continuing_Read();Hide_a7();Pre_Set_Mode();Study_Mode();Init_BM2();Init_BM3();decrease_fontsize();decrease_fontsize(); return false;" text="#000000" link="#0000ff" alink="#ffffff" vlink="#0000ff" background="back5.jpg">
 
 
 <table><tr><td>
@@ -877,6 +877,41 @@ function Write_to_BM2() { // Click Set BM2
 }
 
 
+function Write_to_BM3() { // Click Set BM3
+
+      // Initial
+
+      if(localStorage.BM3_Set) {
+         // 
+      }else {
+         localStorage.BM3_Set = '0';
+      }
+
+      if(localStorage.BM3_Set=='0') { // Do nothing when == '1'
+
+         // Write Current_Read to localStorage.BM3_
+
+         localStorage.BM3_b = localStorage.current_b;
+         localStorage.BM3_c = localStorage.current_c;
+         localStorage.BM3_v = localStorage.current_v;
+         localStorage.BM3_t = localStorage.current_t;
+
+         //
+
+         localStorage.BM3_Set = '1'; // 1 means Set BM3 been Clicked, 0 means not yet
+
+         document.getElementById("Set_BM3").style.backgroundColor='blue';
+         document.getElementById("Read_BM3").style.backgroundColor='red';
+
+         document.getElementById("Set_BM3").style.color="white"; // black
+         document.getElementById("Read_BM3").style.color="white"; // black
+
+      }
+
+}
+
+
+
 function Read_From_BM2() { // Click Read BM2
 
       // Initial
@@ -912,7 +947,47 @@ function Read_From_BM2() { // Click Read BM2
 
       }
 
-}
+}  // End of function Read_From_BM2()
+
+
+function Read_From_BM3() { // Click Read BM3
+
+      // Initial
+
+      if(localStorage.BM3_Set) {
+         // 
+      }else {
+         localStorage.BM3_Set = '0'; // 1 means Set BM3 been Clicked, 0 means not yet
+      }
+
+      if(localStorage.BM3_Set=='1') { // Do nothing when == '0'
+
+         b_int = Number(localStorage.BM3_b);
+         c_int = Number(localStorage.BM3_c);
+         v_int = Number(localStorage.BM3_v);
+         t_int = Number(localStorage.BM3_t);
+
+         Pre_Set_Mode();
+         readchapter(b_int, c_int, v_int, t_int);
+
+         localStorage.current_b = b_int.toString();
+         localStorage.current_c = c_int.toString();
+         localStorage.current_v = v_int.toString();
+         localStorage.current_t = t_int.toString();
+
+         localStorage.BM3_Set = '0';
+
+         document.getElementById("Set_BM3").style.backgroundColor='';
+         document.getElementById("Read_BM3").style.backgroundColor='';
+
+         document.getElementById("Set_BM3").style.color="black"; // black
+         document.getElementById("Read_BM3").style.color="black"; // black
+
+      }
+
+}  // End of function Read_From_BM3()
+
+
 
 function Init_BM2() {
 
@@ -934,7 +1009,30 @@ function Init_BM2() {
 
       }
 
-}
+}  // End of function Init_BM2()
+
+
+function Init_BM3() {
+
+      // Initial
+
+      if(localStorage.BM3_Set) {
+         // 
+      }else {
+         localStorage.BM3_Set = '0'; // 1 means Set BM3 been Clicked, 0 means not yet
+      }
+
+      if(localStorage.BM3_Set=='1') {
+
+         document.getElementById("Set_BM3").style.backgroundColor='blue';
+         document.getElementById("Read_BM3").style.backgroundColor='red';
+
+         document.getElementById("Set_BM3").style.color="white"; // black
+         document.getElementById("Read_BM3").style.color="white"; // black
+
+      }
+
+}  // End of function Init_BM3()
 
 
 
@@ -3285,10 +3383,16 @@ function Qmaxverse(index,index2) {   // find out maximum verse of chapter of boo
 
 <table>
 <tr>
-<td></td><td></td><td></td><td></td>
+
+<td></td>
 
 <td><button id="Set_BM2" onclick="Write_to_BM2()">Set BM2</button></td>
 <td><button id="Read_BM2" onclick="Read_From_BM2()">Read BM2</button></td>
+
+<td></td><td></td><td></td><td></td>
+
+<td><button id="Set_BM3" onclick="Write_to_BM3()">Set BM3</button></td>
+<td><button id="Read_BM3" onclick="Read_From_BM3()">Read BM3</button></td>
 
 <td></td><td></td><td></td><td></td>
 
