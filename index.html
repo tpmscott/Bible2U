@@ -113,9 +113,9 @@
 <SCRIPT LANGUAGE="JavaScript" SRC="b6.js"></SCRIPT>
 <SCRIPT LANGUAGE="JavaScript" SRC="codes.js"></SCRIPT>
 <SCRIPT LANGUAGE="JavaScript" SRC="KeyFunction.js"></SCRIPT>
-<SCRIPT LANGUAGE="JavaScript" SRC="Mark_Line.js"></SCRIPT>
+<SCRIPT LANGUAGE="JavaScript" SRC="Mark_Line_V2.js"></SCRIPT>
 
-<script src="idb-keyval.js"></script>
+<script src="idb.min.js"></script>
 
 <script src="aes.js"></script>
 
@@ -618,7 +618,7 @@ function Hide_a7(){
 
 
 </head>
-<body onload="Init_Total_Mode();Init_BM();Init_Continuing_Read();Hide_a7();Pre_Set_Mode();Study_Mode();Init_BM2();Init_BM3();decrease_fontsize();decrease_fontsize(); return false;" text="#000000" link="#0000ff" alink="#ffffff" vlink="#0000ff" background="back5.jpg">
+<body onload="init_Bible4U_DB();Init_Total_Mode();Init_BM();Init_Continuing_Read();Hide_a7();Pre_Set_Mode();Study_Mode();Init_BM2();Init_BM3();decrease_fontsize();decrease_fontsize(); return false;" text="#000000" link="#0000ff" alink="#ffffff" vlink="#0000ff" background="back5.jpg">
 
 
 <table><tr><td>
@@ -3396,17 +3396,17 @@ function Qmaxverse(index,index2) {   // find out maximum verse of chapter of boo
 
 <td></td><td></td><td></td><td></td>
 
-<td><button onclick="Show_Bookmark_Only()">Show BM</button></td>
-<td><button onclick="Hide_Bookmark_Only()">Hide BM</button></td>
-<td><button style="color:red"  onclick="Show_Bookmark2(b_int,c_int,v_int,t_int)">Add BM</button></td>
-<td><button style="color:blue"  onclick="Write_Bookmark()">Save BM</button></td>
+<td><button onclick="Show_All_ML_Only();Pre_Set_Mode()">All ML</button></td>
+<td><button onclick="Show_Book_ML_Only();Pre_Set_Mode()">Book ML</button></td>
 
 <td></td><td></td><td></td><td></td>
 
-<td><button onclick="Show_History_Only()">Show His.</button></td>
-<td><button onclick="Hide_History_Only()">Hide His.</button></td>
-<td><button onclick="Delete_All_Bookmarks()">Del BM</button></td>
-<td><button onclick="Delete_All_History()">Del His.</button></td>
+<td><button onclick="Show_Chap_ML_Only();Pre_Set_Mode()">Chap ML</button></td>
+<td><button onclick="Hide_ML_Only()">Hide ML</button></td>
+
+<td></td><td></td><td></td><td></td>
+
+
 
 <td></td><td></td><td></td><td></td>
 
@@ -3893,6 +3893,8 @@ function change7() {
 </script>
 
 <div id="His_Container" style="height:600px;width:0%;float:left;font-size:14pt;overflow:auto;">
+
+  <p id="Vers_MLs"></p>
 
   <p id="Vers_bookmark"></p>
 
