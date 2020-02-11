@@ -27,6 +27,9 @@ async function init_Bible4U_DB() {
     //ObjectStore.createIndex('chap_no', 'chap_no', { unique: false });
     //ObjectStore.createIndex('vers_no', 'vers_no', { unique: false });
   });
+
+
+Init_Continuing_Read();
 }
 
 

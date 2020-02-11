@@ -618,7 +618,7 @@ function Hide_a7(){
 
 
 </head>
-<body onload="init_Bible4U_DB();Init_Total_Mode();Init_BM();Init_Continuing_Read();Hide_a7();Pre_Set_Mode();Study_Mode();Init_BM2();Init_BM3();decrease_fontsize();decrease_fontsize(); return false;" text="#000000" link="#0000ff" alink="#ffffff" vlink="#0000ff" background="back5.jpg">
+<body onload="init_Bible4U_DB();Init_Total_Mode();Init_BM();;Hide_a7();Pre_Set_Mode();Study_Mode();Init_BM2();Init_BM3();decrease_fontsize();decrease_fontsize(); return false;" text="#000000" link="#0000ff" alink="#ffffff" vlink="#0000ff" background="back5.jpg">
 
 
 <table><tr><td>
@@ -824,7 +824,11 @@ function Init_Continuing_Read(){ // Read from LocalStorage
 
    Pre_Set_Mode();
    //keyFunction2('enter2');
-   readchapter(b_int, c_int, v_int, t_int);
+
+   readchapter(b_int, c_int, v_int, t_int); 
+
+   // await readchapter4(b_int, c_int, v_int, t_int);  // readchapter4() only for function Init_Continuing_Read()
+                                                       // test fail
 
    // for testing
       // Recoding_Current_Read
