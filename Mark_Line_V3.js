@@ -307,7 +307,7 @@ async function Show_All_ML_Only() {   // Show all items in ML *** Only ***
          var Book_Count_Str = VH_Bname + ' (' + Book_Verse_Count + ')';
 
 
-         text1 += '<button onclick=";return false;">O</button> <a href="" onClick="Show_His_BM_Vers2(' + arg1 + ',' + arg2 + ',' + arg3 + ',' + arg4 + ');Show_Book_ML_Only();return false;">' + Book_Count_Str + '</a><br>';
+         text1 += '<a href="" onClick="Show_His_BM_Vers2(' + arg1 + ',' + arg2 + ',' + arg3 + ',' + arg4 + ');Show_Book_ML_Only();return false;">' + Book_Count_Str + '</a><br>';
 
 
       }
@@ -379,7 +379,7 @@ async function Show_Book_ML_Only() {   // Show items belong to certain book in M
             else
                var VH = VH_Bname + ' ' + VH_Chap + ':' + VH_Vers; 
 
-            text1 += '<button onclick=";return false;">O</button> <a href="" onClick="Show_His_BM_Vers2(' + arg1 + ',' + arg2 + ',' + arg3 + ',' + arg4 + ');return false;">' + VH + '</a><br>';
+            text1 += '<a href="" onClick="Show_His_BM_Vers2(' + arg1 + ',' + arg2 + ',' + arg3 + ',' + arg4 + ');return false;">' + VH + '</a><br>';
 
          } // End of for (i = 0; i < Verse.length; i++)
 
@@ -427,7 +427,7 @@ async function Show_Book_ML_Only() {   // Show items belong to certain book in M
 
             var Chap_Count_Str = VH_Bname + ' ' + VH_Chap + ' (' + Chap_Verse_Count + ')';
 
-            text1 += '<button onclick=";return false;">O</button> <a href="" onClick="Show_His_BM_Vers2(' + arg1 + ',' + arg2 + ',' + arg3 + ',' + arg4 + ');Show_Chap_ML_Only();return false;">' + Chap_Count_Str + '</a><br>';
+            text1 += '<a href="" onClick="Show_His_BM_Vers2(' + arg1 + ',' + arg2 + ',' + arg3 + ',' + arg4 + ');Show_Chap_ML_Only();return false;">' + Chap_Count_Str + '</a><br>';
 
          }  // End of if(Chap_Verse_Count>0)
 
@@ -501,7 +501,7 @@ async function Show_Chap_ML_Only() {   // Show items belong to certain chap in b
          else
             var VH = VH_Bname + ' ' + VH_Chap + ':' + VH_Vers; 
 
-         text1 += '<button onclick=";return false;">O</button> <a href="" onClick="Show_His_BM_Vers2(' + arg1 + ',' + arg2 + ',' + arg3 + ',' + arg4 + ');return false;">' + VH + '</a><br>';
+         text1 += '<a href="" onClick="Show_His_BM_Vers2(' + arg1 + ',' + arg2 + ',' + arg3 + ',' + arg4 + ');return false;">' + VH + '</a><br>';
 
       } // End of for (i = 0; i < Verse.length; i++)
 
