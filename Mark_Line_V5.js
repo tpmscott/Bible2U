@@ -959,7 +959,10 @@ function select_all_and_copy_V2(el,arg1)  {    // New for V5
 
                                //tooltip(el, "Copied to clipboard.");
                             }
-                            else tooltip(el, "Press CTRL+C to copy");
+                            else {
+                               myExp_Db_Display.innerHTML = arg1;
+                               //tooltip(el, "Press CTRL+C to copy");
+                            }
                         }
                         else
                         {
