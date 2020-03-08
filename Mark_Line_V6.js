@@ -883,7 +883,7 @@ async function Exp_from_books_Test2Db() { // New for V5
 
      copyFunction5(mesg1);
 
-     myExp_Db_Display_area.innerHTML = "";
+     //myExp_Db_Display_area.innerHTML = "";
 
 
   } // End of if (Verse)
