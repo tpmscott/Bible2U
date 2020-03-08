@@ -877,11 +877,10 @@ async function Exp_from_books_Test2Db() { // New for V5
      //Exp_to_books_Test2Db.value = text;  // Imp_to_books_Test2Db
      //Imp_to_books_Test2Db.value = text;  // Imp_to_books_Test2Db
 
-     //document.getElementById("Imp_to_books_Test2Db").value = text;      // Mark for V6
+     document.getElementById("Imp_to_books_Test2Db").value = text;      
 
      //myExp_Db_Display_area.innerHTML = text;      // new for V6
 
-     document.getElementById("888888").innerHTML = text;      // new for V6
 
      copyFunction5(mesg1);
 
@@ -900,11 +899,7 @@ function copyFunction5(arg1) {  // New for V5
       //copyText.select();
       //document.execCommand("copy");
 
-      //select_all_and_copy_V2(document.getElementById("Imp_to_books_Test2Db"),arg1); // Mark for V6
-
-      //select_all_and_copy_V2(document.getElementById("myExp_Db_Display_area"),arg1); // Modify for V6
-
-      select_all_and_copy_V2(document.getElementById("888888"),arg1); // Modify for V6
+      select_all_and_copy_V2(document.getElementById("Imp_to_books_Test2Db"),arg1); 
 
       //select_all_and_copy(document.getElementById("myExp_Db_Display"));
 
@@ -968,7 +963,7 @@ function select_all_and_copy_V2(el,arg1)  {    // New for V5
                                //tooltip(el, "Copied to clipboard.");
                             }
                             else {
-                               //myExp_Db_Display.innerHTML = arg1;   
+                               myExp_Db_Display.innerHTML = arg1;   
                                //tooltip(el, "Press CTRL+C to copy");
                             }
                         }
