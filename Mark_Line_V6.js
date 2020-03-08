@@ -974,3 +974,71 @@ function select_all_and_copy_V2(el,arg1)  {    // New for V5
                         }
     }
 } // end function select_all_and_copy_V2(el) 
+
+
+async function Exp_from_books_Test2Db_late_than() { // New for V6
+
+  var Verse_Count = 0;
+
+  var Late_than_date = document.getElementById("Exp_from_books_Test2Db_late_than_date").value;
+
+  if(Late_than_date!='') {
+
+     let Verse = await dbT2.books.where('date').above(Late_than_date).toArray();
+
+
+     Verse_Count = Verse.length;
+
+     if (Verse) {
+
+        //var text = 'i!^_^,' + Verse_Count.toString() + ',';
+        var text = 'i!^_^,' + Verse_Count.toString();
+
+        for (i = 0; i < Verse.length; i++) {
+
+           let name = Verse[i].name;
+           let color_no = Verse[i].color_no;
+           let book_no = Verse[i].book_no;
+           let chap_no = Verse[i].chap_no;
+           let vers_no = Verse[i].vers_no;
+           let date = Verse[i].date;
+
+           text += ',' + book_no + ',' + chap_no + ',' + vers_no + ',' + date;
+
+        } // End of for (i = 0; i < Verse.length; i++)
+
+        var mesg1 = Verse_Count + ' exported'
+
+        //Exp_to_books_Test2Db.value = mesg1;
+
+        //myExp_Db_Display.innerHTML = text;
+        //Exp_to_books_Test2Db.value = text;  // Imp_to_books_Test2Db
+        //Imp_to_books_Test2Db.value = text;  // Imp_to_books_Test2Db
+
+        document.getElementById("Imp_to_books_Test2Db").value = text;      
+
+        //myExp_Db_Display_area.innerHTML = text;      // new for V6
+
+
+        copyFunction5(mesg1);
+
+        //myExp_Db_Display_area.innerHTML = "";
+
+
+     } // End of if (Verse)
+
+
+  }
+  else {
+
+     myExp_Db_Display.innerHTML = '0 exported';
+
+  } // End of if(Late_than_date!='')
+
+  //let Verse = await dbT2.books.where('date').above('20200301').toArray();  // 
+
+  //let Verse = await dbT2.books.toArray();  // All
+
+
+
+} // End of function Exp_from_books_Test2Db_late_than()
