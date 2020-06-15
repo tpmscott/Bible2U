@@ -37,12 +37,20 @@ function Baptism(){
 
    Doctrine_No = '2';
 
+   var text_result = '';
+
+   document.getElementById("search_result").innerHTML = text_result;
+
 
 }
 
 function Holy_Communion(){
 
    Doctrine_No = '3';
+
+   var text_result = '';
+
+   document.getElementById("search_result").innerHTML = text_result;
 
 
 }
