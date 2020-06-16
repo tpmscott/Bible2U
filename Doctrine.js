@@ -13,7 +13,7 @@ function Holy_Spirit(){
    // 1 Co 12:3
    // readchapter(45,11,3,3)
 
-   text_result = text_result + '<a href="" onClick="Hide_Search_Mode();readchapter(45,11,3,3);return false;"> 1 Co 12:3</a>. <br>';
+   text_result = text_result + '<a href="" onClick="Hide_Search_Mode();Show_His_BM_Vers2(45,11,3,3);return false;"> 1 Co 12:3</a>. <br>';
 
    text_result = text_result + '<b>2</b> <b>Receive H.S.</b> vs <b>Moved by H.S.</b> <br>';
 
@@ -21,13 +21,12 @@ function Holy_Spirit(){
 
    text_result = text_result + '<b>3</b> <b>Moved by H.S.</b> not necessarily have Him. <br>';
 
-   text_result = text_result + '<b>4</b> Samaritans <b>Example<br>&nbsp; Believing</b> & baptized <br>&nbsp;&nbsp;But <b>haven\'t received</b> H.S.';
-
-   //text_result = text_result + '<a href="" onClick="Hide_Search_Mode();readchapter(43,7,14,16);return false;">Act 8:14-16</a>. <br>';
-
+   text_result = text_result + '<b>4</b> Samaritans <b>Example<br>&nbsp; Believing</b> & baptized <br>&nbsp;&nbsp;But <b>haven\'t received H.S.</b>';
 
 
    text_result = text_result + '<a href="" onClick="Hide_Search_Mode();Show_His_BM_Vers2(43,7,14,16);return false;">Act 8:14-16</a>. <br>';
+
+   //text_result = text_result + '<a href="" onClick="Hide_Search_Mode();readchapter(43,7,14,16);return false;">Act 8:14-16</a>. <br>';
 
 
 
@@ -83,16 +82,16 @@ function Doctrine_Mode(){
    document.getElementById("p1").innerHTML = '<center>'+ Doctrine_item +'</center>';
 
    document.getElementById("container5").style.visibility='visible'; // hide
-   document.getElementById("container4").style.visibility='hidden'; // hide
-   document.getElementById("container3").style.visibility='hidden'; // hide
+   //document.getElementById("container4").style.visibility='hidden'; // hide
+   //document.getElementById("container3").style.visibility='hidden'; // hide
 
    document.getElementById("container5").style.height = "92%";
-   document.getElementById("container4").style.height = "0%";
-   document.getElementById("container3").style.height = "0%";
-   document.getElementById("container1").style.height = "92%";
-   document.getElementById("container2").style.height = "92%";
+   //document.getElementById("container4").style.height = "0%";
+   //document.getElementById("container3").style.height = "0%";
+   //document.getElementById("container1").style.height = "92%";
+   //document.getElementById("container2").style.height = "92%";
 
-   document.getElementById("container1").style.width = "50%";
-   document.getElementById("container2").style.width = "50%";
+   //document.getElementById("container1").style.width = "50%";
+   //document.getElementById("container2").style.width = "50%";
 
 }
