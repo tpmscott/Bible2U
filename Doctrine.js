@@ -21,9 +21,15 @@ function Holy_Spirit(){
 
    text_result = text_result + '<b>3</b> <b>Moved by H.S.</b> not necessarily have Him. <br>';
 
-   text_result = text_result + '<b>4</b> <b>Samaritans Example</b><br>&nbsp; Believing & baptized <br>&nbsp;&nbsp;But haven\'t received H.S.';
+   text_result = text_result + '<b>4</b> Samaritans <b>Example<br>&nbsp; Believing</b> & baptized <br>&nbsp;&nbsp;But <b>haven\'t received</b> H.S.';
 
-   text_result = text_result + '<a href="" onClick="Hide_Search_Mode();readchapter(43,7,14,16);return false;">Act 8:14-16</a>. <br>';
+   //text_result = text_result + '<a href="" onClick="Hide_Search_Mode();readchapter(43,7,14,16);return false;">Act 8:14-16</a>. <br>';
+
+
+
+   text_result = text_result + '<a href="" onClick="Hide_Search_Mode();Show_His_BM_Vers2(43,7,14,16);return false;">Act 8:14-16</a>. <br>';
+
+
 
 
    // distinction between being "moved by the Holy Spirit" and "receiving the Holy Spirit." <br>';
