@@ -28,7 +28,15 @@ function Holy_Spirit(){
 
    //text_result = text_result + '<a href="" onClick="Hide_Search_Mode();readchapter(43,7,14,16);return false;">Act 8:14-16</a>. <br>';
 
+   text_result = text_result + '<b>5</b> H.S. can <b>be heard</b> in the form<br>&nbsp; of tongue speaking.';
 
+   text_result = text_result + '<a href="" onClick="Hide_Search_Mode();Show_His_BM_Vers2(42,2,8,8);return false;">Jn 3:8</a>. <br>';
+
+   text_result = text_result + ' <br>';
+
+   text_result = text_result + 'Heavenly Father <b>give</b> the Holy Spirit<br> to those who <b>ask</b> Him.';
+
+   text_result = text_result + '<a href="" onClick="Hide_Search_Mode();Show_His_BM_Vers2(41,10,13,13);return false;">Luk 11:13</a>. <br>';
 
 
    // distinction between being "moved by the Holy Spirit" and "receiving the Holy Spirit." <br>';
