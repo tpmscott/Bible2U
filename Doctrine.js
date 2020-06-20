@@ -70,8 +70,8 @@ function Holy_Communion(){
 
 function Doctrine_Mode_2(){
 
-   document.getElementById("container1").scrollTop = 0;
-   document.getElementById("container2").scrollTop = 0;
+   //document.getElementById("container1").scrollTop = 0;
+   document.getElementById("p1").scrollTop = 0;
 
 }
 
