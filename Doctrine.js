@@ -36,7 +36,7 @@ function Holy_Spirit(){
 
    text_result = text_result + 'Heavenly Father <b>give</b> the Holy Spirit<br> to those who <b>ask</b> Him.';
 
-   text_result = text_result + '<a href="" onClick="Hide_Search_Mode();Show_His_BM_Vers2(41,10,13,13);return false;">Luk 11:13</a>. <br>';
+   text_result = text_result + '<a href="" onClick="Hide_Search_Mode();Show_His_BM_Vers2(41,10,13,13);Doctrine_Mode_2();return false;">Luk 11:13</a>. <br>';
 
 
    // distinction between being "moved by the Holy Spirit" and "receiving the Holy Spirit." <br>';
@@ -65,6 +65,13 @@ function Holy_Communion(){
 
    document.getElementById("search_result").innerHTML = text_result;
 
+
+}
+
+function Doctrine_Mode_2(){
+
+   document.getElementById("container1").scrollTop = 0;
+   document.getElementById("container2").scrollTop = 0;
 
 }
 
