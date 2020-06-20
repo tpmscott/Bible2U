@@ -71,7 +71,7 @@ function Holy_Communion(){
 
 function Doctrine_Mode(){
 
-   //document.getElementById("container5").scrollTop = 0;
+   document.getElementById("container5").scrollTop = 0;
 
    if(Doctrine_No == '1'){
 
