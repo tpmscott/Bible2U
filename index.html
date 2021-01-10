@@ -101,6 +101,13 @@
 </style> 
 
 
+<style>
+.box{
+    white-space: nowrap;
+    overflow-y:auto;
+}
+</style>
+
 
 <SCRIPT Language="JavaScript" SRC="bible.js"></SCRIPT>
 <SCRIPT Language="JavaScript" SRC="bible2.js"></SCRIPT>
@@ -623,81 +630,31 @@ function Hide_a7(){
 <body onload="init_Bible4U_DB();Init_Total_Mode();Init_BM();;Hide_a7();Pre_Set_Mode();Study_Mode();Init_BM2();Init_BM3();decrease_fontsize();decrease_fontsize(); return false;" text="#000000" link="#0000ff" alink="#ffffff" vlink="#0000ff" background="back5.jpg">
 
 
-<table><tr><td>
+<div class="box">
 
+<form name="DVN" style="font-size:14pt" id="DVN">
+<input style="font-size:14pt" type="radio" name="DVNumber" id="1Ver" value="1" onclick="Set_AllV();keyFunction2('enter');;">比
+<input style="font-size:14pt" type="radio" name="DVNumber" id="7Ver" value="7" onclick="Set_NKJV();keyFunction2('enter');;" checked>節
+<input style="font-size:14pt" type="radio" name="DVNumber" id="1Chap" value="0" onclick="Set_NKJV();keyFunction2('enter');;">章
+<a style="font-size:14pt" id="a2" href="javascript:;" onclick="change2()">顯工具</a>
+<input style="font-size:14pt" type="button" name="M222" value="Book" ontouchstart="Input_Book_Mode();efocus(); return false;">
+<input style="font-size:14pt" type="button" name="M222" value="Chap" ontouchstart="keyFunction2('c');Input_Chap_Mode();; return false;">
+<input style="font-size:14pt" type="button" name="M222" value="Verse" ontouchstart="keyFunction2('v');Input_Vers_Mode();; return false;">
 
-<td><p id="顯示"></p></td>
-
-<td style="font-size:10pt">
-<form name="DVN" id="DVN">
-<input style="font-size:10pt" type="radio" name="DVNumber" id="1Ver" value="1" onclick="Set_AllV();keyFunction2('enter');;">比
-<input style="font-size:10pt" type="radio" name="DVNumber" id="7Ver" value="7" onclick="Set_NKJV();keyFunction2('enter');;" checked>節
-<input style="font-size:10pt" type="radio" name="DVNumber" id="1Chap" value="0" onclick="Set_NKJV();keyFunction2('enter');;">章
-</form>
-</td>
-
-<td></td><td></td>
-
-
-
-<td>
-<a style="font-size:10pt" id="a2" href="javascript:;" onclick="change2()">顯工具</a>
-</td>
-
-<td></td><td></td>
-
-<td>
-<input style="font-size:10pt" type="button" name="M222" value="Book" ontouchstart="Input_Book_Mode();efocus(); return false;">
-</td>
-
-
-<td>
-<input style="font-size:10pt" type="button" name="M222" value="Chap" ontouchstart="keyFunction2('c');Input_Chap_Mode();; return false;">
-</td>
-
-
-<td>
-<input style="font-size:10pt" type="button" name="M222" value="Verse" ontouchstart="keyFunction2('v');Input_Vers_Mode();; return false;">
-</td>
-
-<td></td><td></td>
-
-
-
-<td style="font-size:10pt">
+&nbsp;
 <a id="a62" href="javascript:;" onclick="Eng_Mode();">Eng</a>
-</td>
-
-<td style="font-size:10pt">
+&nbsp;
 <a id="a61" href="javascript:;" onclick="ChineseEng_Mode();">中/英</a>
-</td>
-
-<td style="font-size:10pt">
+&nbsp;
 <a id="a63" href="javascript:;" onclick="Chinese_Mode2();">中</a>
-</td>
-
-
-
-
-<td style="font-size:10pt">
 <a id="a7" href="javascript:;" onclick="change7()">中/英</a>
-</td>
-
-
-<td></td><td></td>
-
-
-<td style="font-size:10pt">
+&nbsp;&nbsp;
 <a  href="javascript:;" onclick="Doctrine_Mode()">教義</a>
-</td>
-
-
-
-<td>
 <input class="topfont2" type="button" id="etest" value="e" onclick="return false;">
-</td>
+</form>
 
-</td></tr></table>
+</div>
+
 
 <script>
 
